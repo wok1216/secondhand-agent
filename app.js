@@ -317,6 +317,14 @@ function detectSearch(query) {
   return { label: '맞춤 중고 상품', chips: [['검색 의도', '자연어 조건 분석'], ['예산', '합리적 가격'], ['상태', '오래 쓸 수 있음'], ['우선순위', '생활 목적']], items: products.slice(0, 3) };
 }
 
+function searchByKeyword(query) {
+  const keywords = (normalizeKeyword(query).match(/[가-힣a-z0-9]+/g) || []).filter(keyword => keyword.length >= 2);
+  return products.filter(item => {
+    const text = normalizeKeyword([item.name, item.category, item.description, item.condition, ...(item.tags || [])].join(' '));
+    return keywords.some(keyword => text.includes(keyword));
+  });
+}
+
 function filteredSearchItems() {
   if (!activeSearch) return [];
   return activeSearch.baseItems.filter(item => activeSearch.chips.every(([key, value]) => {
@@ -353,6 +361,10 @@ function renderSearchExperience() {
   }
   const items = filteredSearchItems();
   const matchedItems = items.length ? items : activeSearch.baseItems;
+  if (!matchedItems.length) {
+    document.querySelector('#search-product-grid').innerHTML = '<p class="search-empty">검색 결과가 없어요. 다른 검색어로 다시 찾아보세요.</p>';
+    return;
+  }
   const searchItems = matchedItems.length >= 8
     ? matchedItems
     : Array.from({ length: 8 }, (_, index) => matchedItems[index % matchedItems.length]);
@@ -375,7 +387,7 @@ function applySearchRefinement(message) {
 }
 
 function runSearch(query, showResults = true, useAi = true) {
-  const result = detectSearch(query);
+  const result = useAi ? detectSearch(query) : { label: query, chips: [], items: searchByKeyword(query) };
   activeSearch = { query, result, useAi, chips: result.chips.map(([key, value]) => [key, value]), baseItems: result.items };
   if (showResults) {
     if (useAi) updateProfileFromSearch(query);
@@ -436,12 +448,19 @@ document.querySelectorAll('.category-nav button').forEach(button => button.addEv
 document.querySelectorAll('.location-action').forEach(button => button.addEventListener('click', () => showToast('현재 지역은 중구 필동이에요.')));
 document.querySelectorAll('.filter-bar button:not(.location-action)').forEach(button => button.addEventListener('click', () => showToast(`${button.textContent.replace(' ▾', '')} 필터는 MVP 화면입니다.`)));
 
-document.querySelector('#header-search-form').addEventListener('submit', event => {
-  event.preventDefault();
+function submitCurrentSearch() {
   const input = document.querySelector('#header-search-input');
-  if (!input.value.trim()) return;
+  if (!input.value.trim()) { input.focus(); return; }
   runSearch(input.value.trim(), true, aiSearchMode);
   document.querySelector('#search-history').classList.remove('visible');
+}
+document.querySelector('#header-search-form').addEventListener('submit', event => {
+  event.preventDefault();
+  submitCurrentSearch();
+});
+document.querySelector('#header-search-form button[type="submit"]').addEventListener('click', event => {
+  event.preventDefault();
+  submitCurrentSearch();
 });
 function renderSearchHistory() {
   const panel = document.querySelector('#search-history');
