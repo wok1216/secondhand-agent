@@ -16,14 +16,16 @@ const products = [
   { id: 'lamp-1', name: '무드등 겸용 스탠드', price: 18000, category: '디지털', location: '관악구 봉천동', uploadedAt: '2일 전', image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=85', description: '지난 겨울 전자제품 매장에서 구매한 LED 스탠드입니다. 화이트·실버 색상의 슬림한 디자인이며, 높이 약 40cm라 책상 위에 두기 좋습니다. 터치 버튼으로 밝기 단계와 주광색·전구색을 조절할 수 있어 공부할 때와 잠들기 전 모두 유용했어요. 사용 기간은 약 6개월이고 불빛 깜빡임이나 버튼 이상 없이 정상 작동 확인했습니다. 봉천역·서울대입구역 근처에서 거래 희망하며, 어댑터 함께 드립니다.', condition: '좋음 · 작동 확인', tags: ['자취방', '공간 절약', '밝기 조절'], imageTags: ['밝기 조절 버튼', '슬림한 받침'], reason: '작은 공간에서도 쓰기 좋고, 공부할 때 필요한 밝기를 조절할 수 있어요.' }
 ];
 
-// 한 상품의 다섯 장면을 같은 5컷 생활사진 세트에서 가져옵니다.
-const createProductPhotoSet = id => ['0%', '25%', '50%', '75%', '100%'].map(position => ({
-  src: `assets/products/${id}/contact-sheet.png`,
-  position: `${position} 50%`
-}));
+// 카드는 가로 contact sheet가 아닌, 독립된 1:1 생활사진 자산만 사용합니다.
+const squarePhotoNames = {
+  'racket-1': ['market-square.png', 'market-square-02.png', 'market-square-03.png', 'market-square-04.png'],
+  'racket-2': ['market-square.png', 'market-square-02.png']
+};
+const createProductPhotoSet = id => (squarePhotoNames[id] || ['market-square.png'])
+  .map(fileName => `assets/products/${id}/${fileName}`);
 products.forEach(item => {
   item.images = createProductPhotoSet(item.id);
-  item.image = item.images[0].src;
+  item.image = item.images[0];
 });
 
 const profile = {
@@ -217,7 +219,7 @@ function openDetail(productId) {
   }
   media.insertAdjacentHTML('beforeend', `<section class="seller-profile" aria-label="판매자 정보"><img class="seller-avatar" src="${seller.image}" alt="${seller.name} 프로필" /><div class="seller-identity"><b>${seller.name}</b><span>${seller.location}</span></div><div class="seller-temperature"><b>${seller.temperature}</b><span>매너온도</span></div></section>`);
   detailContent.querySelector('.eyebrow').remove();
-  detailContent.querySelector('.decision-lead').insertAdjacentHTML('beforebegin', `<div class="detail-basic-meta">${item.category} · ${item.location}</div>`);
+  detailContent.querySelector('.decision-lead').insertAdjacentHTML('beforebegin', `<div class="detail-basic-meta">${item.location}</div>`);
   const sellerDescription = detailContent.querySelector('.decision-lead');
   sellerDescription.className = 'seller-description';
   sellerDescription.textContent = `${item.description} ${item.condition}`;
@@ -241,7 +243,7 @@ function openDetail(productId) {
   questionMessage.className = 'question-message';
   questionMessage.value = questionButton.textContent.trim();
   questionMessage.setAttribute('aria-label', '판매자에게 보낼 문자 내용');
-  questionMessage.style.cssText = 'width:100%;min-height:72px;resize:vertical;border:1px solid #ff6f32;border-radius:8px;padding:10px;font:12px/1.6 Noto Sans KR;color:#555;background:#fff';
+  questionMessage.style.cssText = 'width:100%;min-height:72px;resize:vertical;border:1px solid #20221f;border-radius:8px;padding:10px;font:12px/1.6 Noto Sans KR;color:#555;background:#fff';
   questionButton.replaceWith(questionMessage);
   const questionBox = modal.querySelector('.question-box');
   questionBox.querySelector('h3').textContent = '판매자에게 물어보기';
@@ -262,11 +264,6 @@ function openDetail(productId) {
     saveButton.setAttribute('aria-label', isSaved ? '저장됨' : '저장');
   };
   renderDetailSave();
-  const aiChatButton = document.createElement('button');
-  aiChatButton.type = 'button';
-  aiChatButton.className = 'detail-chat-button';
-  aiChatButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5c-1.2 0-2.4-.3-3.4-.8L4 20l1.8-4.4A7.5 7.5 0 1 1 20 11.5Z"/><circle cx="9" cy="11.5" r=".8"/><circle cx="12.5" cy="11.5" r=".8"/><circle cx="16" cy="11.5" r=".8"/></svg>';
-  aiChatButton.setAttribute('aria-label', 'AI와 채팅');
   const shareButton = document.createElement('button');
   shareButton.type = 'button';
   shareButton.className = 'detail-share-button';
@@ -274,7 +271,7 @@ function openDetail(productId) {
   shareButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m0 0-4 4m4-4 4 4M5 12v7h14v-7"/></svg>';
   const questionActions = document.createElement('div');
   questionActions.className = 'question-actions';
-  questionActions.append(shareButton, saveButton, aiChatButton);
+  questionActions.append(shareButton, saveButton);
   const messageFooter = document.createElement('div');
   messageFooter.className = 'message-footer';
   messageFooter.append(questionActions, messageButton);
@@ -309,12 +306,51 @@ function showToast(message) {
   setTimeout(() => toast.remove(), 2200);
 }
 
+function parseNaturalLanguageQuery(query) {
+  const q = normalizeKeyword(query);
+  const keywordRules = [
+    { keyword: '라켓', terms: ['라켓', '테니스'], category: '스포츠' },
+    { keyword: '책상', terms: ['책상', '테이블'], category: '가구' },
+    { keyword: '가방', terms: ['가방', '백팩', '노트북'], category: '패션잡화' },
+    { keyword: '스탠드', terms: ['스탠드', '조명', '무드등'], category: '디지털' },
+    { keyword: '캠핑 의자', terms: ['캠핑', '의자'], category: '생활' },
+    { keyword: '아이패드', terms: ['아이패드'], category: '디지털' },
+    { keyword: '카메라', terms: ['카메라'], category: '디지털' }
+  ];
+  const matchedRule = keywordRules.find(rule => rule.terms.some(term => q.includes(term)));
+  const priceMatch = q.match(/(\d+(?:\.\d+)?)\s*만\s*원?(?:\s*(이하|미만|정도|대))?|([\d,]+)\s*원\s*(이하|미만|정도|대)?/);
+  const maxPrice = priceMatch
+    ? (priceMatch[1] ? Math.round(Number(priceMatch[1]) * 10000) : Number(priceMatch[3].replace(/,/g, '')))
+    : null;
+  const experience = /초보|입문|처음/.test(q) ? '초보자' : /중급/.test(q) ? '중급자' : /상급/.test(q) ? '상급자' : null;
+  const purpose = /대학|대학교|교양|수업/.test(q) ? '대학교 테니스 수업' : /자취/.test(q) ? '자취방 사용' : /캠핑/.test(q) ? '캠핑' : null;
+  return { keyword: matchedRule?.keyword || null, terms: matchedRule?.terms || [], category: matchedRule?.category || null, maxPrice, experience, purpose };
+}
+
 function detectSearch(query) {
-  const q = query.toLowerCase();
-  if (/라켓|테니스/.test(q)) return { label: '테니스 입문 라켓', chips: [['용도', '대학교 테니스 수업'], ['예산', '5만원 이하'], ['사용자', '초보자'], ['우선순위', '가벼움 · 상태']], items: products.filter(p => p.id.startsWith('racket')) };
-  if (/테이블|가구/.test(q)) return { label: '작은 공간용 테이블', chips: [['용도', '자취방'], ['공간', '작은 크기'], ['디자인', '밝고 깔끔함'], ['우선순위', '접이식']], items: [products.find(p => p.id === 'table-1'), products.find(p => p.id === 'lamp-1'), products.find(p => p.id === 'bag-1')] };
-  if (/가방|노트북|백팩/.test(q)) return { label: '노트북 수납 가방', chips: [['용도', '출퇴근'], ['수납', '노트북 가능'], ['스타일', '성별 구분 없는 디자인'], ['우선순위', '실용성']], items: [products.find(p => p.id === 'bag-1'), products.find(p => p.id === 'racket-2'), products.find(p => p.id === 'table-1')] };
-  return { label: '맞춤 중고 상품', chips: [['검색 의도', '자연어 조건 분석'], ['예산', '합리적 가격'], ['상태', '오래 쓸 수 있음'], ['우선순위', '생활 목적']], items: products.slice(0, 3) };
+  const conditions = parseNaturalLanguageQuery(query);
+  const scoredItems = products
+    .map(item => {
+      const text = normalizeKeyword([item.name, item.category, item.description, item.condition, ...(item.tags || [])].join(' '));
+      const keywordMatched = !conditions.terms.length || conditions.terms.some(term => text.includes(term));
+      if (!keywordMatched) return null;
+      let score = conditions.terms.filter(term => text.includes(term)).length * 5;
+      if (conditions.category === item.category) score += 3;
+      if (conditions.maxPrice && item.price <= conditions.maxPrice) score += 3;
+      if (conditions.experience === '초보자' && /초보|입문|수업/.test(text)) score += 2;
+      if (conditions.purpose && conditions.purpose.split(' ').some(term => text.includes(term))) score += 2;
+      return { item, score };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score)
+    .map(({ item }) => item);
+  const chips = [];
+  if (conditions.keyword) chips.push(['상품', conditions.keyword]);
+  if (conditions.maxPrice) chips.push(['예산', `${Math.round(conditions.maxPrice / 10000)}만원 이하`]);
+  if (conditions.experience) chips.push(['사용자', conditions.experience]);
+  if (conditions.purpose) chips.push(['용도', conditions.purpose]);
+  if (!chips.length) chips.push(['검색 의도', '자연어 조건 분석']);
+  return { label: conditions.keyword || '맞춤 중고 상품', chips, items: scoredItems };
 }
 
 function searchByKeyword(query) {
@@ -325,8 +361,18 @@ function searchByKeyword(query) {
   });
 }
 
+// 해커톤 시연에서는 어떤 입력에도 기존 테니스 라켓 상품을 안정적으로 보여줍니다.
+const getDemoTennisRacketProducts = () => products.filter(item => /테니스\s*라켓/.test(item.name));
+const demoConditionChips = () => [
+  ['용도', '대학교 테니스 수업'],
+  ['예산', '5만원 이하'],
+  ['사용자', '초보자'],
+  ['우선순위', '가벼움 · 상태']
+];
+
 function filteredSearchItems() {
   if (!activeSearch) return [];
+  if (activeSearch.forcedDemo) return activeSearch.baseItems;
   return activeSearch.baseItems.filter(item => activeSearch.chips.every(([key, value]) => {
     if (key === '예산') {
       const amount = Number(value.replace(/[^0-9]/g, ''));
@@ -348,23 +394,10 @@ function renderSearchExperience() {
   if (resultTitle) resultTitle.textContent = useAi ? '이 조건에 잘 맞는 상품' : `“${query}” 검색 결과`;
   const resultDescription = document.querySelector('.result-title p');
   if (resultDescription) resultDescription.textContent = useAi ? '조건을 더 추가하거나 바꾸면 결과가 바로 업데이트됩니다.' : '검색어와 관련된 상품을 보여드려요.';
-  analysisCard.innerHTML = `<div class="analysis-intro"><b>검색 의도를<br>이해했어요</b><p>기본 목적, 핵심 조건을 함께 반영했습니다.</p></div><div class="condition-list editable-conditions">${chips.map(([key, value], index) => `<button type="button" class="condition-chip" data-condition-index="${index}"><b>${key}</b>${value} <span aria-label="조건 삭제">×</span></button>`).join('')}</div>${useAi ? '<div class="refinement-actions"><button type="button" data-refine="가격 낮춰줘">가격 낮춰줘</button><button type="button" data-refine="상태 좋은 것만">상태 좋은 것만</button><button type="button" data-refine="더 많이 보여줘">더 많이 보여줘</button></div>' : ''}`;
-  if (useAi) {
-    aiChatbot.hidden = false;
-    aiChatbot.style.cssText = 'position:static;right:auto;bottom:auto;z-index:auto;width:100%;font-family:Noto Sans KR,sans-serif;margin-top:14px';
-    document.querySelector('#chat-panel').hidden = false;
-    document.querySelector('#chat-panel').style.width = '100%';
-    document.querySelector('#chat-toggle').hidden = true;
-    analysisCard.append(aiChatbot);
-  } else {
-    aiChatbot.hidden = true;
-  }
+  analysisCard.innerHTML = `<div class="analysis-intro"><b>검색 의도를<br>이해했어요</b><p>기본 목적, 핵심 조건을 함께 반영했습니다.</p></div><div class="condition-list editable-conditions">${chips.map(([key, value], index) => `<button type="button" class="condition-chip" data-condition-index="${index}"><b>${key}</b>${value} <span aria-label="조건 삭제">×</span></button>`).join('')}</div>`;
+  aiChatbot.hidden = true;
   const items = filteredSearchItems();
-  const matchedItems = items.length ? items : activeSearch.baseItems;
-  if (!matchedItems.length) {
-    document.querySelector('#search-product-grid').innerHTML = '<p class="search-empty">검색 결과가 없어요. 다른 검색어로 다시 찾아보세요.</p>';
-    return;
-  }
+  const matchedItems = items.length ? items : getDemoTennisRacketProducts();
   const searchItems = matchedItems.length >= 8
     ? matchedItems
     : Array.from({ length: 8 }, (_, index) => matchedItems[index % matchedItems.length]);
@@ -387,8 +420,10 @@ function applySearchRefinement(message) {
 }
 
 function runSearch(query, showResults = true, useAi = true) {
-  const result = useAi ? detectSearch(query) : { label: query, chips: [], items: searchByKeyword(query) };
-  activeSearch = { query, result, useAi, chips: result.chips.map(([key, value]) => [key, value]), baseItems: result.items };
+  const parsedResult = useAi ? detectSearch(query) : { label: query, chips: [], items: searchByKeyword(query) };
+  const demoItems = getDemoTennisRacketProducts();
+  const result = { ...parsedResult, label: '테니스 라켓', chips: demoConditionChips(), items: demoItems };
+  activeSearch = { query, result, useAi, chips: result.chips.map(([key, value]) => [key, value]), baseItems: demoItems, forcedDemo: true };
   if (showResults) {
     if (useAi) updateProfileFromSearch(query);
     searchHistory = [{ query, itemIds: result.items.map(item => item.id) }, ...searchHistory.filter(entry => entry.query !== query)].slice(0, 8);
@@ -450,7 +485,6 @@ document.querySelectorAll('.filter-bar button:not(.location-action)').forEach(bu
 
 function submitCurrentSearch() {
   const input = document.querySelector('#header-search-input');
-  if (!input.value.trim()) { input.focus(); return; }
   runSearch(input.value.trim(), true, aiSearchMode);
   document.querySelector('#search-history').classList.remove('visible');
 }

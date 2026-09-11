@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ff6f32" />
-    <title>Carrot Finder</title>
+    <title>당근번개나라</title>
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="improvements.css" />
@@ -33,6 +33,24 @@
     <style>.market-header-search{height:50px;border-radius:16px;padding:9px 11px}.market-header-search input{font-size:14px;padding:5px}.market-header-search>button:last-of-type{border-radius:10px;background:var(--orange);color:#fff;padding:9px 16px}.topbar,.topbar.search-active{height:100px}.topbar+.category-nav,.topbar.search-active+.category-nav{top:100px}.market-actions{gap:18px}.market-actions .header-nav-item,.topbar.search-active .market-actions .sell-action{display:inline-flex;align-items:center;gap:6px;min-height:24px;line-height:1;white-space:nowrap}.market-actions .nav-label{line-height:1;white-space:nowrap}.market-actions .header-action-icon{display:block;flex:0 0 18px;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.market-actions .saved-header-icon{fill:none}.market-hero{padding:32px 0 30px;text-align:left}.search-condition-summary .section-heading{margin-bottom:14px}.search-condition-summary .eyebrow{margin-bottom:7px}.search-condition-summary .section-heading h2{font-size:23px}.search-condition-summary .analysis-card{margin-bottom:0;padding:20px 24px;border-radius:14px}.search-condition-summary .analysis-intro b{font-size:15px}@media(max-width:720px){.topbar,.topbar.search-active{height:65px}.topbar+.category-nav,.topbar.search-active+.category-nav{top:65px}.market-hero{padding:24px 0}.search-condition-summary .analysis-card{padding:18px}}</style>
     <style>.market-hero{padding:0}.home-search-hero{padding:76px 0 44px;text-align:center}.search-condition-summary{padding:32px 0 30px}.search-condition-summary .condition-chip{color:#fff}.search-condition-summary .condition-chip b,.search-condition-summary .condition-chip span{color:#aaf2c4}.history-row .history-item{display:flex;align-items:center;gap:8px;color:var(--muted)}.history-row .history-arrow,.history-row .history-remove{color:var(--muted)}@media(max-width:720px){.home-search-hero{padding:48px 0 32px}.search-condition-summary{padding:24px 0}}</style>
     <style>.search-result-section{border-top:0}</style>
+    <style>.product-card .product-image{object-fit:cover}</style>
+    <style>
+      .detail-agent-content .detail-grid > .detail-section:not(.question-box) { background: #fff5ef; }
+      .detail-agent-content .question-box { background: #f8f7f3; }
+      .detail-agent-content .question-message { border-color: #20221f !important; }
+      .detail-agent-content .message-footer .send-message { flex: 1; width: auto; }
+      .browse-button { background: transparent; color: var(--orange); padding: 0; border-radius: 0; }
+      .profile-save { justify-self: end; }
+      .search-condition-summary .analysis-card { display: grid; grid-template-columns: 200px minmax(0, 1fr); align-items: center; gap: 18px; min-height: 104px; margin-bottom: 0; padding: 20px 24px; border-radius: 14px; }
+      .search-condition-summary .analysis-intro { min-width: 0; }
+      .search-condition-summary .analysis-intro b { font-size: 15px; line-height: 1.45; }
+      .search-condition-summary .analysis-intro p { margin: 6px 0 0; }
+      .search-condition-summary .condition-list { gap: 10px; flex-wrap: wrap; }
+      .search-condition-summary .condition-chip { min-height: 58px; padding: 10px 12px; border: 0; border-radius: 9px; color: #fff; text-align: left; }
+      .search-condition-summary .condition-chip b { margin-bottom: 4px; color: #aaf2c4; }
+      .search-condition-summary .condition-chip span { color: #8de2aa; }
+      @media (max-width: 720px) { .search-condition-summary .analysis-card { display: block; } .search-condition-summary .analysis-intro { margin-bottom: 14px; } }
+    </style>
   </head>
   <body>
     <div class="app-shell">
@@ -76,7 +94,7 @@
             <div id="recent-product-grid" class="product-grid compact"></div>
           </section>
           <section class="for-you-preview home-collection saved-collection">
-            <div class="section-heading"><div><div class="eyebrow">SAVED ITEMS</div><h2>저장한 상품</h2><p>관심 있는 상품을 모아봤어요.</p></div><button class="browse-button" type="button" data-view="saved">상품 둘러보기</button></div>
+            <div class="section-heading"><div><div class="eyebrow">SAVED ITEMS</div><h2>저장한 상품</h2><p>관심 있는 상품을 모아봤어요.</p></div><button class="browse-button" type="button" data-view="saved">전체 보기 →</button></div>
             <div id="saved-product-grid" class="product-grid compact"></div>
           </section>
         </section>
@@ -98,7 +116,7 @@
           <section class="recommend-section"><div id="saved-page-grid" class="product-grid"></div></section>
         </section>
       </main>
-      <footer>Carrot Finder · Demo MVP <span>샘플 상품과 프로필만 사용합니다.</span></footer>
+      <footer>당근번개나라 · Demo MVP <span>샘플 상품과 프로필만 사용합니다.</span></footer>
     </div>
     <template id="product-template"><article class="product-card"><div class="product-image-wrap"><img class="product-image" alt="" /><span class="rank"></span><span class="match"></span></div><div class="product-content"><div class="product-meta"><span class="category"></span><span class="location"></span></div><h3 class="name"></h3><strong class="price"></strong><p class="description"></p><div class="condition"></div><div class="reason"></div><details><summary>이미지 분석 보기</summary><div class="image-analysis"></div><small>MVP에서는 이미지 특징이 샘플 데이터로 제공됩니다.</small></details></div></article></template>
     <script src="app.js"></script>
