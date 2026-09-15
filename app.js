@@ -13,20 +13,70 @@ const products = [
   { id: 'racket-3', name: '바볼랏 테니스 라켓 + 공', price: 35000, category: '스포츠', location: '마포구 연남동', uploadedAt: '3시간 전', image: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=800&q=85', description: '올해 초 중고로 들여와 주말 공원 연습용으로 사용한 바볼랏 라켓입니다. 화이트·블루 색상, 그립 사이즈 2번이며 가볍게 시작해 보실 분께 잘 맞아요. 프레임에는 사용에 따른 작은 스크래치가 있지만 균열이나 휨은 없고, 스트링도 끊어진 곳 없이 유지 중입니다. 연습용 테니스공 3개와 함께 드려 바로 사용 가능합니다. 연남동·홍대입구역 근처에서 거래하고, 시간 맞으면 합정역도 가능합니다.', condition: '보통 · 사용에는 문제 없음', tags: ['가성비', '연습 공 포함'], imageTags: ['프레임 사용감', '공 3개 포함'], reason: '가장 낮은 가격에 바로 연습을 시작할 수 있는 구성입니다.' },
   { id: 'table-1', name: '밝은 원목 접이식 테이블', price: 28000, category: '가구', location: '서대문구 연희동', uploadedAt: '5시간 전', image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=85', description: '작년 이사하면서 이케아에서 구매한 밝은 원목색 접이식 테이블입니다. 펼쳤을 때 약 80×50cm, 높이 72cm라 노트북 작업이나 1~2인 식사용으로 알맞습니다. 자취방에서 창가 쪽에 두고 사용했고, 상판에 아주 옅은 생활 흔적 외에는 깨끗합니다. 접으면 틈새에 세워 보관할 수 있어 공간을 많이 차지하지 않아요. 연희동 자택 근처에서 직접 가져가실 분을 우선하며, 주말에는 신촌역 근처 전달도 가능합니다.', condition: '좋음 · 접이식', tags: ['밝은 색', '소형', '접이식'], imageTags: ['밝은 원목 상판', '접이식 다리'], reason: '공간을 아끼면서도 밝고 깔끔한 분위기를 만들기 좋아요.' },
   { id: 'bag-1', name: '심플 노트북 백팩 15인치', price: 38000, category: '패션잡화', location: '동작구 상도동', uploadedAt: '1일 전', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=85', description: '작년 가을 온라인 공식몰에서 구매한 블랙 무광 소재 백팩입니다. 15인치 노트북 전용 쿠션 수납칸이 있고 A4 파일, 충전기, 물병을 나눠 넣기 좋은 포켓이 여러 개 있습니다. 출퇴근할 때 몇 차례만 사용해 바닥과 모서리 마모가 거의 없고 지퍼도 모두 부드럽게 작동합니다. 가로 약 30cm, 세로 약 43cm의 데일리 사이즈예요. 숭실대입구역·상도역 근처 직거래를 희망하며, 평일 저녁 거래가 편합니다.', condition: '새상품급 · 수납칸 많음', tags: ['노트북 수납', '미니멀', '출퇴근용'], imageTags: ['15인치 수납칸', '블랙 무광 소재'], reason: '노트북 보호 수납과 절제된 디자인이 출퇴근 용도에 잘 맞아요.' },
-  { id: 'lamp-1', name: '무드등 겸용 스탠드', price: 18000, category: '디지털', location: '관악구 봉천동', uploadedAt: '2일 전', image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=85', description: '지난 겨울 전자제품 매장에서 구매한 LED 스탠드입니다. 화이트·실버 색상의 슬림한 디자인이며, 높이 약 40cm라 책상 위에 두기 좋습니다. 터치 버튼으로 밝기 단계와 주광색·전구색을 조절할 수 있어 공부할 때와 잠들기 전 모두 유용했어요. 사용 기간은 약 6개월이고 불빛 깜빡임이나 버튼 이상 없이 정상 작동 확인했습니다. 봉천역·서울대입구역 근처에서 거래 희망하며, 어댑터 함께 드립니다.', condition: '좋음 · 작동 확인', tags: ['자취방', '공간 절약', '밝기 조절'], imageTags: ['밝기 조절 버튼', '슬림한 받침'], reason: '작은 공간에서도 쓰기 좋고, 공부할 때 필요한 밝기를 조절할 수 있어요.' }
+  { id: 'lamp-1', name: '무드등 겸용 스탠드', price: 18000, category: '디지털', location: '관악구 봉천동', uploadedAt: '2일 전', image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=85', description: '지난 겨울 전자제품 매장에서 구매한 LED 스탠드입니다. 화이트·실버 색상의 슬림한 디자인이며, 높이 약 40cm라 책상 위에 두기 좋습니다. 터치 버튼으로 밝기 단계와 주광색·전구색을 조절할 수 있어 공부할 때와 잠들기 전 모두 유용했어요. 사용 기간은 약 6개월이고 불빛 깜빡임이나 버튼 이상 없이 정상 작동 확인했습니다. 봉천역·서울대입구역 근처에서 거래 희망하며, 어댑터 함께 드립니다.', condition: '좋음 · 작동 확인', tags: ['자취방', '공간 절약', '밝기 조절'], imageTags: ['밝기 조절 버튼', '슬림한 받침'], reason: '작은 공간에서도 쓰기 좋고, 공부할 때 필요한 밝기를 조절할 수 있어요.' },
+  { id: 'ipad-1', name: '아이패드 10세대 64GB', price: 325000, category: '디지털', location: '천안시 불당동', uploadedAt: '2시간 전', image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=1024&h=1024&q=85', description: '필기와 영상 시청용으로 깨끗하게 사용한 아이패드입니다.', condition: '사용감 적음 · 충전 정상', tags: ['태블릿', '공부용'], imageTags: ['화면 이상 없음'], reason: '학업과 일상 용도로 활용하기 좋아요.' },
+  { id: 'laptop-1', name: '그램 15인치 노트북', price: 490000, category: '디지털', location: '아산시 배방읍', uploadedAt: '4시간 전', image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1024&h=1024&q=85', description: '문서 작업과 온라인 수업에 사용한 가벼운 노트북입니다.', condition: '생활기스 있음 · 기능 정상', tags: ['노트북', '재택근무'], imageTags: ['키보드 상태 양호'], reason: '기본 작업용으로 알맞습니다.' },
+  { id: 'monitor-1', name: '27인치 IPS 모니터', price: 98000, category: '디지털', location: '청주시 흥덕구', uploadedAt: '6시간 전', image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1024&h=1024&q=85', description: '재택근무용으로 쓰던 모니터이며 화면 이상 없습니다.', condition: '사용감 적음 · 케이블 포함', tags: ['모니터', '사무용'], imageTags: ['화면 점검 완료'], reason: '넓은 화면으로 작업하기 좋아요.' },
+  { id: 'keyboard-1', name: '블루투스 기계식 키보드', price: 42000, category: '디지털', location: '서울 성북구', uploadedAt: '8시간 전', image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1024&h=1024&q=85', description: '무선 연결이 가능한 컴팩트 키보드입니다.', condition: '깨끗하게 사용 · 키 정상', tags: ['키보드', '무선'], imageTags: ['키캡 상태 양호'], reason: '책상 공간을 아낄 수 있어요.' },
+  { id: 'mouse-1', name: '무선 마우스', price: 15000, category: '디지털', location: '서울 마포구', uploadedAt: '10시간 전', image: 'https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=1024&h=1024&q=85', description: '노트북과 함께 쓰던 무선 마우스입니다.', condition: '사용감 적음 · 동작 정상', tags: ['마우스', '사무용'], imageTags: ['휠 정상'], reason: '간편한 보조 기기입니다.' },
+  { id: 'airpods-1', name: '에어팟 프로 2세대', price: 145000, category: '디지털', location: '서울 송파구', uploadedAt: '12시간 전', image: 'https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?auto=format&fit=crop&w=1024&h=1024&q=85', description: '케이스와 함께 보관한 무선 이어폰입니다.', condition: '사용감 있음 · 충전 정상', tags: ['이어폰', '블루투스'], imageTags: ['케이스 포함'], reason: '통화와 음악 감상에 좋아요.' },
+  { id: 'camera-1', name: '미러리스 디지털 카메라', price: 185000, category: '취미/게임', location: '수원시 영통구', uploadedAt: '어제', image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1024&h=1024&q=85', description: '여행 때 사용하던 입문용 카메라입니다.', condition: '사용감 적음 · 렌즈캡 포함', tags: ['카메라', '취미'], imageTags: ['렌즈 상태 양호'], reason: '가볍게 사진을 시작하기 좋아요.' },
+  { id: 'chair-1', name: '패브릭 식탁 의자', price: 27000, category: '가구/생활', location: '서울 용산구', uploadedAt: '어제', image: 'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1024&h=1024&q=85', description: '식탁에서 쓰던 편안한 패브릭 의자입니다.', condition: '생활기스 있음', tags: ['의자', '가구'], imageTags: ['다리 흔들림 없음'], reason: '집 안 포인트 가구로 좋아요.' },
+  { id: 'bookshelf-1', name: '원목 3단 책장', price: 35000, category: '가구/생활', location: '서울 은평구', uploadedAt: '어제', image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1024&h=1024&q=85', description: '작은 방에서 쓰기 좋은 원목 책장입니다.', condition: '깨끗하게 사용', tags: ['책장', '수납'], imageTags: ['선반 상태 양호'], reason: '공간 정리에 유용합니다.' },
+  { id: 'mirror-1', name: '전신 거울', price: 22000, category: '가구/생활', location: '고양시 일산동구', uploadedAt: '1일 전', image: 'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1024&h=1024&q=85', description: '현관에 세워 두던 전신 거울입니다.', condition: '모서리 약간 까짐', tags: ['거울', '인테리어'], imageTags: ['거울면 깨끗함'], reason: '현관이나 방에 두기 좋아요.' },
+  { id: 'hoodie-1', name: '오버핏 후드집업', price: 18000, category: '의류/패션', location: '서울 강동구', uploadedAt: '1일 전', image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=1024&h=1024&q=85', description: '봄가을에 가볍게 입던 후드집업입니다.', condition: '사용감 적음', tags: ['후드', '캐주얼'], imageTags: ['오염 없음'], reason: '데일리로 편하게 입기 좋아요.' },
+  { id: 'shoes-1', name: '러닝화 245mm', price: 39000, category: '의류/패션', location: '대전 유성구', uploadedAt: '1일 전', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1024&h=1024&q=85', description: '러닝머신에서 몇 번 신은 러닝화입니다.', condition: '밑창 마모 적음', tags: ['운동화', '러닝'], imageTags: ['끈 포함'], reason: '가볍게 운동 시작하기 좋아요.' },
+  { id: 'crossbag-1', name: '미니 크로스백', price: 12000, category: '의류/패션', location: '인천 연수구', uploadedAt: '1일 전', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1024&h=1024&q=85', description: '외출할 때 쓰기 좋은 작은 가방입니다.', condition: '사용감 있음 · 지퍼 정상', tags: ['가방', '패션'], imageTags: ['끈 상태 양호'], reason: '가볍게 들기 좋아요.' },
+  { id: 'camp-chair-1', name: '접이식 캠핑 의자', price: 24000, category: '스포츠', location: '용인시 수지구', uploadedAt: '2일 전', image: '', description: '캠핑 때 두 번 사용한 접이식 의자입니다.', condition: '사용감 적음 · 수납가방 포함', tags: ['캠핑', '의자'], imageTags: ['프레임 상태 양호'], reason: '가볍게 들고 다니기 좋아요.' },
+  { id: 'bicycle-1', name: '생활 자전거 26인치', price: 85000, category: '스포츠', location: '성남시 분당구', uploadedAt: '2일 전', image: 'https://images.unsplash.com/photo-1502744688674-c619d1586c9e?auto=format&fit=crop&w=1024&h=1024&q=85', description: '동네 이동용으로 관리하며 타던 자전거입니다.', condition: '사용감 있음 · 브레이크 점검', tags: ['자전거', '운동'], imageTags: ['타이어 상태 보통'], reason: '가까운 거리 이동에 좋아요.' },
+  { id: 'yoga-1', name: '두꺼운 요가 매트', price: 9000, category: '스포츠', location: '부천시 중동', uploadedAt: '2일 전', image: 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?auto=format&fit=crop&w=1024&h=1024&q=85', description: '홈트레이닝에 쓰던 미끄럼 방지 매트입니다.', condition: '세척 완료 · 사용감 있음', tags: ['요가', '홈트'], imageTags: ['찢김 없음'], reason: '집에서 운동하기 좋아요.' },
+  { id: 'switch-1', name: '닌텐도 스위치 라이트', price: 128000, category: '취미/게임', location: '서울 관악구', uploadedAt: '3일 전', image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=1024&h=1024&q=85', description: '가끔 게임할 때 사용한 휴대용 게임기입니다.', condition: '기능 정상 · 충전기 포함', tags: ['닌텐도', '게임'], imageTags: ['버튼 정상'], reason: '가볍게 즐기기 좋아요.' },
+  { id: 'boardgame-1', name: '보드게임 스플렌더', price: 16000, category: '취미/게임', location: '서울 서대문구', uploadedAt: '3일 전', image: 'https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=1024&h=1024&q=85', description: '구성품 확인 후 보관한 보드게임입니다.', condition: '구성품 모두 있음', tags: ['보드게임', '취미'], imageTags: ['카드 상태 양호'], reason: '친구들과 즐기기 좋아요.' },
+  { id: 'textbook-1', name: '대학교 전공책 세트', price: 28000, category: '도서', location: '천안시 서북구', uploadedAt: '3일 전', image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1024&h=1024&q=85', description: '수업 때 사용한 전공책 세 권입니다.', condition: '필기 일부 있음', tags: ['전공책', '대학교'], imageTags: ['표지 상태 보통'], reason: '학기 준비에 실용적입니다.' },
+  { id: 'novel-1', name: '소설책 5권 묶음', price: 11000, category: '도서', location: '서울 종로구', uploadedAt: '4일 전', image: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1024&h=1024&q=85', description: '읽고 난 소설책을 묶어서 판매합니다.', condition: '책등 사용감 있음', tags: ['소설', '책'], imageTags: ['낙서 없음'], reason: '부담 없이 읽기 좋아요.' }
 ];
+
+products.push(
+  { id: 'racket-4', name: '던롭 입문용 테니스 라켓', price: 28000, category: '스포츠', location: '천안시 서북구', uploadedAt: '2시간 전', image: '', description: '대학교 교양 수업 때 몇 번 사용한 던롭 입문용 라켓입니다. 벽에 세워 보관해 프레임에 작은 생활기스만 있고, 스트링과 그립은 바로 사용 가능한 상태예요.', condition: '사용감 적음 · 프레임 작은 스크래치', tags: ['초보자용', '수업용', '가벼움'], imageTags: ['헤드 프레임 상태 양호'], reason: '가벼운 무게와 낮은 가격으로 입문 수업에 잘 맞아요.' },
+  { id: 'racket-5', name: 'HEAD 테니스 라켓', price: 45000, category: '스포츠', location: '수원시 팔달구', uploadedAt: '4시간 전', image: '', description: '실내 코트에서 가끔 사용한 헤드 라켓입니다. 그립 부분에는 사용감이 조금 있지만 프레임 균열은 없고, 처음 테니스를 배우는 분도 편하게 쓰실 수 있어요.', condition: '그립 사용감 있음 · 기능 정상', tags: ['입문용', '가벼운 편', '실내 코트'], imageTags: ['프레임 균열 없음'], reason: '상태를 확인하면 오래 쓰기 좋은 입문 라켓이에요.' },
+  { id: 'racket-6', name: '윌슨 테니스 라켓 + 커버', price: 39000, category: '스포츠', location: '서울 동대문구', uploadedAt: '6시간 전', image: '', description: '동호회 수업에서 쓰던 윌슨 라켓과 커버를 함께 드립니다. 그립 테이프는 최근 교체했고, 헤드 가장자리에 미세한 흔적 외에는 전체적으로 깨끗합니다.', condition: '깨끗하게 사용 · 커버 포함', tags: ['초보자 추천', '라켓 커버', '수업용'], imageTags: ['그립 테이프 교체'], reason: '구성품까지 갖춰 처음 시작하는 분께 실용적입니다.' },
+  { id: 'racket-7', name: '요넥스 초보자용 테니스 라켓', price: 47000, category: '스포츠', location: '서울 광진구', uploadedAt: '어제', image: '', description: '대학 수업용으로 구입한 요넥스 라켓입니다. 넓은 헤드라 공을 맞히기 편했고, 책상 옆에 보관해 상태가 좋은 편입니다. 연습용 공도 같이 드립니다.', condition: '사용감 적음 · 공 포함', tags: ['초보자용', '넓은 헤드', '수업용'], imageTags: ['프레임 생활기스 미미'], reason: '초보자가 공을 맞히기 편한 구성입니다.' },
+  { id: 'racket-8', name: '가벼운 테니스 라켓 + 공', price: 32000, category: '스포츠', location: '고양시 덕양구', uploadedAt: '1일 전', image: '', description: '가볍게 연습하려고 구매한 테니스 라켓입니다. 소파 옆에 두고 보관했고, 사용 횟수가 많지 않아 그립과 스트링 상태가 양호합니다. 공 두 개 함께 드려요.', condition: '거의 새것 · 공 2개 포함', tags: ['입문용', '가벼움', '공 포함'], imageTags: ['그립 상태 양호'], reason: '가벼운 무게와 구성품으로 첫 연습에 적합합니다.' }
+);
 
 // 카드는 가로 contact sheet가 아닌, 독립된 1:1 생활사진 자산만 사용합니다.
 const squarePhotoNames = {
   'racket-1': ['market-square.png', 'market-square-02.png', 'market-square-03.png', 'market-square-04.png'],
-  'racket-2': ['market-square.png', 'market-square-02.png']
+  'racket-2': ['market-square.png', 'market-square-02.png'],
+  'racket-3': ['market-square.png'],
+  'camp-chair-1': ['market-square.png'],
+  'racket-4': ['market-square.png'],
+  'racket-5': ['market-square.png'],
+  'racket-6': ['market-square.png'],
+  'racket-7': ['market-square.png'],
+  'racket-8': ['market-square.png']
 };
-const createProductPhotoSet = id => (squarePhotoNames[id] || ['market-square.png'])
-  .map(fileName => `assets/products/${id}/${fileName}`);
+// 첫 행 featured 상품은 기존 사진을 유지하고, 그 뒤 Home 매물만 생활공간 사진으로 교체합니다.
+const homeLifestylePhotoIds = new Set([
+  'table-1', 'bag-1', 'lamp-1', 'ipad-1', 'laptop-1', 'monitor-1', 'airpods-1',
+  'camera-1', 'chair-1', 'bookshelf-1', 'mirror-1', 'hoodie-1', 'shoes-1',
+  'crossbag-1', 'bicycle-1', 'yoga-1', 'boardgame-1', 'textbook-1', 'novel-1'
+]);
+const createProductPhotoSet = (id, fallbackImage) => {
+  if (squarePhotoNames[id]) return squarePhotoNames[id].map(fileName => `assets/products/${id}/${fileName}`);
+  if (homeLifestylePhotoIds.has(id)) return [`assets/products/${id}/market-home-v2.png`];
+  return [fallbackImage];
+};
 products.forEach(item => {
-  item.images = createProductPhotoSet(item.id);
+  item.images = createProductPhotoSet(item.id, item.image);
   item.image = item.images[0];
 });
+
+const demoSellerNames = ['민정', '준호', '서연', '현우', '소연', '도윤', '하늘', '지수', '민수', '유진', '채원', '은지', '태훈', '수빈', '지민', '예린', '건우', '다은', '윤서', '지후', '경민', '나래', '우진', '보라', '시온'];
+Object.assign(sellerProfiles, Object.fromEntries(products.slice(6).map((item, index) => [item.id, {
+  name: demoSellerNames[index], location: item.location, temperature: `${39 + (index % 5)}.${index + 2}°C`,
+  image: `https://images.unsplash.com/photo-${['1534528741775-53994a69daeb', '1500648767791-00dcc994a43e', '1494790108377-be9c29b29330', '1544005313-94ddf0286df2', '1506794778202-cad84cf45f1d', '1517841905240-472988babdf9'][index % 6]}?auto=format&fit=crop&w=160&q=80`
+}])))
 
 const profile = {
   '생활 패턴': ['대학교 수업', '자취 생활', '대중교통 이동'],
@@ -450,8 +500,11 @@ function renderEmpty(target, text) {
   document.querySelector(target).innerHTML = `<article class="product-card" style="grid-column:1/-1;padding:24px;color:#72766f;font:13px 'Noto Sans KR'">${text}</article>`;
 }
 function renderHomeCollections() {
-  const picks = Array.from({ length: 12 }, (_, index) => products[index % products.length]);
-  renderProducts('#recent-product-grid', picks);
+  const homeMarketProducts = products.filter(item => !/테니스\s*라켓/.test(item.name));
+  const featuredIds = ['camp-chair-1', 'switch-1', 'keyboard-1', 'mouse-1'];
+  const featuredProducts = featuredIds.map(id => homeMarketProducts.find(item => item.id === id)).filter(Boolean);
+  const remainingProducts = homeMarketProducts.filter(item => !featuredIds.includes(item.id));
+  renderProducts('#recent-product-grid', [...featuredProducts, ...remainingProducts]);
   if (savedItemIds.length) renderProducts('#saved-product-grid', savedItemIds.slice(0, 4).map(id => products.find(item => item.id === id)).filter(Boolean));
   else renderEmpty('#saved-product-grid', '아직 저장한 상품이 없어요.');
   renderSavedPage();
