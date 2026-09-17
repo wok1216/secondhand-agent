@@ -1,0 +1,11 @@
+.venv/
+venv/
+backend/.venv/
+backend/venv/
+backend/data/agent.db
+backend/data/cache/
+__pycache__/
+*.pyc
+.env
+backend/.env
+.vscode/
