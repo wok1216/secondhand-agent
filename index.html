@@ -51,6 +51,39 @@
       .search-condition-summary .condition-chip span { color: #8de2aa; }
       @media (max-width: 720px) { .search-condition-summary .analysis-card { display: block; } .search-condition-summary .analysis-intro { margin-bottom: 14px; } }
     </style>
+
+    <style>
+      .rating {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .stars {
+        position: relative;
+        display: inline-block;
+        font-size: 24px;
+        line-height: 1;
+      }
+
+      .stars-empty {
+        color: #ddd;
+      }
+
+      .stars-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        color: #f5b301;
+      }
+
+      .rating-score {
+        font-weight: 700;
+      }
+    </style>
+</head>
   </head>
   <body>
     <div class="app-shell">
