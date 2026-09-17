@@ -54,7 +54,7 @@
     <style>
       /* 요청 반영: 상품 카드 내용은 유지하고, 그 밖의 모든 UI 텍스트를 25% 키웁니다. */
       .brand { display:flex; align-items:center; gap:5px; font-size:25px; }
-      .brand-mark { width:31px; height:31px; flex:0 0 31px; }
+      .brand-mark { width:31px; height:31px; flex:0 0 31px; object-fit:contain; mix-blend-mode:multiply; }
       .market-actions button, .category-nav button { font-size:16px; }
       .market-header-search { height:58px; }
       .market-header-search input { font-size:17.5px; }
@@ -112,7 +112,7 @@
   <body>
     <div class="app-shell">
       <header class="topbar">
-        <a class="brand" href="#home" aria-label="당근나라번개 홈"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="#ff6f32"/><path d="M18.2 4.8c-2.4 1.5-3.2 3.4-2.7 5.4" fill="none" stroke="#54a64a" stroke-width="2.6" stroke-linecap="round"/><path d="M17.5 8.1 9.7 18h5.8l-1 6 7.8-10h-5.8z" fill="#fff" stroke="#fff" stroke-linejoin="round"/></svg>당근나라번개</a>
+        <a class="brand" href="#home" aria-label="당근나라번개 홈"><img class="brand-mark" src="./codex-clipboard-aa49aca9-3f71-46c0-b186-7c3c8b542318.png" alt="" />당근나라번개</a>
         <form id="header-search-form" class="market-header-search"><button id="search-mode-toggle" class="market-toggle" type="button" aria-pressed="false">OFF</button><input id="header-search-input" placeholder="찾고 싶은 물건을 검색해보세요" aria-label="상품 검색" /><button type="submit">⌕</button><div id="search-history" class="search-history"></div></form>
         <div class="market-actions" aria-label="서비스 메뉴"><button class="header-nav-item sell-action" type="button" aria-disabled="true"><svg class="header-action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.1 10.5h10.6l2-7H7.4M9.5 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM17.5 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/></svg><span class="nav-label">판매하기</span></button><button class="header-nav-item" type="button" data-view="saved"><svg class="header-action-icon saved-header-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.6c0 5.2-8.8 10-8.8 10s-8.8-4.8-8.8-10A4.8 4.8 0 0 1 12 5.4a4.8 4.8 0 0 1 8.8 3.2Z"/></svg><span class="nav-label">저장</span></button><button class="header-nav-item" type="button" data-view="profile"><svg class="header-action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 12h3M11 12h13M4 17h12M20 17h0"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="18" cy="17" r="2"/></svg><span class="nav-label">프로필</span></button><button class="header-nav-item my-action" type="button" aria-disabled="true"><svg class="header-action-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.5" r="3.5"/><path d="M5 20c.7-3.4 3.2-5.5 7-5.5s6.3 2.1 7 5.5"/></svg><span class="nav-label">마이</span></button></div>
       </header>
