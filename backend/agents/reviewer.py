@@ -4,7 +4,7 @@ from typing import Literal
 
 from dotenv import load_dotenv
 from google import genai
-from google.genai import types
+from google.genai import types, errors
 from pydantic import BaseModel, Field
 
 
@@ -146,26 +146,41 @@ Hard Condition 위반 또는
 
 """
 
-    response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=prompt,
-        config={
-            "response_mime_type":
-                "application/json",
-            "response_schema":
-                GenericReview,
-            "temperature":
-                0.0,
-        },
-    )
+    try:
+        response = client.models.generate_content(
+            model=MODEL_NAME,
+            contents=prompt,
+            config={
+                "response_mime_type": "application/json",
+                "response_schema": GenericReview,
+                "temperature": 0.0,
+            },
+        )
+
+    except (errors.ServerError, errors.ClientError) as error:
+        error_text = str(error)
+
+        if not any(code in error_text for code in ["429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE"]):
+            raise
+
+        print(f"[건지니 Reviewer Fallback] {error}")
+
+        return {
+            "review_status": "통과",
+            "issues": ["Reviewer 호출 실패로 Final Judge 판단을 유지합니다."],
+            "final_verdict": original_judgement.get("verdict", "확인 필요"),
+            "final_summary": original_judgement.get("summary", ""),
+            "final_reasons": original_judgement.get("reasons", []),
+            "uncertainties": original_judgement.get("uncertainties", []),
+            "seller_questions": original_judgement.get("seller_questions", []),
+            "recommendation_score": original_judgement.get("recommendation_score", 3.0),
+            "_fallback_used": True,
+        }
 
     if response.parsed:
-        return response.parsed.model_dump()
+        result = response.parsed.model_dump()
+    else:
+        result = GenericReview.model_validate_json(response.text).model_dump()
 
-    return (
-        GenericReview
-        .model_validate_json(
-            response.text
-        )
-        .model_dump()
-    )
+    result["_fallback_used"] = False
+    return result

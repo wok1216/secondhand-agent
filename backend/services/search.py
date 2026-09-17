@@ -713,62 +713,42 @@ def score_generic_listing(
     ):
         return None
 
-    # 4. 검색에서 파악한 선호 조건
-    preferences = list(
-        query.get(
-            "preferences",
-            []
-        )
-    )
-
-    # 추후 사용자 프로필에서 들어오는
-    # 구조화된 선호도도 같은 방식으로 처리 가능
-    preferences.extend(
-        query.get(
-            "profile_preferences",
-            []
-        )
-    )
-
-    for preference in preferences:
-        result = match_condition(
-            document,
-            preference,
-        )
+    # 4. 현재 검색어에서 나온 선호 조건
+    for preference in query.get("preferences", []):
+        result = match_condition(document, preference)
 
         record = {
             "condition": preference,
-            "matched_value":
-                result.get(
-                    "matched_value"
-                ),
-            "reason":
-                result.get(
-                    "reason"
-                ),
+            "matched_value": result.get("matched_value"),
+            "reason": result.get("reason"),
         }
 
         if result["status"] == "match":
-            weight = preference.get(
-                "weight",
-                10,
-            )
-
-            score += weight
-
-            preference_matches.append(
-                record
-            )
-
+            score += preference.get("weight", 10)
+            preference_matches.append(record)
         elif result["status"] == "fail":
-            preference_misses.append(
-                record
-            )
-
+            preference_misses.append(record)
         else:
-            preference_unknowns.append(
-                record
-            )
+            preference_unknowns.append(record)
+
+
+    # 5. 프로필 기반 선호 조건
+    for preference in query.get("profile_preferences", []):
+        result = match_condition(document, preference)
+
+        record = {
+            "condition": preference,
+            "matched_value": result.get("matched_value"),
+            "reason": result.get("reason"),
+        }
+
+        if result["status"] == "match":
+            score += min(preference.get("weight", 3), 3)
+            preference_matches.append(record)
+        elif result["status"] == "fail":
+            preference_misses.append(record)
+        else:
+            preference_unknowns.append(record)
     
     # 5. 사용자 프로필의 단순 키워드 선호
     profile_score, profile_matches = (

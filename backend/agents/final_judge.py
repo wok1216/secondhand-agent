@@ -24,48 +24,34 @@ MODEL_NAMES = [
     "gemini-3.5-flash",
 ]
 
-
 def _generate_judgement(prompt: str):
     last_error = None
 
     for model_name in MODEL_NAMES:
         try:
-            print(
-                "[건지니 Final Judge Gemini 호출] "
-                f"{model_name}"
-            )
+            print(f"[건지니 Final Judge Gemini 호출] {model_name}")
 
             return client.models.generate_content(
                 model=model_name,
                 contents=prompt,
                 config={
-                    "response_mime_type":
-                        "application/json",
-                    "response_schema":
-                        GenericJudgement,
-                    "temperature":
-                        0.0,
+                    "response_mime_type": "application/json",
+                    "response_schema": GenericJudgement,
+                    "temperature": 0.0,
                 },
             )
 
-        except errors.ServerError as error:
-            last_error = error
-
+        except (errors.ServerError, errors.ClientError) as error:
             error_text = str(error)
 
-            if (
-                "503" not in error_text
-                and "UNAVAILABLE" not in error_text
-            ):
+            if not any(code in error_text for code in ["429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE"]):
                 raise
 
-            print(
-                "[건지니 Final Judge 503] "
-                f"{model_name} -> 다음 모델 시도"
-            )
+            last_error = error
+            print(f"[건지니 Final Judge 실패] {model_name} -> 다음 모델 시도")
 
-    raise last_error
-
+    print(f"[건지니 Final Judge Fallback] {last_error}")
+    return None
 
 class GenericJudgement(BaseModel):
     verdict: Literal[
@@ -217,17 +203,43 @@ verdict와 서로 모순되지 않아야 한다.
 
 """
 
-    response = _generate_judgement(
-        prompt
-    )
+    response = _generate_judgement(prompt)
+
+    if response is None:
+        evaluation = (rule_result or {}).get("rule_evaluation", {})
+        hard_failures = evaluation.get("hard_failures", [])
+        hard_unknowns = evaluation.get("hard_unknowns", [])
+        risk_flags = listing_analysis.get("risk_flags", [])
+
+        if hard_failures:
+            verdict = "비추천"
+            score = 1.5
+            summary = "필수조건을 충족하지 못해 현재 기준으로는 추천하기 어렵습니다."
+        elif hard_unknowns or risk_flags:
+            verdict = "확인 필요"
+            score = 3.5
+            summary = "조건이나 위험 요소 중 추가 확인이 필요한 정보가 있습니다."
+        else:
+            verdict = "추천"
+            score = 4.0
+            summary = "확인된 정보 기준으로 필수조건 위반이나 중대한 위험이 없습니다."
+
+        return {
+            "verdict": verdict,
+            "recommendation_score": score,
+            "summary": summary,
+            "reasons": (rule_result or {}).get("reasons", [])[:3],
+            "matched_conditions": [],
+            "unmatched_conditions": [],
+            "uncertainties": hard_unknowns + risk_flags,
+            "seller_questions": [],
+            "_fallback_used": True,
+        }
 
     if response.parsed:
-        return response.parsed.model_dump()
+        result = response.parsed.model_dump()
+    else:
+        result = GenericJudgement.model_validate_json(response.text).model_dump()
 
-    return (
-        GenericJudgement
-        .model_validate_json(
-            response.text
-        )
-        .model_dump()
-    )
+    result["_fallback_used"] = False
+    return result
