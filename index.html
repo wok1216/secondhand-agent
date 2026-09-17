@@ -140,6 +140,12 @@
       .detail-save-button{width:auto;flex:1}.detail-agent-content .message-footer .send-message{display:inline-flex;width:auto;flex:1.35;margin:0;background:var(--orange);color:#fff}
       @media(max-height:820px) and (min-width:761px){.detail-modal{padding:12px}.detail-dialog.detail-agent-layout{height:auto;max-height:calc(100dvh - 24px);padding:18px 24px}.product-carousel>img{height:100%}.detail-agent-content .detail-section{margin-bottom:10px}.decision-grid p{min-height:42px;padding:8px 11px}.checkpoint-list article{min-height:78px;padding:9px}.question-card{min-height:54px;padding:8px}.detail-ai-notice{padding:10px 13px}}
       @media(max-width:760px){.detail-modal{align-items:start;padding:12px}.detail-dialog.detail-agent-layout{width:100%;height:auto;max-height:calc(100dvh - 24px);padding:42px 18px 18px;overflow:auto}.detail-agent-media{padding-right:0}.product-carousel>img{height:auto;aspect-ratio:1/1}.detail-agent-content{padding:20px 0 0!important;margin-top:18px}.detail-ai-notice{display:block}.decision-grid,.checkpoint-list,.question-card-list{grid-template-columns:1fr}.detail-agent-content h2{font-size:23px}.carousel-arrow{width:36px;height:36px;font-size:32px}.message-footer{position:static}.detail-dialog .modal-close{right:10px;top:8px}}
+      /* AI 검색 OFF 상세 화면은 판매글 원문과 기본 거래 정보만 표시합니다. */
+      .detail-basic-layout .detail-agent-content{display:flex;min-height:0;flex-direction:column}
+      .detail-basic-layout .seller-description{margin:6px 0 20px;padding:0;color:#323832;font:300 14px/1.8 'Noto Sans KR';letter-spacing:-.015em;white-space:pre-wrap}
+      .detail-basic-layout .seller-description p{margin:0}
+      .detail-basic-layout .message-footer{position:sticky;bottom:0;z-index:1;margin-top:auto;padding:14px 0 0;background:#fff}
+      @media(max-width:760px){.detail-basic-layout .seller-description{font-size:13px}.detail-basic-layout .message-footer{position:sticky;bottom:-18px;padding:12px 0 18px}}
     </style>
   </head>
   <body>
