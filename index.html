@@ -53,7 +53,7 @@
     </style>
     <style>
       /* 요청 반영: 상품 카드 내용은 유지하고, 그 밖의 모든 UI 텍스트를 25% 키웁니다. */
-      .brand { display:flex; align-items:center; gap:7px; font-size:25px; }
+      .brand { display:flex; align-items:center; gap:5px; font-size:25px; }
       .brand-mark { width:31px; height:31px; flex:0 0 31px; }
       .market-actions button, .category-nav button { font-size:16px; }
       .market-header-search { height:58px; }
@@ -80,7 +80,12 @@
       .keyword-help, .profile-save, .profile-group h3, footer { font-size:15px; }
       .plain-search-heading { margin:0 0 22px; }
       .plain-search-heading h2 { margin:0; letter-spacing:-1.4px; }
-      .plain-search-heading p { margin:8px 0 0; color:var(--muted); }
+      .plain-result-title { display:flex; align-items:center; gap:9px; white-space:nowrap; }
+      .plain-result-search-icon { width:25px; height:25px; flex:none; fill:none; stroke:var(--ink); stroke-width:2; stroke-linecap:round; }
+      .topbar.search-active { align-items:center; }
+      .topbar.search-active .brand { flex:none; }
+      .topbar.search-active .market-header-search { min-width:0; max-width:680px; }
+      .topbar.search-active .market-actions { flex:none; flex-wrap:nowrap; white-space:nowrap; }
       .judgment-badge { display:inline-flex; align-items:center; border:1px solid currentColor; border-radius:7px; padding:5px 8px; background:#fff; font-size:10px; font-weight:700; }
       .judgment-badge.recommend { color:#22C55E; }
       .judgment-badge.info { color:#3B82F6; }
@@ -96,6 +101,11 @@
         .market-hero h1 { font-size:28.75px; }
         .section-heading h2, .plain-search-heading h2 { font-size:26.25px; }
         .search-condition-summary .analysis-intro p { white-space:normal; }
+        .topbar.search-active { height:auto; min-height:74px; flex-wrap:wrap; gap:8px; padding:8px 0; }
+        .topbar.search-active .market-header-search { order:3; flex:1 0 100%; width:100%; max-width:none; }
+        .topbar.search-active .market-actions { margin-left:auto; }
+        .plain-result-title { white-space:normal; }
+        .plain-result-search-icon { width:22px; height:22px; }
       }
     </style>
   </head>
@@ -125,7 +135,7 @@
           <section class="filter-bar" aria-label="상품 필터"><button class="location-filter location-action" type="button">내 지역: 중구 필동 ▾</button><button type="button">카테고리 ▾</button><button type="button">가격 ▾</button><button type="button">거리 ▾</button><button type="button">상태 ▾</button></section>
 
           <section class="search-result-section" id="search-results">
-            <div id="plain-search-heading" class="plain-search-heading" hidden><h2></h2><p>검색어와 관련된 상품을 보여드려요.</p></div>
+            <div id="plain-search-heading" class="plain-search-heading" hidden><div class="eyebrow">SEARCH RESULT</div><h2 class="plain-result-title"><svg class="plain-result-search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="5.75"></circle><path d="m15 15 4.5 4.5"></path></svg><span class="plain-result-copy"><span class="plain-result-query"></span> 검색 결과</span></h2></div>
             <div id="search-product-grid" class="product-grid"></div>
             <aside id="ai-chatbot" aria-label="추천 도우미" style="position:fixed;right:28px;bottom:28px;z-index:10;font-family:'Noto Sans KR',sans-serif">
               <div id="chat-panel" hidden style="width:310px;margin-bottom:12px;background:#fff;border:1px solid #e9e8e3;border-radius:18px;overflow:hidden;box-shadow:0 18px 45px rgba(32,34,31,.18)">

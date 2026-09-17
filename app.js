@@ -68,8 +68,11 @@ const createProductPhotoSet = (id, fallbackImage) => {
   return [fallbackImage];
 };
 products.forEach(item => {
-  item.images = createProductPhotoSet(item.id, item.image);
-  item.image = item.images[0];
+  // Keep the original product image so a missing repository asset can recover
+  // without replacing every product with an unrelated image.
+  item.fallbackImage = item.image;
+  item.images = createProductPhotoSet(item.id, item.fallbackImage);
+  item.image = item.images[0] || item.fallbackImage;
 });
 
 const demoSellerNames = ['민정', '준호', '서연', '현우', '소연', '도윤', '하늘', '지수', '민수', '유진', '채원', '은지', '태훈', '수빈', '지민', '예린', '건우', '다은', '윤서', '지후', '경민', '나래', '우진', '보라', '시온'];
@@ -187,9 +190,17 @@ function renderProducts(target, items, { showVerdict = false } = {}) {
   root.replaceChildren(...items.map((item, index) => {
     const node = productTemplate.content.cloneNode(true);
     const primaryImage = Array.isArray(item.images) && item.images.length ? item.images[0] : item.image;
-    node.querySelector('.product-image').src = imageSource(primaryImage);
-    node.querySelector('.product-image').style.objectPosition = imagePosition(primaryImage);
-    node.querySelector('.product-image').alt = item.name;
+    const productImage = node.querySelector('.product-image');
+    productImage.src = imageSource(primaryImage);
+    productImage.style.objectPosition = imagePosition(primaryImage);
+    productImage.alt = item.name;
+    if (item.fallbackImage && item.fallbackImage !== imageSource(primaryImage)) {
+      productImage.addEventListener('error', () => {
+        if (productImage.dataset.fallbackApplied === 'true') return;
+        productImage.dataset.fallbackApplied = 'true';
+        productImage.src = item.fallbackImage;
+      });
+    }
     const decisions = [
       { key: 'recommend', label: '추천' },
       { key: 'info', label: '정보 부족' },
@@ -443,7 +454,7 @@ function renderSearchExperience() {
   const aiChatbot = document.querySelector('#ai-chatbot');
   const plainSearchHeading = document.querySelector('#plain-search-heading');
   plainSearchHeading.hidden = useAi;
-  plainSearchHeading.querySelector('h2').textContent = `“${query}” 검색 결과`;
+  plainSearchHeading.querySelector('.plain-result-query').textContent = `“${query}”`;
   analysisCard.innerHTML = useAi ? `<div class="analysis-intro"><b>반영된 조건</b><p>기본 목적, 핵심 조건을 함께 반영했습니다.</p></div><div class="condition-list editable-conditions">${chips.map(([key, value], index) => `<button type="button" class="condition-chip" data-condition-index="${index}"><b>${key}</b>${value} <span aria-label="조건 삭제">×</span></button>`).join('')}</div>` : '';
   aiChatbot.hidden = true;
   // MVP 시연: 입력 문장과 무관하게 저장된 테니스 라켓 8개만 바로 보여줍니다.
