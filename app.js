@@ -272,13 +272,13 @@ function openDetail(productId) {
     '무게 정보가 없어 휴대성 조건은 판매자에게 확인이 필요해요.'
   ];
   const checkpointItems = [
-    { title: '판매글 상태', detail: item.condition, question: `안녕하세요. 판매글에 적어주신 “${item.condition}” 상태를 조금 더 자세히 알 수 있을까요?` },
-    { title: '사진 확인', detail: imageNotes, question: `사진에서 보이는 ${imageNotes} 부분의 실제 상태를 확인할 수 있을까요?` },
-    { title: '거래 전 확인', detail: '실제 사용 기간과 거래 가능한 시간을 확인해 보세요.', question: `${item.name}의 실제 사용 기간과 거래 가능한 시간대를 알려주실 수 있을까요?` }
+    { title: '판매글 상태', detail: item.condition, question: '판매글에 적어주신 상태를 자세히 알 수 있을까요?' },
+    { title: '사진 확인', detail: imageNotes, question: '사진에서 보이는 부분의 실제 상태를 확인할 수 있을까요?' },
+    { title: '거래 전 확인', detail: '실제 사용 기간과 거래 가능한 시간을 확인해 보세요.', question: '사용 기간과 거래 가능한 시간을 알려주실 수 있을까요?' }
   ];
-  const genieIcon = './genie.png';
-  const warningIcon = './warning-triangle.png';
-  const questionIcon = './question-bubble.png';
+  const genieIcon = './genie-transparent.png';
+  const warningIcon = './warning-triangle-transparent.png';
+  const questionIcon = './question-bubble-transparent.png';
   const bookmarkIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4.5h11v15l-5.5-3.7-5.5 3.7z"/></svg>';
   const chatIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.2c0 4-3.6 7.2-8 7.2a9.5 9.5 0 0 1-2.8-.4L5 20l1.1-3.1A6.6 6.6 0 0 1 4 11.2C4 7.2 7.6 4 12 4s8 3.2 8 7.2Z"/></svg>';
   const modal = document.createElement('div');
@@ -321,7 +321,7 @@ function openDetail(productId) {
   modal.querySelector('.send-message').addEventListener('click', event => {
     const message = selectedQuestion.trim();
     if (!message) { showToast('판매자에게 보낼 메시지를 입력해 주세요.'); return; }
-    event.currentTarget.textContent = '질문 보냄';
+    event.currentTarget.innerHTML = `${chatIcon}<span>질문 보냄</span>`;
     event.currentTarget.disabled = true;
     showToast('Demo MVP: 메시지 전송 완료로 표시했어요.');
   });
