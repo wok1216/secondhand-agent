@@ -530,7 +530,7 @@ document.querySelector('#search-mode-toggle').addEventListener('click', event =>
   event.currentTarget.textContent = aiSearchMode ? 'ON' : 'OFF';
   event.currentTarget.classList.toggle('on', aiSearchMode);
   event.currentTarget.setAttribute('aria-pressed', String(aiSearchMode));
-  headerSearchInput.placeholder = aiSearchMode ? '원하는 조건을 편하게 나열해보세요 (ex) 3천원 이내, 가까운 거래 장소, 돼지인형)' : '찾고 싶은 물건을 검색해보세요';
+  headerSearchInput.placeholder = aiSearchMode ? '우리 동네에서 5천원 이하의 돼지인형 찾아줘' : '찾고 싶은 물건을 검색해보세요';
 });
 document.addEventListener('click', event => { if (!event.target.closest('#header-search-form')) searchHistoryPanel.classList.remove('visible'); });
 document.querySelectorAll('[data-query]').forEach(button => button.addEventListener('click', () => {
