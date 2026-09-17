@@ -3,6 +3,7 @@ from typing import Literal
 
 from dotenv import load_dotenv
 from google import genai
+from google.genai import types, errors
 from pydantic import BaseModel, Field
 
 from services.attribute_registry import (
@@ -15,7 +16,12 @@ from services.attribute_registry import (
 load_dotenv()
 
 client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY")
+    api_key=os.getenv("GEMINI_API_KEY"),
+    http_options=types.HttpOptions(
+        retry_options=types.HttpRetryOptions(
+            attempts=1
+        )
+    ),
 )
 
 MODEL_NAME = "gemini-3.5-flash"
@@ -643,20 +649,59 @@ def structure_generic_query(
     - 최종 상품 추천이나 구매 판단은 하지 않는다.
     """
 
-    chat = client.chats.create(
-        model=MODEL_NAME,
-        config={
-            "response_mime_type":
-                "application/json",
+    MODEL_NAMES = [
+        "gemini-3.5-flash-lite",
+        "gemini-3.5-flash",
+    ]
 
-            "response_schema":
-                GenericSearchQuery,
-        },
-    )
+    response = None
+    last_error = None
 
-    response = chat.send_message(
-        prompt
-    )
+    for model_name in MODEL_NAMES:
+        try:
+            print(
+                "[건지니 Search Structuring Gemini 호출] "
+                f"{model_name}"
+            )
+
+            chat = client.chats.create(
+                model=model_name,
+                config={
+                    "response_mime_type": "application/json",
+                    "response_schema": GenericSearchQuery,
+                },
+            )
+
+            response = chat.send_message(
+                prompt
+            )
+
+            break
+
+        except (
+            errors.ServerError,
+            errors.ClientError,
+        ) as error:
+            last_error = error
+            error_text = str(error)
+
+            is_fallback_error = (
+                "503" in error_text
+                or "UNAVAILABLE" in error_text
+                or "429" in error_text
+                or "RESOURCE_EXHAUSTED" in error_text
+            )
+
+            if not is_fallback_error:
+                raise
+
+            print(
+                "[건지니 Search Structuring fallback] "
+                f"{model_name} 실패 -> 다음 모델"
+            )
+
+    if response is None:
+        raise last_error
 
     if response.parsed:
         raw = (
