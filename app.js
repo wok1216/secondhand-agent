@@ -6,7 +6,6 @@ const sellerProfiles = {
   'bag-1': { name: '오늘도출근', location: '동작구 상도동', temperature: '43.0°C', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=160&q=80' },
   'lamp-1': { name: '봉천의밤', location: '관악구 봉천동', temperature: '40.2°C', image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=160&q=80' }
 };
-
 const products = [
   { id: 'racket-1', name: '윌슨 초보용 테니스 라켓', price: 42000, category: '스포츠', location: '중구 필동', uploadedAt: '33분 전', image: 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&fit=crop&w=800&q=85', description: '작년 봄 테니스 입문 수업을 들으며 스포츠 매장에서 구매한 윌슨 입문용 라켓입니다. 블랙·오렌지 계열 색상이고, 그립 사이즈는 성인 여성/손이 작은 분께 편한 1번입니다. 주 1회 정도만 실내 코트에서 사용해 프레임에 눈에 띄는 찍힘은 없고, 사용감이 적습니다. 최근 새 그립으로 교체해 미끄럽지 않고 바로 사용하실 수 있어요. 평일 저녁에는 필동·충무로역 근처, 주말에는 명동역 부근에서 직거래 희망합니다.', condition: '사용감 적음 · 그립 새것', tags: ['초보자 추천', '가벼움', '수업용'], imageTags: ['라켓 프레임 깨끗함', '그립 상태 양호'], reason: '예산 안에서 구매 가능하고, 가벼운 무게로 수업을 막 시작한 분에게 잘 맞아요.' },
   { id: 'racket-2', name: '요넥스 EZone 테니스 라켓', price: 48000, category: '스포츠', location: '성동구 성수동', uploadedAt: '1시간 전', image: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=800&q=85', description: '재작년 여름 동대문 테니스 전문점에서 구매한 요넥스 EZone 라켓입니다. 딥블루 색상의 100sq.in 헤드, 그립 사이즈 2번으로 초보자도 공을 맞히기 편한 모델이에요. 동호회 수업용으로만 사용했고 스트링은 지난 가을에 교체했습니다. 프레임 가장자리에 아주 옅은 생활 스크래치만 있으며, 전용 케이스도 함께 드립니다. 성수역·서울숲역 인근에서 평일 퇴근 후 또는 주말 낮 직거래 가능합니다.', condition: '좋음 · 케이스 포함', tags: ['초보자 추천', '넓은 헤드', '케이스 포함'], imageTags: ['프레임 스크래치 미미', '정품 케이스'], reason: '넓은 스윗스팟과 케이스 포함 구성이 첫 수업용으로 실용적이에요.' },
@@ -35,15 +34,7 @@ const products = [
   { id: 'textbook-1', name: '대학교 전공책 세트', price: 28000, category: '도서', location: '천안시 서북구', uploadedAt: '3일 전', image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1024&h=1024&q=85', description: '수업 때 사용한 전공책 세 권입니다.', condition: '필기 일부 있음', tags: ['전공책', '대학교'], imageTags: ['표지 상태 보통'], reason: '학기 준비에 실용적입니다.' },
   { id: 'novel-1', name: '소설책 5권 묶음', price: 11000, category: '도서', location: '서울 종로구', uploadedAt: '4일 전', image: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1024&h=1024&q=85', description: '읽고 난 소설책을 묶어서 판매합니다.', condition: '책등 사용감 있음', tags: ['소설', '책'], imageTags: ['낙서 없음'], reason: '부담 없이 읽기 좋아요.' }
 ];
-
-products.push(
-  { id: 'racket-4', name: '던롭 입문용 테니스 라켓', price: 28000, category: '스포츠', location: '천안시 서북구', uploadedAt: '2시간 전', image: '', description: '대학교 교양 수업 때 몇 번 사용한 던롭 입문용 라켓입니다. 벽에 세워 보관해 프레임에 작은 생활기스만 있고, 스트링과 그립은 바로 사용 가능한 상태예요.', condition: '사용감 적음 · 프레임 작은 스크래치', tags: ['초보자용', '수업용', '가벼움'], imageTags: ['헤드 프레임 상태 양호'], reason: '가벼운 무게와 낮은 가격으로 입문 수업에 잘 맞아요.' },
-  { id: 'racket-5', name: 'HEAD 테니스 라켓', price: 45000, category: '스포츠', location: '수원시 팔달구', uploadedAt: '4시간 전', image: '', description: '실내 코트에서 가끔 사용한 헤드 라켓입니다. 그립 부분에는 사용감이 조금 있지만 프레임 균열은 없고, 처음 테니스를 배우는 분도 편하게 쓰실 수 있어요.', condition: '그립 사용감 있음 · 기능 정상', tags: ['입문용', '가벼운 편', '실내 코트'], imageTags: ['프레임 균열 없음'], reason: '상태를 확인하면 오래 쓰기 좋은 입문 라켓이에요.' },
-  { id: 'racket-6', name: '윌슨 테니스 라켓 + 커버', price: 39000, category: '스포츠', location: '서울 동대문구', uploadedAt: '6시간 전', image: '', description: '동호회 수업에서 쓰던 윌슨 라켓과 커버를 함께 드립니다. 그립 테이프는 최근 교체했고, 헤드 가장자리에 미세한 흔적 외에는 전체적으로 깨끗합니다.', condition: '깨끗하게 사용 · 커버 포함', tags: ['초보자 추천', '라켓 커버', '수업용'], imageTags: ['그립 테이프 교체'], reason: '구성품까지 갖춰 처음 시작하는 분께 실용적입니다.' },
-  { id: 'racket-7', name: '요넥스 초보자용 테니스 라켓', price: 47000, category: '스포츠', location: '서울 광진구', uploadedAt: '어제', image: '', description: '대학 수업용으로 구입한 요넥스 라켓입니다. 넓은 헤드라 공을 맞히기 편했고, 책상 옆에 보관해 상태가 좋은 편입니다. 연습용 공도 같이 드립니다.', condition: '사용감 적음 · 공 포함', tags: ['초보자용', '넓은 헤드', '수업용'], imageTags: ['프레임 생활기스 미미'], reason: '초보자가 공을 맞히기 편한 구성입니다.' },
-  { id: 'racket-8', name: '가벼운 테니스 라켓 + 공', price: 32000, category: '스포츠', location: '고양시 덕양구', uploadedAt: '1일 전', image: '', description: '가볍게 연습하려고 구매한 테니스 라켓입니다. 소파 옆에 두고 보관했고, 사용 횟수가 많지 않아 그립과 스트링 상태가 양호합니다. 공 두 개 함께 드려요.', condition: '거의 새것 · 공 2개 포함', tags: ['입문용', '가벼움', '공 포함'], imageTags: ['그립 상태 양호'], reason: '가벼운 무게와 구성품으로 첫 연습에 적합합니다.' }
-);
-
+products.push({ id: 'racket-4', name: '던롭 입문용 테니스 라켓', price: 28000, category: '스포츠', location: '천안시 서북구', uploadedAt: '2시간 전', image: '', description: '대학교 교양 수업 때 몇 번 사용한 던롭 입문용 라켓입니다. 벽에 세워 보관해 프레임에 작은 생활기스만 있고, 스트링과 그립은 바로 사용 가능한 상태예요.', condition: '사용감 적음 · 프레임 작은 스크래치', tags: ['초보자용', '수업용', '가벼움'], imageTags: ['헤드 프레임 상태 양호'], reason: '가벼운 무게와 낮은 가격으로 입문 수업에 잘 맞아요.' }, { id: 'racket-5', name: 'HEAD 테니스 라켓', price: 45000, category: '스포츠', location: '수원시 팔달구', uploadedAt: '4시간 전', image: '', description: '실내 코트에서 가끔 사용한 헤드 라켓입니다. 그립 부분에는 사용감이 조금 있지만 프레임 균열은 없고, 처음 테니스를 배우는 분도 편하게 쓰실 수 있어요.', condition: '그립 사용감 있음 · 기능 정상', tags: ['입문용', '가벼운 편', '실내 코트'], imageTags: ['프레임 균열 없음'], reason: '상태를 확인하면 오래 쓰기 좋은 입문 라켓이에요.' }, { id: 'racket-6', name: '윌슨 테니스 라켓 + 커버', price: 39000, category: '스포츠', location: '서울 동대문구', uploadedAt: '6시간 전', image: '', description: '동호회 수업에서 쓰던 윌슨 라켓과 커버를 함께 드립니다. 그립 테이프는 최근 교체했고, 헤드 가장자리에 미세한 흔적 외에는 전체적으로 깨끗합니다.', condition: '깨끗하게 사용 · 커버 포함', tags: ['초보자 추천', '라켓 커버', '수업용'], imageTags: ['그립 테이프 교체'], reason: '구성품까지 갖춰 처음 시작하는 분께 실용적입니다.' }, { id: 'racket-7', name: '요넥스 초보자용 테니스 라켓', price: 47000, category: '스포츠', location: '서울 광진구', uploadedAt: '어제', image: '', description: '대학 수업용으로 구입한 요넥스 라켓입니다. 넓은 헤드라 공을 맞히기 편했고, 책상 옆에 보관해 상태가 좋은 편입니다. 연습용 공도 같이 드립니다.', condition: '사용감 적음 · 공 포함', tags: ['초보자용', '넓은 헤드', '수업용'], imageTags: ['프레임 생활기스 미미'], reason: '초보자가 공을 맞히기 편한 구성입니다.' }, { id: 'racket-8', name: '가벼운 테니스 라켓 + 공', price: 32000, category: '스포츠', location: '고양시 덕양구', uploadedAt: '1일 전', image: '', description: '가볍게 연습하려고 구매한 테니스 라켓입니다. 소파 옆에 두고 보관했고, 사용 횟수가 많지 않아 그립과 스트링 상태가 양호합니다. 공 두 개 함께 드려요.', condition: '거의 새것 · 공 2개 포함', tags: ['입문용', '가벼움', '공 포함'], imageTags: ['그립 상태 양호'], reason: '가벼운 무게와 구성품으로 첫 연습에 적합합니다.' });
 // 카드는 가로 contact sheet가 아닌, 독립된 1:1 생활사진 자산만 사용합니다.
 const squarePhotoNames = {
   'racket-1': ['market-square.png', 'market-square-02.png', 'market-square-03.png', 'market-square-04.png'],
@@ -63,94 +54,173 @@ const homeLifestylePhotoIds = new Set([
   'crossbag-1', 'bicycle-1', 'yoga-1', 'boardgame-1', 'textbook-1', 'novel-1'
 ]);
 const createProductPhotoSet = (id, fallbackImage) => {
-  if (squarePhotoNames[id]) return squarePhotoNames[id].map(fileName => `assets/products/${id}/${fileName}`);
-  if (homeLifestylePhotoIds.has(id)) return [`assets/products/${id}/market-home-v2.png`];
+  if (squarePhotoNames[id])
+    return squarePhotoNames[id].map(fileName => `assets/products/${id}/${fileName}`);
+  if (homeLifestylePhotoIds.has(id))
+    return [`assets/products/${id}/market-home-v2.png`];
   return [fallbackImage];
 };
 products.forEach(item => {
-  // Keep the original product image so a missing repository asset can recover
-  // without replacing every product with an unrelated image.
   item.fallbackImage = item.image;
   item.images = createProductPhotoSet(item.id, item.fallbackImage);
   item.image = item.images[0] || item.fallbackImage;
 });
-
 const demoSellerNames = ['민정', '준호', '서연', '현우', '소연', '도윤', '하늘', '지수', '민수', '유진', '채원', '은지', '태훈', '수빈', '지민', '예린', '건우', '다은', '윤서', '지후', '경민', '나래', '우진', '보라', '시온'];
 Object.assign(sellerProfiles, Object.fromEntries(products.slice(6).map((item, index) => [item.id, {
-  name: demoSellerNames[index], location: item.location, temperature: `${39 + (index % 5)}.${index + 2}°C`,
-  image: `https://images.unsplash.com/photo-${['1534528741775-53994a69daeb', '1500648767791-00dcc994a43e', '1494790108377-be9c29b29330', '1544005313-94ddf0286df2', '1506794778202-cad84cf45f1d', '1517841905240-472988babdf9'][index % 6]}?auto=format&fit=crop&w=160&q=80`
-}])))
-
+    name: demoSellerNames[index],
+    location: item.location,
+    temperature: `${39 + (index % 5)}.${index + 2}°C`,
+    image: `https://images.unsplash.com/photo-${['1534528741775-53994a69daeb', '1500648767791-00dcc994a43e', '1494790108377-be9c29b29330', '1544005313-94ddf0286df2', '1506794778202-cad84cf45f1d', '1517841905240-472988babdf9'][index % 6]}?auto=format&fit=crop&w=160&q=80`
+  }])));
 const profile = {
   '생활 패턴': ['대학교 수업', '자취 생활', '대중교통 이동'],
   '가격 선호': ['합리적 가격', '5만원 이하 선호', '오래 쓸 수 있는 상태'],
   '취향': ['밝고 깔끔한 디자인', '미니멀', '실용적인 수납'],
   '관심사': ['테니스 입문', '공부', '공간 정리']
 };
-
-const profileKeys = { lifestyle: '생활 패턴', price: '가격 선호', taste: '취향', interest: '관심사' };
+const profileKeys = {
+  lifestyle: '생활 패턴',
+  price: '가격 선호',
+  taste: '취향',
+  interest: '관심사'
+};
 const storage = {
-  profile: 'carrot-profile', removed: 'carrot-removed-keywords', history: 'carrot-search-history', saved: 'carrot-saved-items'
+  profile: 'carrot-profile',
+  removed: 'carrot-removed-keywords',
+  history: 'carrot-search-history',
+  saved: 'carrot-saved-items'
 };
 const storedProfile = JSON.parse(localStorage.getItem(storage.profile) || 'null');
-if (storedProfile) Object.values(profileKeys).forEach(key => { if (Array.isArray(storedProfile[key])) profile[key] = storedProfile[key]; });
+if (storedProfile) {
+  Object.values(profileKeys).forEach(key => {
+    if (Array.isArray(storedProfile[key]))
+      profile[key] = storedProfile[key];
+  });
+}
 let removedKeywords = JSON.parse(localStorage.getItem(storage.removed) || '[]');
 let searchHistory = JSON.parse(localStorage.getItem(storage.history) || '[]');
 let savedItemIds = JSON.parse(localStorage.getItem(storage.saved) || '[]');
 let aiSearchMode = false;
 let activeSearch = null;
-
-function saveProfile() { localStorage.setItem(storage.profile, JSON.stringify(profile)); }
+function saveProfile() {
+  localStorage.setItem(storage.profile, JSON.stringify(profile));
+}
+function buildProfileSearchContext() {
+  const profileKeywords = Object.values(profile)
+    .flat()
+    .map(value => String(value).trim())
+    .filter(Boolean);
+  const profilePreferences = [];
+  for (const keyword of profileKeywords) {
+    const priceMatch = keyword.match(/(\d+(?:\.\d+)?)\s*만원?\s*이하/);
+    if (priceMatch) {
+      const price = Math.round(Number(priceMatch[1]) * 10000);
+      profilePreferences.push({
+        key: 'price',
+        label: '프로필 가격 선호',
+        operator: '<=',
+        value: String(price),
+        number_value: price,
+        values: [],
+        unit: '원',
+        weight: 5
+      });
+    }
+  }
+  return {
+    profileKeywords,
+    profilePreferences
+  };
+}
 function classifyKeywords(query) {
   const q = query.toLowerCase();
   const candidates = [];
-  if (/대학|대학교|교양|수업/.test(q)) candidates.push({ keyword: '대학교 수업', category: 'lifestyle' });
-  if (/자취/.test(q)) candidates.push({ keyword: '자취 생활', category: 'lifestyle' });
-  if (/대중교통|출퇴근/.test(q)) candidates.push({ keyword: '대중교통 이동', category: 'lifestyle' });
-  if (/가성비|저렴|5만원|오만원/.test(q)) candidates.push({ keyword: '합리적 가격', category: 'price' });
-  if (/미니멀|깔끔|심플/.test(q)) candidates.push({ keyword: '미니멀', category: 'taste' });
-  if (/밝은 색|밝은색/.test(q)) candidates.push({ keyword: '밝고 깔끔한 디자인', category: 'taste' });
-  if (/테니스|라켓/.test(q)) candidates.push({ keyword: '테니스', category: 'interest' });
-  if (/캠핑/.test(q)) candidates.push({ keyword: '캠핑', category: 'interest' });
-  if (/게임/.test(q)) candidates.push({ keyword: '게임', category: 'interest' });
+  if (/대학|대학교|교양|수업/.test(q))
+    candidates.push({ keyword: '대학교 수업', category: 'lifestyle' });
+  if (/자취/.test(q))
+    candidates.push({ keyword: '자취 생활', category: 'lifestyle' });
+  if (/대중교통|출퇴근/.test(q))
+    candidates.push({ keyword: '대중교통 이동', category: 'lifestyle' });
+  if (/가성비|저렴|5만원|오만원/.test(q))
+    candidates.push({ keyword: '합리적 가격', category: 'price' });
+  if (/미니멀|깔끔|심플/.test(q))
+    candidates.push({ keyword: '미니멀', category: 'taste' });
+  if (/밝은 색|밝은색/.test(q))
+    candidates.push({ keyword: '밝고 깔끔한 디자인', category: 'taste' });
+  if (/테니스|라켓/.test(q))
+    candidates.push({ keyword: '테니스', category: 'interest' });
+  if (/캠핑/.test(q))
+    candidates.push({ keyword: '캠핑', category: 'interest' });
+  if (/게임/.test(q))
+    candidates.push({ keyword: '게임', category: 'interest' });
   return candidates.filter(({ keyword, category }) => profileKeys[category] && !removedKeywords.includes(keyword));
 }
 function updateProfileFromSearch(query) {
   classifyKeywords(query).forEach(({ keyword, category }) => {
     const group = profile[profileKeys[category]];
-    if (!group.includes(keyword)) group.push(keyword);
+    if (!group.includes(keyword))
+      group.push(keyword);
   });
   saveProfile();
 }
-function normalizeKeyword(value) { return value.trim().replace(/\s+/g, ' ').toLowerCase(); }
-function escapeHtml(value) { return String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]); }
+function normalizeKeyword(value) {
+  return value.trim().replace(/\s+/g, ' ').toLowerCase();
+}
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, character => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[character]);
+}
 function classifyDirectKeyword(keyword) {
   const q = keyword.toLowerCase();
-  if (/대학|대학교|교양|수업|자취|대중교통|출퇴근|직장/.test(q)) return 'lifestyle';
-  if (/가성비|저렴|가격|만원|오래\s*쓸/.test(q)) return 'price';
-  if (/미니멀|깔끔|심플|밝은\s*색|디자인/.test(q)) return 'taste';
+  if (/대학|대학교|교양|수업|자취|대중교통|출퇴근|직장/.test(q))
+    return 'lifestyle';
+  if (/가성비|저렴|가격|만원|오래\s*쓸/.test(q))
+    return 'price';
+  if (/미니멀|깔끔|심플|밝은\s*색|디자인/.test(q))
+    return 'taste';
   return 'interest';
 }
 function addDirectKeyword(rawKeyword) {
   const keyword = rawKeyword.trim().replace(/\s+/g, ' ');
-  if (!keyword) return { ok: false, message: '추가할 키워드를 입력해 주세요.' };
+  if (!keyword) {
+    return {
+      ok: false,
+      message: '추가할 키워드를 입력해 주세요.'
+    };
+  }
   const category = classifyDirectKeyword(keyword);
   const group = profile[profileKeys[category]];
-  if (group.some(item => normalizeKeyword(item) === normalizeKeyword(keyword))) return { ok: false, message: '이미 등록된 키워드예요.' };
+  if (group.some(item => normalizeKeyword(item) === normalizeKeyword(keyword))) {
+    return {
+      ok: false,
+      message: '이미 등록된 키워드예요.'
+    };
+  }
   const removedIndex = removedKeywords.findIndex(item => normalizeKeyword(item) === normalizeKeyword(keyword));
-  if (removedIndex >= 0) removedKeywords.splice(removedIndex, 1);
+  if (removedIndex >= 0)
+    removedKeywords.splice(removedIndex, 1);
   group.push(keyword);
   localStorage.setItem(storage.removed, JSON.stringify(removedKeywords));
   saveProfile();
-  return { ok: true, category };
+  return {
+    ok: true,
+    category
+  };
 }
-
 const won = value => `${value.toLocaleString('ko-KR')}원`;
-// 모든 관심상품 UI에서 동일한 외곽선과 비율을 유지하는 공통 하트 SVG입니다.
 const heartIcon = () => '<svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.6c0 5.2-8.8 10-8.8 10s-8.8-4.8-8.8-10A4.8 4.8 0 0 1 12 5.4a4.8 4.8 0 0 1 8.8 3.2Z"/></svg>';
 const detailInfoIcon = type => {
-  if (type === 'photo') return '<svg class="detail-info-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7.5"/><path d="M7.5 12.5 10.3 15l6.2-6"/></svg>';
-  if (type === 'check') return '<svg class="detail-info-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6.5 12.5 3.5 3.5 7.5-8"/></svg>';
+  if (type === 'photo') {
+    return '<svg class="detail-info-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7.5"/><path d="M7.5 12.5 10.3 15l6.2-6"/></svg>';
+  }
+  if (type === 'check') {
+    return '<svg class="detail-info-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6.5 12.5 3.5 3.5 7.5-8"/></svg>';
+  }
   return '<svg class="detail-info-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5 20 19H4L12 4.5Z"/><path d="M12 9v4.5M12 16.5h.01"/></svg>';
 };
 const imageSource = image => typeof image === 'string' ? image : image.src;
@@ -161,30 +231,31 @@ const homeView = document.querySelector('#home');
 const headerSearchForm = document.querySelector('#header-search-form');
 const homeSearchSlot = document.querySelector('#home-search-slot');
 let isSearched = false;
-
-// 검색 결과는 홈 안에서 상품 목록 위에 표시해 기존 상품 컬렉션을 유지합니다.
 homeView.insertBefore(resultView, homeView.querySelector('.home-collection'));
 resultView.classList.remove('view');
 resultView.hidden = true;
-
 function setSearchLayout(searched, useAi = false) {
   isSearched = searched;
   const topbar = document.querySelector('.topbar');
   document.querySelector('#home-search-hero').hidden = searched;
   document.querySelector('#search-condition-summary').hidden = !searched || !useAi;
   topbar.classList.toggle('search-active', searched);
-  if (searched) topbar.insertBefore(headerSearchForm, document.querySelector('.market-actions'));
-  else homeSearchSlot.append(headerSearchForm);
+  if (searched) {
+    topbar.insertBefore(headerSearchForm, document.querySelector('.market-actions'));
+  }
+  else {
+    homeSearchSlot.append(headerSearchForm);
+  }
 }
 setSearchLayout(false);
-
 function showView(view) {
   document.querySelectorAll('.view').forEach(section => section.classList.toggle('active', section.id === view));
   document.querySelectorAll('.nav-link').forEach(link => link.classList.toggle('active', link.dataset.view === view));
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 }
-
-// `verdict` 데이터가 연결되기 전까지는 검색 결과의 순서로 데모 배지를 표시합니다.
 function renderProducts(target, items, { showVerdict = false } = {}) {
   const root = document.querySelector(target);
   root.replaceChildren(...items.map((item, index) => {
@@ -207,8 +278,11 @@ function renderProducts(target, items, { showVerdict = false } = {}) {
     card.tabIndex = 0;
     card.setAttribute('role', 'button');
     card.setAttribute('aria-label', `${item.name} 구매 판단 상세 보기`);
-    if (showVerdict) node.querySelector('.rank').innerHTML = `<span class="judgment-badge ${decision.key}">${decision.label}</span>`;
-    else node.querySelector('.rank').remove();
+    if (showVerdict) {
+      node.querySelector('.rank').innerHTML = `<span class="judgment-badge ${decision.key}">${decision.label}</span>`;
+    } else {
+      node.querySelector('.rank').remove();
+    }
     node.querySelector('.match').remove();
     node.querySelector('.category').remove();
     node.querySelector('.location').textContent = `${item.location} · ${item.uploadedAt}`;
@@ -242,111 +316,177 @@ function renderProducts(target, items, { showVerdict = false } = {}) {
     return node;
   }));
 }
-
 const verdicts = [
   { key: 'recommend', label: '추천' },
   { key: 'info', label: '정보 부족' },
   { key: 'low', label: '추천도 낮음' },
   { key: 'reject', label: '비추천' }
 ];
-
 function getProductVerdict(item) {
   return item.verdict || verdicts[Math.max(0, products.findIndex(product => product.id === item.id)) % verdicts.length];
 }
-
-function openDetail(productId, { basic = false } = {}) {
-  const item = products.find(product => product.id === productId);
-  if (!item) return;
-
-  const seller = sellerProfiles[item.id] || { name: '이웃 판매자', location: item.location, temperature: '40.0°C', image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=160&q=80' };
-  const verdict = getProductVerdict(item);
-  const images = Array.isArray(item.images) && item.images.length ? item.images : [item.image];
-  const imageNotes = item.imageTags?.length ? item.imageTags.join(' · ') : '사진으로 상태를 확인해 보세요.';
-  const budgetCondition = activeSearch?.chips?.find(([key]) => key === '예산')?.[1];
-  const purposeCondition = activeSearch?.chips?.find(([key]) => key === '용도')?.[1];
-  const priceText = won(item.price);
-  const decisionCards = [
-    budgetCondition ? `예산 ${budgetCondition} 기준에서 ${priceText}으로 가격 조건을 확인할 수 있어요.` : `${priceText} 상품이며, 예산 조건은 판매글에서 따로 확인해 보세요.`,
-    purposeCondition ? `${purposeCondition} 용도와 ${item.tags?.[0] || '상품 구성'}의 관계를 확인해 보세요.` : `${item.tags?.[0] || '상품 구성'} 특성이 사용 목적에 맞는지 확인해 보세요.`,
-    item.reason || '판매글과 사진 정보를 바탕으로 상품 상태를 확인해 보세요.',
-    '무게 정보가 없어 휴대성 조건은 판매자에게 확인이 필요해요.'
-  ];
-  const checkpointItems = [
-    { title: '판매글 상태', detail: item.condition, question: '판매글에 적어주신 상태를 자세히 알 수 있을까요?' },
-    { title: '사진 확인', detail: imageNotes, question: '사진에서 보이는 부분의 실제 상태를 확인할 수 있을까요?' },
-    { title: '거래 전 확인', detail: '실제 사용 기간과 거래 가능한 시간을 확인해 보세요.', question: '사용 기간과 거래 가능한 시간을 알려주실 수 있을까요?' }
-  ];
-  const genieIcon = './genie-transparent.png';
-  const warningIcon = './warning-triangle-transparent.png';
-  const questionIcon = './question-bubble-transparent.png';
+async function openDetail(productId, { basic = false } = {}) {
+  const item = activeSearch?.baseItems?.find(product => product.id === productId) || products.find(product => product.id === productId);
+  if (!item) {
+    console.error('상품을 찾지 못함:', productId);
+    return;
+  }
+  const seller = sellerProfiles[item.id] || {
+    name: '이웃 판매자',
+    location: item.location || '지역 정보 없음',
+    temperature: '40.0°C',
+    image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=160&q=80'
+  };
+  const images = Array.isArray(item.images) && item.images.length ? item.images : [item.image].filter(Boolean);
+  if (!images.length) images.push('https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=85');
+  const priceText = won(Number(item.price || 0));
+  const genieIcon = './image/genie-transparent.png';
+  const warningIcon = './image/warning-triangle-transparent.png';
+  const questionIcon = './image/question-bubble-transparent.png';
   const bookmarkIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4.5h11v15l-5.5-3.7-5.5 3.7z"/></svg>';
   const chatIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.2c0 4-3.6 7.2-8 7.2a9.5 9.5 0 0 1-2.8-.4L5 20l1.1-3.1A6.6 6.6 0 0 1 4 11.2C4 7.2 7.6 4 12 4s8 3.2 8 7.2Z"/></svg>';
   const carouselMarkup = `<div class="product-carousel"><img src="${imageSource(images[0])}" style="object-position:${imagePosition(images[0])}" alt="${escapeHtml(item.name)}" />${images.length > 1 ? '<button class="carousel-arrow previous" type="button" aria-label="이전 이미지">‹</button><button class="carousel-arrow next" type="button" aria-label="다음 이미지">›</button>' : ''}<div class="carousel-count" aria-label="상품 이미지 순서">1 / ${images.length}</div></div>`;
   const sellerMarkup = `<section class="seller-profile" aria-label="판매자 정보"><img class="seller-avatar" src="${seller.image}" alt="${escapeHtml(seller.name)} 프로필" /><div class="seller-identity"><b>${escapeHtml(seller.name)}</b><span>${escapeHtml(seller.location)}</span></div><div class="seller-temperature"><b>${escapeHtml(seller.temperature)}</b><span>매너온도</span></div></section>`;
   const actionsMarkup = `<div class="message-footer"><button class="detail-save-button" type="button">${bookmarkIcon}<span>저장하기</span></button><button class="send-message" type="button">${chatIcon}<span>판매자에게 질문하기</span></button></div>`;
-  const basicContent = `<div class="detail-agent-content detail-basic-content"><h2>${escapeHtml(item.name)}</h2><strong class="detail-price">${priceText}</strong><p class="detail-basic-meta">${escapeHtml(item.location)} · ${escapeHtml(item.uploadedAt)} · 조회 234</p><section class="seller-description" aria-label="판매자가 작성한 상품 설명"><p>${escapeHtml(item.description || '')}</p></section>${actionsMarkup}</div>`;
-  const aiContent = `<div class="detail-agent-content"><span class="judgment-badge ${verdict.key}">${verdict.label}</span><h2>${escapeHtml(item.name)}</h2><strong class="detail-price">${priceText}</strong><p class="detail-basic-meta">${escapeHtml(item.location)} · ${escapeHtml(item.uploadedAt)} · 조회 234</p><section class="detail-section decision-section"><h3><img class="section-title-icon genie-icon" src="${genieIcon}" alt="" />건지니 판단</h3><div class="decision-grid">${decisionCards.map(text => `<p>${escapeHtml(text)}</p>`).join('')}</div></section><section class="detail-section checkpoint-section"><h3><img class="section-title-icon" src="${warningIcon}" alt="" />구매 전 체크포인트</h3><div class="checkpoint-list">${checkpointItems.map(entry => `<article><b>${escapeHtml(entry.title)}</b><p>${escapeHtml(entry.detail)}</p></article>`).join('')}</div></section><section class="detail-section question-box"><h3><img class="section-title-icon" src="${questionIcon}" alt="" />판매자에게 물어보기</h3>${verdict.key === 'info' ? '<p class="info-warning"><b>❗</b><span>정보 부족 상품이에요!</span></p>' : ''}<div class="question-card-list">${checkpointItems.map((entry, index) => `<button class="question-card${index === 0 ? ' selected' : ''}" type="button" data-question="${escapeHtml(entry.question)}">${escapeHtml(entry.question)}</button>`).join('')}</div></section>${actionsMarkup}</div>`;
-  const mediaMarkup = `<div class="detail-agent-media">${carouselMarkup}${sellerMarkup}${basic ? '' : '<aside class="detail-ai-notice"><b>건지니가 분석한 상품이에요</b><p>AI 분석 결과는 참고용이며, 최종 구매 결정은 소비자 본인의 판단에 따라 이루어집니다.</p></aside>'}</div>`;
   const modal = document.createElement('div');
   modal.className = 'detail-modal';
-  modal.innerHTML = `<article class="detail-dialog detail-agent-layout${basic ? ' detail-basic-layout' : ''}" role="dialog" aria-modal="true" aria-label="상품 상세"><button class="modal-close" type="button" aria-label="상세 닫기">×</button>${mediaMarkup}${basic ? basicContent : aiContent}</article>`;
   document.body.append(modal);
   const previousBodyOverflow = document.body.style.overflow;
   document.body.style.overflow = 'hidden';
-
-  const carouselImage = modal.querySelector('.product-carousel img');
-  let imageIndex = 0;
-  const updateCarousel = () => {
-    carouselImage.src = imageSource(images[imageIndex]);
-    carouselImage.style.objectPosition = imagePosition(images[imageIndex]);
-    const count = modal.querySelector('.carousel-count');
-    if (count) count.textContent = `${imageIndex + 1} / ${images.length}`;
-  };
-  modal.querySelector('.carousel-arrow.previous')?.addEventListener('click', () => { if (imageIndex > 0) { imageIndex -= 1; updateCarousel(); } });
-  modal.querySelector('.carousel-arrow.next')?.addEventListener('click', () => { if (imageIndex < images.length - 1) { imageIndex += 1; updateCarousel(); } });
-
-  const saveButton = modal.querySelector('.detail-save-button');
-  const renderDetailSave = () => {
-    const isSaved = savedItemIds.includes(item.id);
-    saveButton.classList.toggle('saved', isSaved);
-    saveButton.innerHTML = `${bookmarkIcon}<span>${isSaved ? '저장됨' : '저장하기'}</span>`;
-  };
-  renderDetailSave();
-
-  let selectedQuestion = checkpointItems[0].question;
-  modal.querySelectorAll('.question-card').forEach(button => button.addEventListener('click', () => {
-    selectedQuestion = button.dataset.question;
-    modal.querySelectorAll('.question-card').forEach(card => card.classList.toggle('selected', card === button));
-  }));
   const closeModal = () => {
     document.body.style.overflow = previousBodyOverflow;
     modal.remove();
   };
-  modal.querySelector('.modal-close').addEventListener('click', closeModal);
-  modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
-  modal.querySelector('.send-message').addEventListener('click', event => {
-    const message = selectedQuestion.trim();
-    if (!message) { showToast('판매자에게 보낼 메시지를 입력해 주세요.'); return; }
-    event.currentTarget.innerHTML = `${chatIcon}<span>질문 보냄</span>`;
-    event.currentTarget.disabled = true;
-    showToast('Demo MVP: 메시지 전송 완료로 표시했어요.');
-  });
-  saveButton.addEventListener('click', () => {
-    if (savedItemIds.includes(item.id)) savedItemIds = savedItemIds.filter(id => id !== item.id);
-    else savedItemIds = [item.id, ...savedItemIds].slice(0, 4);
-    localStorage.setItem(storage.saved, JSON.stringify(savedItemIds));
-    renderHomeCollections();
+  function bindCommonEvents(questionOptions = []) {
+    const carouselImage = modal.querySelector('.product-carousel img');
+    let imageIndex = 0;
+    const updateCarousel = () => {
+      if (!carouselImage) return;
+      carouselImage.src = imageSource(images[imageIndex]);
+      carouselImage.style.objectPosition = imagePosition(images[imageIndex]);
+      const count = modal.querySelector('.carousel-count');
+      if (count) count.textContent = `${imageIndex + 1} / ${images.length}`;
+    };
+    modal.querySelector('.carousel-arrow.previous')?.addEventListener('click', () => {
+      if (imageIndex > 0) {
+        imageIndex -= 1;
+        updateCarousel();
+      }
+    });
+    modal.querySelector('.carousel-arrow.next')?.addEventListener('click', () => {
+      if (imageIndex < images.length - 1) {
+        imageIndex += 1;
+        updateCarousel();
+      }
+    });
+    const saveButton = modal.querySelector('.detail-save-button');
+    const renderDetailSave = () => {
+      if (!saveButton) return;
+      const isSaved = savedItemIds.includes(item.id);
+      saveButton.classList.toggle('saved', isSaved);
+      saveButton.innerHTML = `${bookmarkIcon}<span>${isSaved ? '저장됨' : '저장하기'}</span>`;
+    };
     renderDetailSave();
-    showToast(savedItemIds.includes(item.id) ? '저장한 상품에 추가했어요.' : '저장을 취소했어요.');
+    saveButton?.addEventListener('click', () => {
+      if (savedItemIds.includes(item.id)) savedItemIds = savedItemIds.filter(id => id !== item.id);
+      else savedItemIds = [item.id, ...savedItemIds].slice(0, 4);
+      localStorage.setItem(storage.saved, JSON.stringify(savedItemIds));
+      renderHomeCollections();
+      renderDetailSave();
+      showToast(savedItemIds.includes(item.id) ? '저장한 상품에 추가했어요.' : '저장을 취소했어요.');
+    });
+    let selectedQuestion = questionOptions[0] || '';
+    modal.querySelectorAll('.question-card').forEach(button => {
+      button.addEventListener('click', () => {
+        selectedQuestion = button.dataset.question || '';
+        modal.querySelectorAll('.question-card').forEach(card => card.classList.toggle('selected', card === button));
+      });
+    });
+    modal.querySelector('.send-message')?.addEventListener('click', event => {
+      if (basic) {
+        showToast('Demo MVP: 판매자에게 메시지를 보냈어요.');
+        return;
+      }
+      const message = selectedQuestion.trim();
+      if (!message) {
+        showToast('판매자에게 보낼 질문을 선택해 주세요.');
+        return;
+      }
+      event.currentTarget.innerHTML = `${chatIcon}<span>질문 보냄</span>`;
+      event.currentTarget.disabled = true;
+      showToast('판매자에게 질문을 보냈어요.');
+    });
+    modal.querySelector('.modal-close')?.addEventListener('click', closeModal);
+    modal.addEventListener('click', event => {
+      if (event.target === modal) closeModal();
+    });
+  }
+  if (basic) {
+    const basicContent = `<div class="detail-agent-content detail-basic-content"><h2>${escapeHtml(item.name)}</h2><strong class="detail-price">${priceText}</strong><p class="detail-basic-meta">${escapeHtml(item.location || '')} · ${escapeHtml(item.uploadedAt || '방금 전')} · 조회 234</p><section class="seller-description" aria-label="판매자가 작성한 상품 설명"><p>${escapeHtml(item.description || '')}</p></section>${actionsMarkup}</div>`;
+    const mediaMarkup = `<div class="detail-agent-media">${carouselMarkup}${sellerMarkup}</div>`;
+    modal.innerHTML = `<article class="detail-dialog detail-agent-layout detail-basic-layout" role="dialog" aria-modal="true" aria-label="상품 상세"><button class="modal-close" type="button" aria-label="상세 닫기">×</button>${mediaMarkup}${basicContent}</article>`;
+    bindCommonEvents();
+    return;
+  }
+  const loadingMediaMarkup = `<div class="detail-agent-media">${carouselMarkup}${sellerMarkup}<aside class="detail-ai-notice"><b>건지니가 분석한 상품이에요</b><p>AI 분석 결과는 참고용이며, 최종 구매 결정은 소비자 본인의 판단에 따라 이루어집니다.</p></aside></div>`;
+  modal.innerHTML = `<article class="detail-dialog detail-agent-layout" role="dialog" aria-modal="true" aria-label="상품 분석 중"><button class="modal-close" type="button" aria-label="상세 닫기">×</button>${loadingMediaMarkup}<div class="detail-agent-content" style="display:flex;align-items:center;justify-content:center;min-height:420px;text-align:center"><div><div style="color:var(--orange);font-size:14px;font-weight:700;margin-bottom:12px">✦ GEONJINI</div><h2 style="margin-bottom:12px">건지니가 매물을 검토하고 있어요</h2><p style="color:#777;line-height:1.8;font-size:13px">판매글과 상품 정보를 확인하고<br>구매 조건에 맞는지 판단하고 있어요.</p></div></div></article>`;
+  modal.querySelector('.modal-close')?.addEventListener('click', closeModal);
+  modal.addEventListener('click', event => {
+    if (event.target === modal) closeModal();
   });
+  let final = {
+    verdict: '확인 필요',
+    recommendation_score: 0,
+    summary: '검색 조건에 맞는 매물입니다. 건지니의 상세 검토 결과를 현재 불러오지 못했습니다.',
+    reasons: item.reason ? [item.reason] : ['검색 조건을 바탕으로 선별된 매물입니다.'],
+    uncertainties: ['상품의 실제 상태를 추가로 확인하는 것이 좋습니다.'],
+    seller_questions: ['제품의 실제 외관과 주요 기능 상태를 확인할 수 있을까요?']
+  };
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/api/items/${item.id}/evaluate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ conditions: activeSearch?.conditions || {} })
+    });
+    if (!response.ok) throw new Error(`건지니 평가 오류: ${response.status}`);
+    const evaluation = await response.json();
+    console.log('건지니 평가 결과:', evaluation);
+    if (evaluation?.final) final = evaluation.final;
+  } catch (error) {
+    console.error('건지니 상세 검토 실패:', error);
+  }
+  if (!document.body.contains(modal)) return;
+  const verdictMap = {
+    '추천': { key: 'recommend', label: '추천' },
+    '확인 필요': { key: 'info', label: '확인 필요' },
+    '기다리기': { key: 'low', label: '기다리기' },
+    '비추천': { key: 'reject', label: '비추천' }
+  };
+  const verdict = verdictMap[final.verdict] || verdictMap['확인 필요'];
+  const recommendationScore = Number(final.recommendation_score ?? 0);
+  const reasons = Array.isArray(final.reasons) && final.reasons.length ? final.reasons : ['검색 조건을 바탕으로 선별된 매물입니다.'];
+  const uncertainties = Array.isArray(final.uncertainties) && final.uncertainties.length ? final.uncertainties : ['현재 추가로 확인할 주요 정보가 없습니다.'];
+  const questions = Array.isArray(final.seller_questions) && final.seller_questions.length ? final.seller_questions : ['제품 상태를 직접 확인할 수 있을까요?'];
+  const decisionCards = reasons.slice(0, 4);
+  const checkpointItems = uncertainties.slice(0, 3).map((detail, index) => ({
+    title: index === 0 ? '추가 확인' : `확인 사항 ${index + 1}`,
+    detail
+  }));
+  const scorePercent = Math.max(0, Math.min(5, recommendationScore)) / 5 * 100;
+  const scoreMarkup = `<div class="rating" style="margin:10px 0 16px"><div class="stars"><span class="stars-empty">★★★★★</span><span class="stars-fill" style="width:${scorePercent}%">★★★★★</span></div><span class="rating-score">${recommendationScore.toFixed(1)} / 5.0</span></div>`;
+  const aiContent = `<div class="detail-agent-content"><span class="judgment-badge ${verdict.key}">${verdict.label}</span><h2>${escapeHtml(item.name)}</h2><strong class="detail-price">${priceText}</strong><p class="detail-basic-meta">${escapeHtml(item.location || '')} · ${escapeHtml(item.uploadedAt || '방금 전')} · 조회 234</p>${scoreMarkup}<section class="detail-section decision-section"><h3><img class="section-title-icon genie-icon" src="${genieIcon}" alt="" />건지니 판단</h3><p class="decision-summary">${escapeHtml(final.summary || '')}</p><div class="decision-grid" style="margin-top:8px">${decisionCards.map(text => `<p>${escapeHtml(text)}</p>`).join('')}</div></section><section class="detail-section checkpoint-section"><h3><img class="section-title-icon" src="${warningIcon}" alt="" />구매 전 체크포인트</h3><div class="checkpoint-list">${checkpointItems.map(entry => `<article><b>${escapeHtml(entry.title)}</b><p>${escapeHtml(entry.detail)}</p></article>`).join('')}</div></section><section class="detail-section question-box"><h3><img class="section-title-icon" src="${questionIcon}" alt="" />판매자에게 물어보기</h3>${verdict.key === 'info' ? `<p class="info-warning"><b>❗</b><span>추가 확인이 필요한 상품이에요.</span></p>` : ''}<div class="question-card-list">${questions.slice(0, 3).map((question, index) => `<button class="question-card${index === 0 ? ' selected' : ''}" type="button" data-question="${escapeHtml(question)}">${escapeHtml(question)}</button>`).join('')}</div></section>${actionsMarkup}</div>`;
+  const mediaMarkup = `<div class="detail-agent-media">${carouselMarkup}${sellerMarkup}<aside class="detail-ai-notice"><b>건지니가 분석한 상품이에요</b><p>AI 분석 결과는 참고용이며, 최종 구매 결정은 소비자 본인의 판단에 따라 이루어집니다.</p></aside></div>`;
+  modal.innerHTML = `<article class="detail-dialog detail-agent-layout" role="dialog" aria-modal="true" aria-label="상품 상세"><button class="modal-close" type="button" aria-label="상세 닫기">×</button>${mediaMarkup}${aiContent}</article>`;
+  bindCommonEvents(questions.slice(0, 3));
 }
-
 function showToast(message) {
   document.querySelector('.toast')?.remove();
-  const toast = document.createElement('div'); toast.className = 'toast'; toast.textContent = message; document.body.append(toast);
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  document.body.append(toast);
   setTimeout(() => toast.remove(), 2200);
 }
-
 function parseNaturalLanguageQuery(query) {
   const q = normalizeKeyword(query);
   const keywordRules = [
@@ -360,31 +500,24 @@ function parseNaturalLanguageQuery(query) {
   ];
   const matchedRule = keywordRules.find(rule => rule.terms.some(term => q.includes(term)));
   const priceMatch = q.match(/(\d+(?:\.\d+)?)\s*만\s*원?(?:\s*(이하|미만|정도|대))?|([\d,]+)\s*원\s*(이하|미만|정도|대)?/);
-  const maxPrice = priceMatch
-    ? (priceMatch[1] ? Math.round(Number(priceMatch[1]) * 10000) : Number(priceMatch[3].replace(/,/g, '')))
-    : null;
+  const maxPrice = priceMatch ? priceMatch[1] ? Math.round(Number(priceMatch[1]) * 10000) : Number(priceMatch[3].replace(/,/g, '')) : null;
   const experience = /초보|입문|처음/.test(q) ? '초보자' : /중급/.test(q) ? '중급자' : /상급/.test(q) ? '상급자' : null;
   const purpose = /대학|대학교|교양|수업/.test(q) ? '대학교 테니스 수업' : /자취/.test(q) ? '자취방 사용' : /캠핑/.test(q) ? '캠핑' : null;
   return { keyword: matchedRule?.keyword || null, terms: matchedRule?.terms || [], category: matchedRule?.category || null, maxPrice, experience, purpose };
 }
-
 function detectSearch(query) {
   const conditions = parseNaturalLanguageQuery(query);
-  const scoredItems = products
-    .map(item => {
-      const text = normalizeKeyword([item.name, item.category, item.description, item.condition, ...(item.tags || [])].join(' '));
-      const keywordMatched = !conditions.terms.length || conditions.terms.some(term => text.includes(term));
-      if (!keywordMatched) return null;
-      let score = conditions.terms.filter(term => text.includes(term)).length * 5;
-      if (conditions.category === item.category) score += 3;
-      if (conditions.maxPrice && item.price <= conditions.maxPrice) score += 3;
-      if (conditions.experience === '초보자' && /초보|입문|수업/.test(text)) score += 2;
-      if (conditions.purpose && conditions.purpose.split(' ').some(term => text.includes(term))) score += 2;
-      return { item, score };
-    })
-    .filter(Boolean)
-    .sort((a, b) => b.score - a.score)
-    .map(({ item }) => item);
+  const scoredItems = products.map(item => {
+    const text = normalizeKeyword([item.name, item.category, item.description, item.condition, ...(item.tags || [])].join(' '));
+    const keywordMatched = !conditions.terms.length || conditions.terms.some(term => text.includes(term));
+    if (!keywordMatched) return null;
+    let score = conditions.terms.filter(term => text.includes(term)).length * 5;
+    if (conditions.category === item.category) score += 3;
+    if (conditions.maxPrice && item.price <= conditions.maxPrice) score += 3;
+    if (conditions.experience === '초보자' && /초보|입문|수업/.test(text)) score += 2;
+    if (conditions.purpose && conditions.purpose.split(' ').some(term => text.includes(term))) score += 2;
+    return { item, score };
+  }).filter(Boolean).sort((a, b) => b.score - a.score).map(({ item }) => item);
   const chips = [];
   if (conditions.keyword) chips.push(['상품', conditions.keyword]);
   if (conditions.maxPrice) chips.push(['예산', `${Math.round(conditions.maxPrice / 10000)}만원 이하`]);
@@ -401,8 +534,6 @@ function searchByKeyword(query) {
     return keywords.some(keyword => text.includes(keyword));
   });
 }
-
-// 해커톤 시연에서는 어떤 입력에도 기존 테니스 라켓 상품을 안정적으로 보여줍니다.
 const getDemoTennisRacketProducts = () => products.filter(item => /테니스\s*라켓/.test(item.name));
 const demoConditionChips = () => [
   ['용도', '대학교 테니스 수업'],
@@ -410,7 +541,6 @@ const demoConditionChips = () => [
   ['사용자', '초보자'],
   ['우선순위', '가벼움 · 상태']
 ];
-
 function filteredSearchItems() {
   if (!activeSearch) return [];
   if (activeSearch.forcedDemo) return activeSearch.baseItems;
@@ -423,23 +553,18 @@ function filteredSearchItems() {
     return true;
   }));
 }
-
 function renderSearchExperience() {
   if (!activeSearch) return;
-  const { query, result, useAi, chips } = activeSearch;
+  const { query, useAi, chips } = activeSearch;
   const analysisCard = document.querySelector('#analysis-card');
   const aiChatbot = document.querySelector('#ai-chatbot');
   const plainSearchHeading = document.querySelector('#plain-search-heading');
   plainSearchHeading.hidden = useAi;
   plainSearchHeading.querySelector('.plain-result-query').textContent = `“${query}”`;
-  analysisCard.innerHTML = useAi ? `<div class="analysis-intro"><b>반영된 조건</b><p>기본 목적, 핵심 조건을 함께 반영했습니다.</p></div><div class="condition-list editable-conditions">${chips.map(([key, value], index) => `<button type="button" class="condition-chip" data-condition-index="${index}"><b>${key}</b>${value} <span aria-label="조건 삭제">×</span></button>`).join('')}</div>` : '';
+  analysisCard.innerHTML = useAi ? `<div class="analysis-intro"><b>반영된 조건</b><p>현재 검색 조건과 사용자 프로필을 함께 반영했습니다.</p></div><div class="condition-list editable-conditions">${chips.map(([key, value], index) => `<button type="button" class="condition-chip" data-condition-index="${index}"><b>${escapeHtml(key)}</b>${escapeHtml(value)}<span aria-label="조건 삭제">×</span></button>`).join('')}</div>` : '';
   aiChatbot.hidden = true;
-  // MVP 시연: 입력 문장과 무관하게 저장된 테니스 라켓 8개만 바로 보여줍니다.
-  const searchItems = getDemoTennisRacketProducts();
-  const arrangedItems = useAi ? searchItems : [...searchItems].sort(() => Math.random() - 0.5);
-  renderProducts('#search-product-grid', arrangedItems, { showVerdict: useAi });
+  renderProducts('#search-product-grid', filteredSearchItems(), { showVerdict: false });
 }
-
 function applySearchRefinement(message) {
   if (!activeSearch || !activeSearch.useAi) return;
   const price = message.match(/(\d+)\s*만\s*원/);
@@ -451,37 +576,147 @@ function applySearchRefinement(message) {
     activeSearch.chips = activeSearch.chips.filter(([key]) => key !== '상태');
     activeSearch.chips.push(['상태', '좋은 제품']);
   }
-  if (/더 많이/.test(message)) activeSearch.baseItems = products;
   renderSearchExperience();
 }
-
-function runSearch(query, showResults = true, useAi = true) {
-  const demoItems = getDemoTennisRacketProducts();
-  const result = { label: '테니스 라켓', chips: demoConditionChips(), items: demoItems };
-  activeSearch = { query, result, useAi, chips: result.chips.map(([key, value]) => [key, value]), baseItems: demoItems, forcedDemo: true };
-  if (showResults) {
-    if (useAi) updateProfileFromSearch(query);
-    searchHistory = [{ query, itemIds: result.items.map(item => item.id) }, ...searchHistory.filter(entry => entry.query !== query)].slice(0, 8);
-    localStorage.setItem(storage.history, JSON.stringify(searchHistory));
+function makeConditionChips(conditions) {
+  const chips = [];
+  const formatValue = condition => {
+    const hasNumber = condition.number_value !== null && condition.number_value !== undefined;
+    if (!hasNumber) {
+      if (condition.key === 'weight_kg') return condition.value === '가벼운' ? '가벼운 제품' : condition.value || '가벼운 제품';
+      if (condition.key === 'usage_months') return condition.value === '짧음' ? '짧을수록 좋음' : condition.value || '짧은 사용 기간';
+      if (condition.key === 'accessories') return condition.value === '전부' ? '전체 구성품 선호' : condition.value || '구성품 포함';
+      if (Array.isArray(condition.values) && condition.values.length) return condition.values.join(' · ');
+      return condition.value || '';
+    }
+    let value = condition.number_value;
+    if (condition.key === 'price') {
+      value = value % 10000 === 0 ? `${value / 10000}만원` : `${value.toLocaleString()}원`;
+      return `${value} ${condition.operator === '<=' ? '이하' : condition.operator === '>=' ? '이상' : ''}`.trim();
+    }
+    const operatorText = { '<=': '이하', '>=': '이상', '==': '', contains: '포함', in: '중 하나' };
+    return `${value}${condition.unit || ''} ${operatorText[condition.operator] || ''}`.trim();
+  };
+  const getLabel = condition => {
+    if (condition.key === 'price') return '예산';
+    if (condition.key === 'distance_km' || condition.unit === 'km') return '거리';
+    if (condition.key === 'storage_gb') return '저장 용량';
+    return condition.label || condition.key || '조건';
+  };
+  if (conditions.purpose) chips.push(['용도', conditions.purpose]);
+  if (Array.isArray(conditions.keywords)) {
+    conditions.keywords.forEach((keyword, index) => chips.push([index === 0 ? '상품' : '키워드', keyword]));
+  }
+  for (const condition of conditions.hard_conditions || []) chips.push([getLabel(condition), formatValue(condition)]);
+  for (const preference of conditions.preferences || []) chips.push([`선호 · ${getLabel(preference)}`, formatValue(preference)]);
+  return chips;
+}
+async function runSearch(query, showResults = true, useAi = true) {
+  query = query.trim();
+  if (!query) return;
+  if (!useAi) {
+    const items = searchByKeyword(query);
+    activeSearch = {
+      query,
+      useAi: false,
+      conditions: {},
+      chips: [],
+      baseItems: items,
+      forcedDemo: false,
+      result: { label: query, items }
+    };
+    if (showResults) {
+      searchHistory = [{ query, itemIds: items.map(item => item.id) }, ...searchHistory.filter(entry => entry.query !== query)].slice(0, 8);
+      localStorage.setItem(storage.history, JSON.stringify(searchHistory));
+    }
+    renderSearchExperience();
+    if (showResults) {
+      resultView.hidden = false;
+      resultView.classList.remove('ai-search-active');
+      resultView.classList.add('basic-search-active');
+      setSearchLayout(true, false);
+      showView('home');
+    }
+    return;
+  }
+  const profileContext = buildProfileSearchContext();
+  console.log('건지니 프로필 전송값:', profileContext);
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/natural-search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query,
+        profile_keywords: profileContext.profileKeywords,
+        profile_preferences: profileContext.profilePreferences
+      })
+    });
+    if (!response.ok) throw new Error(`API 오류: ${response.status}`);
+    const data = await response.json();
+    console.log('건지니 API 응답:', data);
+    const defaultImage = 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=85';
+    const apiItems = (data.results || []).map(item => {
+      const existing = products.find(product => product.id === item.id);
+      const image = existing?.image || defaultImage;
+      const images = existing?.images?.length ? existing.images : [image];
+      return {
+        id: item.id,
+        name: item.title || item.name || '상품',
+        price: Number(item.price || 0),
+        category: item.category || item.subcategory || '기타',
+        location: item.location || '지역 정보 없음',
+        uploadedAt: existing?.uploadedAt || '방금 전',
+        image,
+        images,
+        fallbackImage: existing?.fallbackImage || image,
+        description: item.description || '',
+        condition: existing?.condition || '상세 평가에서 확인',
+        tags: existing?.tags || [],
+        imageTags: existing?.imageTags || ['상세 평가에서 확인'],
+        reason: Array.isArray(item.reasons) && item.reasons.length ? item.reasons.join(' · ') : '조건을 바탕으로 추천한 상품입니다.',
+        score: Number(item.score || 0)
+      };
+    });
+    activeSearch = {
+      query,
+      useAi: true,
+      conditions: data.conditions || {},
+      baseItems: apiItems,
+      chips: makeConditionChips(data.conditions || {}),
+      result: {
+        label: data.conditions?.keywords?.[0] || data.conditions?.category || '맞춤 중고 상품',
+        items: apiItems
+      },
+      forcedDemo: false,
+      meta: data.meta || {}
+    };
+    updateProfileFromSearch(query);
     renderProfile();
     renderHomeCollections();
-  }
-  renderSearchExperience();
-  if (showResults) {
-    resultView.hidden = false;
-    resultView.classList.toggle('ai-search-active', useAi);
-    resultView.classList.toggle('basic-search-active', !useAi);
-    setSearchLayout(true, useAi);
-    showView('home');
+    if (showResults) {
+      searchHistory = [{ query, itemIds: apiItems.map(item => item.id) }, ...searchHistory.filter(entry => entry.query !== query)].slice(0, 8);
+      localStorage.setItem(storage.history, JSON.stringify(searchHistory));
+    }
+    renderSearchExperience();
+    if (showResults) {
+      resultView.hidden = false;
+      resultView.classList.add('ai-search-active');
+      resultView.classList.remove('basic-search-active');
+      setSearchLayout(true, true);
+      showView('home');
+    }
+  } catch (error) {
+    console.error('건지니 검색 실패:', error);
+    showToast('AI 검색 중 오류가 발생했어요. 백엔드 실행 상태를 확인해 주세요.');
   }
 }
-
 function renderProfile() {
   document.querySelector('#profile-summary').innerHTML = `<div class="profile-icon">선</div><div><h3>김선규님의 컨텍스트가 추천에 반영되고 있어요</h3><p>${Object.values(profile).flat().slice(0, 4).join(' · ')} 외 ${Object.values(profile).flat().length - 4}가지</p></div>`;
   const editor = document.querySelector('#profile-form');
-  editor.innerHTML = `<section class="profile-keyword-entry"><h3>직접 키워드 입력하기</h3><div class="keyword-input-row"><span aria-hidden="true">⌕</span><input id="profile-keyword-input" autocomplete="off" placeholder="예) 테니스 라켓, 자취방 가구, 아이패드, 캠핑용품 등 관심 키워드를 입력해 주세요." aria-label="관심 키워드 직접 입력" /><button id="profile-keyword-add" type="button">추가</button></div><p class="keyword-help">입력한 키워드는 자동으로 분류되어 개인화 추천에 반영됩니다.</p><p id="keyword-error" class="keyword-error" role="alert"></p></section>` + Object.entries(profile).map(([title, tags]) => `<section class="profile-group"><h3>${title}</h3><div class="tag-editor">${tags.map(tag => `<button type="button" class="editable-tag selected" data-category="${title}" data-keyword="${escapeHtml(tag)}" aria-label="${escapeHtml(tag)} 삭제">${escapeHtml(tag)} <b aria-hidden="true">×</b></button>`).join('') || '<span class="empty-tags">검색 또는 직접 입력으로 키워드를 추가해 주세요.</span>'}</div></section>`).join('') + '<button class="profile-save" type="submit">변경 사항 저장하기</button><p class="save-note">저장했어요. 다음 추천부터 반영됩니다.</p>';
+  editor.innerHTML = `<section class="profile-keyword-entry"><h3>직접 키워드 입력하기</h3><div class="keyword-input-row"><span aria-hidden="true">⌕</span><input id="profile-keyword-input" autocomplete="off" placeholder="예) 테니스 라켓, 자취방 가구, 아이패드, 캠핑용품 등 관심 키워드를 입력해 주세요." aria-label="관심 키워드 직접 입력" /><button id="profile-keyword-add" type="button">추가</button></div><p class="keyword-help">입력한 키워드는 자동으로 분류되어 개인화 추천에 반영됩니다.</p><p id="keyword-error" class="keyword-error" role="alert"></p></section>` +
+    Object.entries(profile).map(([title, tags]) => `<section class="profile-group"><h3>${title}</h3><div class="tag-editor">${tags.map(tag => `<button type="button" class="editable-tag selected" data-category="${escapeHtml(title)}" data-keyword="${escapeHtml(tag)}" aria-label="${escapeHtml(tag)} 삭제">${escapeHtml(tag)}<b aria-hidden="true">×</b></button>`).join('') || '<span class="empty-tags">검색 또는 직접 입력으로 키워드를 추가해 주세요.</span>'}</div></section>`).join('') +
+    `<button class="profile-save" type="submit">변경 사항 저장하기</button><p class="save-note">저장했어요. 다음 추천부터 반영됩니다.</p>`;
 }
-
 function renderEmpty(target, text) {
   document.querySelector(target).innerHTML = `<article class="product-card" style="grid-column:1/-1;padding:24px;color:#72766f;font:13px 'Noto Sans KR'">${text}</article>`;
 }
@@ -491,8 +726,11 @@ function renderHomeCollections() {
   const featuredProducts = featuredIds.map(id => homeMarketProducts.find(item => item.id === id)).filter(Boolean);
   const remainingProducts = homeMarketProducts.filter(item => !featuredIds.includes(item.id));
   renderProducts('#recent-product-grid', [...featuredProducts, ...remainingProducts]);
-  if (savedItemIds.length) renderProducts('#saved-product-grid', savedItemIds.slice(0, 4).map(id => products.find(item => item.id === id)).filter(Boolean));
-  else renderEmpty('#saved-product-grid', '아직 저장한 상품이 없어요.');
+  if (savedItemIds.length) {
+    renderProducts('#saved-product-grid', savedItemIds.slice(0, 4).map(id => products.find(item => item.id === id)).filter(Boolean));
+  } else {
+    renderEmpty('#saved-product-grid', '아직 저장한 상품이 없어요.');
+  }
   renderSavedPage();
 }
 function renderSavedPage() {
@@ -500,7 +738,6 @@ function renderSavedPage() {
   if (items.length) renderProducts('#saved-page-grid', items);
   else renderEmpty('#saved-page-grid', '아직 저장한 상품이 없어요. 상품 카드의 저장 버튼으로 관심상품을 저장해 보세요.');
 }
-
 document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => {
   if (button.dataset.view === 'home') {
     resultView.hidden = true;
@@ -521,7 +758,6 @@ document.querySelectorAll('.category-nav button').forEach(button => button.addEv
 }));
 document.querySelectorAll('.location-action').forEach(button => button.addEventListener('click', () => showToast('현재 지역은 중구 필동이에요.')));
 document.querySelectorAll('.filter-bar button:not(.location-action)').forEach(button => button.addEventListener('click', () => showToast(`${button.textContent.replace(' ▾', '')} 필터는 MVP 화면입니다.`)));
-
 function submitCurrentSearch() {
   const input = document.querySelector('#header-search-input');
   const query = input.value.trim();
@@ -543,8 +779,13 @@ function renderSearchHistory() {
 }
 const headerSearchInput = document.querySelector('#header-search-input');
 const searchHistoryPanel = document.querySelector('#search-history');
-headerSearchInput.addEventListener('focus', () => { renderSearchHistory(); searchHistoryPanel.classList.add('visible'); });
-headerSearchInput.addEventListener('keydown', event => { if (event.key === 'Escape') searchHistoryPanel.classList.remove('visible'); });
+headerSearchInput.addEventListener('focus', () => {
+  renderSearchHistory();
+  searchHistoryPanel.classList.add('visible');
+});
+headerSearchInput.addEventListener('keydown', event => {
+  if (event.key === 'Escape') searchHistoryPanel.classList.remove('visible');
+});
 searchHistoryPanel.addEventListener('click', event => {
   const removeButton = event.target.closest('.history-remove');
   if (removeButton) {
@@ -556,16 +797,23 @@ searchHistoryPanel.addEventListener('click', event => {
     return;
   }
   const historyItem = event.target.closest('.history-item');
-  if (historyItem) { headerSearchInput.value = historyItem.dataset.query; runSearch(historyItem.dataset.query, true, aiSearchMode); searchHistoryPanel.classList.remove('visible'); }
+  if (historyItem) {
+    headerSearchInput.value = historyItem.dataset.query;
+    runSearch(historyItem.dataset.query, true, aiSearchMode);
+    searchHistoryPanel.classList.remove('visible');
+  }
 });
+
 document.querySelector('#search-mode-toggle').addEventListener('click', event => {
   aiSearchMode = !aiSearchMode;
   event.currentTarget.textContent = aiSearchMode ? 'ON' : 'OFF';
   event.currentTarget.classList.toggle('on', aiSearchMode);
   event.currentTarget.setAttribute('aria-pressed', String(aiSearchMode));
-  headerSearchInput.placeholder = aiSearchMode ? '우리 동네에서 5천원 이하의 돼지인형 찾아줘' : '찾고 싶은 물건을 검색해보세요';
+  headerSearchInput.placeholder = aiSearchMode ? '원하는 조건을 자연스럽게 말해보세요' : '찾고 싶은 물건을 검색해보세요';
 });
-document.addEventListener('click', event => { if (!event.target.closest('#header-search-form')) searchHistoryPanel.classList.remove('visible'); });
+document.addEventListener('click', event => {
+  if (!event.target.closest('#header-search-form')) searchHistoryPanel.classList.remove('visible');
+});
 document.querySelectorAll('[data-query]').forEach(button => button.addEventListener('click', () => {
   headerSearchInput.value = button.dataset.query;
   runSearch(button.dataset.query, true, aiSearchMode);
@@ -575,7 +823,13 @@ document.querySelector('#search-product-grid').addEventListener('click', event =
   if (card) openDetail(card.dataset.productId, { basic: activeSearch?.useAi === false });
 });
 document.querySelector('#search-product-grid').addEventListener('keydown', event => {
-  if (event.key === 'Enter' || event.key === ' ') { const card = event.target.closest('.product-card'); if (card) { event.preventDefault(); openDetail(card.dataset.productId, { basic: activeSearch?.useAi === false }); } }
+  if (event.key === 'Enter' || event.key === ' ') {
+    const card = event.target.closest('.product-card');
+    if (card) {
+      event.preventDefault();
+      openDetail(card.dataset.productId, { basic: activeSearch?.useAi === false });
+    }
+  }
 });
 document.querySelector('#analysis-card').addEventListener('click', event => {
   const chip = event.target.closest('[data-condition-index]');
@@ -595,12 +849,15 @@ document.querySelector('#analysis-card').addEventListener('click', event => {
   if (!grid) return;
   grid.addEventListener('click', event => {
     const card = event.target.closest('.product-card[data-product-id]');
-    if (card) openDetail(card.dataset.productId, ['#recent-product-grid', '#saved-product-grid', '#saved-page-grid'].includes(selector));
+    if (card) openDetail(card.dataset.productId, { basic: true });
   });
   grid.addEventListener('keydown', event => {
     if (event.key === 'Enter' || event.key === ' ') {
       const card = event.target.closest('.product-card[data-product-id]');
-      if (card) { event.preventDefault(); openDetail(card.dataset.productId, ['#recent-product-grid', '#saved-product-grid', '#saved-page-grid'].includes(selector)); }
+      if (card) {
+        event.preventDefault();
+        openDetail(card.dataset.productId, { basic: true });
+      }
     }
   });
 });
@@ -609,7 +866,11 @@ document.querySelector('#profile-form').addEventListener('click', event => {
     const input = document.querySelector('#profile-keyword-input');
     const outcome = addDirectKeyword(input.value);
     const message = document.querySelector('#keyword-error');
-    if (!outcome.ok) { message.textContent = outcome.message; message.style.display = 'block'; return; }
+    if (!outcome.ok) {
+      message.textContent = outcome.message;
+      message.style.display = 'block';
+      return;
+    }
     renderProfile();
     renderHomeCollections();
     showToast(`${profileKeys[outcome.category]}에 키워드를 추가했어요.`);
@@ -636,7 +897,6 @@ document.querySelector('#profile-form').addEventListener('submit', event => {
   saveProfile();
   document.querySelector('.save-note').style.display = 'block';
 });
-
 const chatPanel = document.querySelector('#chat-panel');
 const chatToggle = document.querySelector('#chat-toggle');
 const chatMessages = document.querySelector('#chat-messages');
@@ -652,12 +912,10 @@ document.querySelector('#chat-form').addEventListener('submit', event => {
   const message = input.value.trim();
   if (!message) return;
   applySearchRefinement(message);
-  chatMessages.insertAdjacentHTML('beforeend', `<p style="margin:0 0 10px 40px;padding:9px 11px;background:#fff0e9;border-radius:10px;text-align:right">${message.replace(/[<>&]/g, char => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' })[char])}</p><p style="margin:0 0 10px;padding:9px 11px;background:#f2f5f1;border-radius:10px">알겠어요. 말씀하신 조건을 우선으로 반영해 다시 살펴볼게요. 현재 추천 상품 중에서는 1위 상품이 가장 잘 맞습니다.</p>`);
+  chatMessages.insertAdjacentHTML('beforeend', `<p style="margin:0 0 10px 40px;padding:9px 11px;background:#fff0e9;border-radius:10px;text-align:right">${escapeHtml(message)}</p><p style="margin:0 0 10px;padding:9px 11px;background:#f2f5f1;border-radius:10px">알겠어요. 말씀하신 조건을 반영해 다시 살펴볼게요.</p>`);
   input.value = '';
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
-
 renderProducts('#personal-product-grid', [products[3], products[4], products[0], products[5], products[1], products[2]]);
 renderProfile();
 renderHomeCollections();
-runSearch('', false);
