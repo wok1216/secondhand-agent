@@ -4,13 +4,19 @@ from typing import Literal
 
 from dotenv import load_dotenv
 from google import genai
+from google.genai import types
 from pydantic import BaseModel, Field
 
 
 load_dotenv()
 
 client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY")
+    api_key=os.getenv("GEMINI_API_KEY"),
+    http_options=types.HttpOptions(
+        retry_options=types.HttpRetryOptions(
+            attempts=1
+        )
+    ),
 )
 
 MODEL_NAME = "gemini-3.5-flash"
@@ -45,6 +51,15 @@ class GenericReview(BaseModel):
 
     seller_questions: list[str] = Field(
         default_factory=list
+    )
+
+    recommendation_score: float = Field(
+        ge=1.0,
+        le=5.0,
+        description=(
+            "추천 근거와 비추천 근거를 종합한 "
+            "1.0~5.0점 추천 점수"
+        ),
     )
 
 
@@ -89,6 +104,46 @@ def review_generic_judgement(
 
 문제가 있다면 제공된 근거 범위 안에서만
 최종 결과를 수정한다.
+
+추천 점수 검토 규칙:
+
+1. Final Judge가 제시한 recommendation_score도 검토한다.
+
+2. 최종 추천 근거와 비추천 근거,
+   risk_flags, uncertainties,
+   Hard Condition 충족 여부를 종합한다.
+
+3. 필요하면 Final Judge의 점수를 수정한다.
+
+4. recommendation_score는
+   1.0~5.0 사이이며
+   반드시 0.5점 단위로 작성한다.
+
+5. 점수 기준:
+
+5.0:
+조건과 목적에 매우 잘 맞고
+중대한 위험이나 불확실성이 거의 없음.
+
+4.0~4.5:
+전반적으로 추천하지만
+경미한 단점이나 확인사항이 있음.
+
+3.0~3.5:
+구매 가능하지만
+확인할 정보나 단점이 꽤 있음.
+
+2.0~2.5:
+적합성이 낮거나
+위험 요소가 커서 적극 추천하기 어려움.
+
+1.0~1.5:
+Hard Condition 위반 또는
+중대한 위험이 있음.
+
+6. final_verdict와 recommendation_score가
+   서로 모순되지 않도록 한다.
+
 """
 
     response = client.models.generate_content(
@@ -99,6 +154,8 @@ def review_generic_judgement(
                 "application/json",
             "response_schema":
                 GenericReview,
+            "temperature":
+                0.0,
         },
     )
 

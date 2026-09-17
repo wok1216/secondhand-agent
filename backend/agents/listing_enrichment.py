@@ -4,6 +4,7 @@ from typing import Literal
 from dotenv import load_dotenv
 from google import genai
 from google.genai.errors import ServerError
+from google.genai import types
 from pydantic import BaseModel, Field
 
 from services.attribute_registry import (
@@ -23,13 +24,16 @@ from services.enrichment_store import (
 load_dotenv()
 
 client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY")
+    api_key=os.getenv("GEMINI_API_KEY"),
+    http_options=types.HttpOptions(
+        retry_options=types.HttpRetryOptions(
+            attempts=1
+        )
+    ),
 )
-
 MODEL_NAMES = [
+    "gemini-3.5-flash-lite",
     "gemini-3.5-flash",
-    "gemini-2.5-flash-lite",
-    "gemini-2.5-flash",
 ]
 
 

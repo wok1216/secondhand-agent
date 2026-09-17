@@ -4,20 +4,24 @@ from typing import Literal
 
 from dotenv import load_dotenv
 from google import genai
-from google.genai import errors
+from google.genai import errors, types
 from pydantic import BaseModel, Field
 
 
 load_dotenv()
 
 client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY")
+    api_key=os.getenv("GEMINI_API_KEY"),
+    http_options=types.HttpOptions(
+        retry_options=types.HttpRetryOptions(
+            attempts=1
+        )
+    ),
 )
 
 MODEL_NAMES = [
+    "gemini-3.5-flash-lite",
     "gemini-3.5-flash",
-    "gemini-2.5-flash-lite",
-    "gemini-2.5-flash",
 ]
 
 
@@ -39,6 +43,8 @@ def _generate_judgement(prompt: str):
                         "application/json",
                     "response_schema":
                         GenericJudgement,
+                    "temperature":
+                        0.0,
                 },
             )
 
@@ -68,6 +74,12 @@ class GenericJudgement(BaseModel):
         "기다리기",
         "비추천",
     ]
+
+    recommendation_score: float = Field(
+        ge=1.0,
+        le=5.0,
+        description="구매 추천 점수. 1.0~5.0점, 0.5점 단위"
+    )
 
     summary: str
 
@@ -166,6 +178,43 @@ def judge_generic_listing(
 비추천:
 명확한 필수조건 위반이나
 중대한 위험 요소가 확인된 경우.
+
+추천 점수 기준:
+
+최종 판단과 추천 근거, 비추천 근거,
+위험 요소, 불확실성을 종합하여
+1.0~5.0점 사이의 recommendation_score를 정한다.
+
+점수는 0.5점 단위로만 작성한다.
+
+5.0:
+사용자 조건과 목적에 매우 잘 맞고,
+중대한 위험이나 불확실성이 거의 없음.
+
+4.0~4.5:
+전반적으로 추천할 만하지만
+일부 확인사항이나 경미한 단점이 있음.
+
+3.0~3.5:
+구매 가능성은 있으나
+확인해야 할 정보나 단점이 꽤 있음.
+
+2.0~2.5:
+조건 적합성이 낮거나
+위험 요소가 커서 적극 추천하기 어려움.
+
+1.0~1.5:
+명확한 Hard Condition 위반이나
+중대한 위험으로 구매를 권하기 어려움.
+
+추천 근거만으로 점수를 높이지 말고,
+risk_flags, uncertainties,
+unmatched_conditions,
+Hard Condition 실패 여부도 반드시 함께 고려한다.
+
+recommendation_score는
+verdict와 서로 모순되지 않아야 한다.
+
 """
 
     response = _generate_judgement(

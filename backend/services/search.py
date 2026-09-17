@@ -448,17 +448,29 @@ def score_profile_keywords(
     keywords: list[str],
 ):
     """
-    프로필의 생활 패턴 / 취향 / 관심사 등은
+    사용자 프로필 키워드는
     검색 결과를 제외시키지 않고
-    추가 가중치만 준다.
+    순위에만 가중치를 준다.
     """
 
     if not keywords:
         return 0, []
 
+    metadata_text = _normalize_text(
+        " ".join(
+            f"{key} {value}"
+            for key, value in (
+                document.get("metadata") or {}
+            ).items()
+        )
+    )
+
     searchable_text = " ".join([
         _normalize_text(
             document.get("category")
+        ),
+        _normalize_text(
+            document.get("subcategory")
         ),
         _normalize_text(
             document.get("title")
@@ -466,6 +478,7 @@ def score_profile_keywords(
         _normalize_text(
             document.get("description")
         ),
+        metadata_text,
     ])
 
     score = 0
@@ -476,17 +489,65 @@ def score_profile_keywords(
             keyword
         )
 
-        if (
-            word
-            and word in searchable_text
-        ):
-            score += 3
+        if not word:
+            continue
+
+        matched = False
+        added_score = 0
+
+        # 프로필 문구 전체가 일치
+        if word in searchable_text:
+            matched = True
+            added_score = 3
+
+        else:
+            # "대학교 수업"처럼 문장형 프로필은
+            # 의미 있는 단어 단위로 한 번 더 비교
+            tokens = [
+                token
+                for token in word.split()
+                if len(token) >= 2
+            ]
+
+            token_matches = []
+
+            for token in tokens:
+                if token in searchable_text:
+                    token_matches.append(token)
+                    continue
+
+                # "대학생" → "대학"처럼
+                # 앞부분 핵심어가 매물 설명에 있는 경우도 인정
+                for length in range(
+                    len(token) - 1,
+                    1,
+                    -1,
+                ):
+                    prefix = token[:length]
+
+                    if prefix in searchable_text:
+                        token_matches.append(prefix)
+                        break
+
+            if token_matches:
+                matched = True
+                added_score = min(
+                    len(token_matches),
+                    2,
+                )
+
+        if matched:
+            score += added_score
             matches.append(
                 keyword
             )
 
-    return score, matches
+    score = min(
+        score,
+        12,
+    )
 
+    return score, matches
 
 def score_generic_listing(
     item: dict,
@@ -522,15 +583,26 @@ def score_generic_listing(
     preference_unknowns = []
 
     # 1. 검색 키워드
+    query_keywords = query.get(
+        "keywords",
+        []
+    )
+
     keyword_score, keyword_matches = (
         score_keywords(
             document,
-            query.get(
-                "keywords",
-                []
-            ),
+            query_keywords,
         )
     )
+
+    # keywords는 상품 자체를 식별하는 핵심 검색어다.
+    # 사용자가 명시한 핵심 상품어가 있는데
+    # 매물 어디에도 등장하지 않으면 검색 후보에서 제외한다.
+    if (
+        query_keywords
+        and not keyword_matches
+    ):
+        return None
 
     score += keyword_score
 
@@ -554,12 +626,17 @@ def score_generic_listing(
             item.get("subcategory")
         )
 
+        item_title = _normalize_text(
+            item.get("title")
+        )
+
         category_match = any(
             target_category in value
             or value in target_category
             for value in [
                 item_category,
                 item_subcategory,
+                item_title,
             ]
             if value
         )
@@ -692,7 +769,7 @@ def score_generic_listing(
             preference_unknowns.append(
                 record
             )
-
+    
     # 5. 사용자 프로필의 단순 키워드 선호
     profile_score, profile_matches = (
         score_profile_keywords(
