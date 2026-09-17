@@ -262,13 +262,32 @@ function openDetail(productId) {
   const verdict = getProductVerdict(item);
   const images = Array.isArray(item.images) && item.images.length ? item.images : [item.image];
   const imageNotes = item.imageTags?.length ? item.imageTags.join(' · ') : '사진으로 상태를 확인해 보세요.';
-  const questionText = `안녕하세요. ${item.name} 구매를 고려하고 있습니다. 판매글에 적어주신 “${item.condition}” 상태와 ${imageNotes} 부분을 조금 더 확인할 수 있을까요?`;
+  const budgetCondition = activeSearch?.chips?.find(([key]) => key === '예산')?.[1];
+  const purposeCondition = activeSearch?.chips?.find(([key]) => key === '용도')?.[1];
+  const priceText = won(item.price);
+  const decisionCards = [
+    budgetCondition ? `예산 ${budgetCondition} 기준에서 ${priceText}으로 가격 조건을 확인할 수 있어요.` : `${priceText} 상품이며, 예산 조건은 판매글에서 따로 확인해 보세요.`,
+    purposeCondition ? `${purposeCondition} 용도와 ${item.tags?.[0] || '상품 구성'}의 관계를 확인해 보세요.` : `${item.tags?.[0] || '상품 구성'} 특성이 사용 목적에 맞는지 확인해 보세요.`,
+    item.reason || '판매글과 사진 정보를 바탕으로 상품 상태를 확인해 보세요.',
+    '무게 정보가 없어 휴대성 조건은 판매자에게 확인이 필요해요.'
+  ];
+  const checkpointItems = [
+    { title: '판매글 상태', detail: item.condition, question: `안녕하세요. 판매글에 적어주신 “${item.condition}” 상태를 조금 더 자세히 알 수 있을까요?` },
+    { title: '사진 확인', detail: imageNotes, question: `사진에서 보이는 ${imageNotes} 부분의 실제 상태를 확인할 수 있을까요?` },
+    { title: '거래 전 확인', detail: '실제 사용 기간과 거래 가능한 시간을 확인해 보세요.', question: `${item.name}의 실제 사용 기간과 거래 가능한 시간대를 알려주실 수 있을까요?` }
+  ];
+  const genieIcon = './genie.png';
+  const warningIcon = './warning-triangle.png';
+  const questionIcon = './question-bubble.png';
+  const bookmarkIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4.5h11v15l-5.5-3.7-5.5 3.7z"/></svg>';
+  const chatIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.2c0 4-3.6 7.2-8 7.2a9.5 9.5 0 0 1-2.8-.4L5 20l1.1-3.1A6.6 6.6 0 0 1 4 11.2C4 7.2 7.6 4 12 4s8 3.2 8 7.2Z"/></svg>';
   const modal = document.createElement('div');
   modal.className = 'detail-modal';
-  modal.innerHTML = `<article class="detail-dialog detail-agent-layout" role="dialog" aria-modal="true" aria-label="상품 상세"><button class="modal-close" type="button" aria-label="상세 닫기">×</button><div class="detail-agent-media"><div class="product-carousel"><img src="${imageSource(images[0])}" style="object-position:${imagePosition(images[0])}" alt="${escapeHtml(item.name)}" />${images.length > 1 ? `<button class="carousel-arrow previous" type="button" aria-label="이전 이미지">←</button><button class="carousel-arrow next" type="button" aria-label="다음 이미지">→</button><div class="carousel-count" aria-label="상품 이미지 순서">1 / ${images.length}</div>` : ''}</div><section class="seller-profile" aria-label="판매자 정보"><img class="seller-avatar" src="${seller.image}" alt="${escapeHtml(seller.name)} 프로필" /><div class="seller-identity"><b>${escapeHtml(seller.name)}</b><span>${escapeHtml(seller.location)}</span></div><div class="seller-temperature"><b>${escapeHtml(seller.temperature)}</b><span>매너온도</span></div></section><aside class="detail-ai-notice"><b>건지니가 분석한 상품이에요</b><p>AI 분석 결과는 참고용이며, 최종 구매 결정은 소비자 본인의 판단에 따라 이루어집니다.</p></aside></div><div class="detail-agent-content"><span class="judgment-badge ${verdict.key}">${verdict.label}</span><h2>${escapeHtml(item.name)}</h2><strong class="detail-price">${won(item.price)}</strong><p class="detail-basic-meta">${escapeHtml(item.location)} · ${escapeHtml(item.uploadedAt)} · 조회 234</p><section class="detail-section decision-section"><h3><span class="detail-ai-mark" aria-hidden="true">✦</span>건지니 판단</h3><p class="decision-summary">${escapeHtml(item.reason)}</p></section><section class="detail-section checkpoint-section"><h3>구매 전 체크포인트</h3><div class="checkpoint-list"><article><b>판매글 상태</b><p>${escapeHtml(item.condition)}</p></article><article><b>사진 확인</b><p>${escapeHtml(imageNotes)}</p></article><article><b>거래 전 확인</b><p>판매자에게 실제 사용 상태를 한 번 더 확인해 보세요.</p></article></div></section><section class="detail-section question-box"><h3>판매자에게 물어보기</h3>${verdict.key === 'info' ? '<p class="info-warning"><b>❗</b><span>정보 부족 상품이에요!</span></p>' : ''}<textarea class="question-message" aria-label="판매자에게 보낼 문자 내용">${escapeHtml(questionText)}</textarea></section><div class="message-footer"><button class="detail-save-button" type="button">저장하기</button><button class="send-message" type="button">판매자에게 질문하기</button></div></div></article>`;
+  modal.innerHTML = `<article class="detail-dialog detail-agent-layout" role="dialog" aria-modal="true" aria-label="상품 상세"><button class="modal-close" type="button" aria-label="상세 닫기">×</button><div class="detail-agent-media"><div class="product-carousel"><img src="${imageSource(images[0])}" style="object-position:${imagePosition(images[0])}" alt="${escapeHtml(item.name)}" />${images.length > 1 ? '<button class="carousel-arrow previous" type="button" aria-label="이전 이미지">‹</button><button class="carousel-arrow next" type="button" aria-label="다음 이미지">›</button>' : ''}<div class="carousel-count" aria-label="상품 이미지 순서">1 / ${images.length}</div></div><section class="seller-profile" aria-label="판매자 정보"><img class="seller-avatar" src="${seller.image}" alt="${escapeHtml(seller.name)} 프로필" /><div class="seller-identity"><b>${escapeHtml(seller.name)}</b><span>${escapeHtml(seller.location)}</span></div><div class="seller-temperature"><b>${escapeHtml(seller.temperature)}</b><span>매너온도</span></div></section><aside class="detail-ai-notice"><b>건지니가 분석한 상품이에요</b><p>AI 분석 결과는 참고용이며, 최종 구매 결정은 소비자 본인의 판단에 따라 이루어집니다.</p></aside></div><div class="detail-agent-content"><span class="judgment-badge ${verdict.key}">${verdict.label}</span><h2>${escapeHtml(item.name)}</h2><strong class="detail-price">${priceText}</strong><p class="detail-basic-meta">${escapeHtml(item.location)} · ${escapeHtml(item.uploadedAt)} · 조회 234</p><section class="detail-section decision-section"><h3><img class="section-title-icon genie-icon" src="${genieIcon}" alt="" />건지니 판단</h3><div class="decision-grid">${decisionCards.map(text => `<p>${escapeHtml(text)}</p>`).join('')}</div></section><section class="detail-section checkpoint-section"><h3><img class="section-title-icon" src="${warningIcon}" alt="" />구매 전 체크포인트</h3><div class="checkpoint-list">${checkpointItems.map(entry => `<article><b>${escapeHtml(entry.title)}</b><p>${escapeHtml(entry.detail)}</p></article>`).join('')}</div></section><section class="detail-section question-box"><h3><img class="section-title-icon" src="${questionIcon}" alt="" />판매자에게 물어보기</h3>${verdict.key === 'info' ? '<p class="info-warning"><b>❗</b><span>정보 부족 상품이에요!</span></p>' : ''}<div class="question-card-list">${checkpointItems.map((entry, index) => `<button class="question-card${index === 0 ? ' selected' : ''}" type="button" data-question="${escapeHtml(entry.question)}">${escapeHtml(entry.question)}</button>`).join('')}</div></section><div class="message-footer"><button class="detail-save-button" type="button">${bookmarkIcon}<span>저장하기</span></button><button class="send-message" type="button">${chatIcon}<span>판매자에게 질문하기</span></button></div></div></article>`;
   document.body.append(modal);
+  const previousBodyOverflow = document.body.style.overflow;
+  document.body.style.overflow = 'hidden';
 
-  const dialog = modal.querySelector('.detail-dialog');
   const carouselImage = modal.querySelector('.product-carousel img');
   let imageIndex = 0;
   const updateCarousel = () => {
@@ -284,15 +303,23 @@ function openDetail(productId) {
   const renderDetailSave = () => {
     const isSaved = savedItemIds.includes(item.id);
     saveButton.classList.toggle('saved', isSaved);
-    saveButton.textContent = isSaved ? '저장됨' : '저장하기';
+    saveButton.innerHTML = `${bookmarkIcon}<span>${isSaved ? '저장됨' : '저장하기'}</span>`;
   };
   renderDetailSave();
 
-  const closeModal = () => modal.remove();
+  let selectedQuestion = checkpointItems[0].question;
+  modal.querySelectorAll('.question-card').forEach(button => button.addEventListener('click', () => {
+    selectedQuestion = button.dataset.question;
+    modal.querySelectorAll('.question-card').forEach(card => card.classList.toggle('selected', card === button));
+  }));
+  const closeModal = () => {
+    document.body.style.overflow = previousBodyOverflow;
+    modal.remove();
+  };
   modal.querySelector('.modal-close').addEventListener('click', closeModal);
   modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
   modal.querySelector('.send-message').addEventListener('click', event => {
-    const message = modal.querySelector('.question-message').value.trim();
+    const message = selectedQuestion.trim();
     if (!message) { showToast('판매자에게 보낼 메시지를 입력해 주세요.'); return; }
     event.currentTarget.textContent = '질문 보냄';
     event.currentTarget.disabled = true;
