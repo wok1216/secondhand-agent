@@ -147,6 +147,37 @@
       .detail-basic-layout .message-footer{position:sticky;bottom:0;z-index:1;margin-top:auto;padding:14px 0 0;background:#fff}
       @media(max-width:760px){.detail-basic-layout .seller-description{font-size:13px}.detail-basic-layout .message-footer{position:sticky;bottom:-18px;padding:12px 0 18px}}
     </style>
+    <style id="typography-system">
+      /* 역할별 타이포그래피와 아이콘 토큰: 동적으로 생성되는 카드와 상세 화면에도 공통 적용 */
+      body, button, input, textarea, select { font-family:var(--font-ui); }
+      .market-hero h1, .page-hero h1 { font-size:var(--type-page); font-weight:var(--weight-bold); line-height:var(--leading-page); }
+      .section-heading h2, .plain-search-heading h2 { font-size:var(--type-section); font-weight:var(--weight-bold); line-height:var(--leading-heading); }
+      .section-heading p, .plain-search-heading p, .page-hero p, .profile-summary p, .compare-card p { font-size:var(--type-caption); font-weight:var(--weight-regular); line-height:var(--leading-caption); }
+      .detail-agent-content h2 { font-size:var(--type-section); font-weight:var(--weight-bold); line-height:var(--leading-heading); }
+      .detail-agent-content .detail-section h3, .profile-summary h3, .compare-card h3 { font-size:var(--type-subsection); font-weight:var(--weight-bold); line-height:var(--leading-heading); }
+      .market-header-search input, .search-box input, .seller-description, .decision-grid p { font-size:var(--type-body); font-weight:var(--weight-regular); line-height:var(--leading-body); }
+      .market-actions button, .category-nav button, .market-toggle, .browse-button, .profile-save, .keyword-input-row button, .detail-save-button, .send-message { font-size:var(--type-button); font-weight:var(--weight-semibold); line-height:1.35; }
+      .popular-keywords, .popular-keywords button, .quick-searches, .quick-searches button, .condition-chip, .editable-tag, .pill-list span, .question-card { font-size:14px; font-weight:var(--weight-medium); line-height:var(--leading-caption); }
+      .product-content h3 { font-size:16px; font-weight:var(--weight-semibold); line-height:1.45; }
+      .price, .detail-price { font-family:var(--font-number); font-size:var(--type-subsection); font-weight:var(--weight-bold); line-height:1.25; }
+      .product-meta, .location, .detail-basic-meta, .seller-identity span, .seller-temperature span, .checkpoint-list p, .info-warning, .detail-ai-notice, footer { font-size:var(--type-caption); font-weight:var(--weight-regular); line-height:var(--leading-caption); }
+      .seller-identity b, .seller-temperature b { font-size:16px; font-weight:var(--weight-semibold); line-height:1.35; }
+      .checkpoint-list b, .judgment-badge { font-size:14px; font-weight:var(--weight-semibold); line-height:1.35; }
+      .decision-grid p { font-size:14px; }
+      .detail-agent-content .detail-section h3 .section-title-icon { width:var(--icon-md); height:var(--icon-md); flex:0 0 var(--icon-md); object-fit:contain; }
+      .detail-agent-content .detail-section h3 .genie-icon { width:var(--icon-lg); height:var(--icon-lg); flex-basis:var(--icon-lg); }
+      .header-action-icon, .heart-icon { width:var(--icon-sm); height:var(--icon-sm); flex:0 0 var(--icon-sm); }
+      .header-search-icon { width:var(--icon-lg); height:var(--icon-lg); }
+      .plain-result-search-icon { width:var(--icon-md); height:var(--icon-md); flex:0 0 var(--icon-md); }
+      /* AI ON 상세에서는 내용만 스크롤하고 행동 버튼은 모달 하단에 남깁니다. */
+      .detail-agent-content { display:flex; min-height:0; flex-direction:column; }
+      .detail-agent-content .message-footer { position:sticky; bottom:0; z-index:2; flex:none; margin-top:auto; padding:14px 0 12px; background:#fff; border-top:1px solid var(--line); }
+      @media (max-width:760px) {
+        :root { --type-page:32px; --type-section:24px; --type-subsection:18px; --type-body:15px; --type-button:14px; --type-caption:12px; }
+        .market-hero h1, .page-hero h1 { letter-spacing:-1.8px; }
+        .detail-agent-content .message-footer { bottom:0; padding:12px 0 14px; }
+      }
+    </style>
   </head>
   <body>
     <div class="app-shell">
