@@ -122,3 +122,6 @@ document.addEventListener('keydown', event => {
   event.preventDefault(); event.stopImmediatePropagation();
   openGeonjiniDetail(event.target.closest('.product-card[data-product-id]').dataset.productId);
 }, true);
+const productBadgeStyles = document.createElement('style');
+productBadgeStyles.textContent = '.judgment-badge{display:inline-flex;align-items:center;border:1px solid currentColor;border-radius:7px;padding:4px 8px;background:#fff;font-size:12px;font-weight:800}.judgment-badge.recommend{color:#22C55E}.judgment-badge.low{color:#FBBF24}.judgment-badge.reject{color:#EF4444}.judgment-badge.info{color:#3B82F6}';
+document.head.append(productBadgeStyles);
