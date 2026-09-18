@@ -90,6 +90,21 @@ def natural_search(request: NaturalSearchRequest):
     results = graph_result["results"]
     items = graph_result["items"]
 
+    laptop_items = [
+        item for item in items
+        if (
+            "노트북" in str(item.get("subcategory", ""))
+            or "노트북" in str(item.get("title", ""))
+            or "gram" in str(item.get("title", "")).lower()
+            or "macbook" in str(item.get("title", "")).lower()
+        )
+    ]
+
+    item_order = {
+        item.get("id"): index + 1
+        for index, item in enumerate(laptop_items)
+    }
+    
     response_results = [
         {
             "id": item.get("id"),
@@ -102,6 +117,8 @@ def natural_search(request: NaturalSearchRequest):
             "distance_km": item.get("distance_km"),
             "score": item.get("score"),
             "reasons": item.get("reasons", []),
+
+            "image_index": item_order.get(item.get("id")),
         }
         for item in results
     ]

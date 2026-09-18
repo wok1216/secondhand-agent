@@ -10,7 +10,24 @@
   <link rel="stylesheet" href="improvements.css" />
 
   <style>
-    .topbar{position:sticky;top:0;z-index:20;background:#fbfaf7}.market-header-search{position:relative;display:flex;align-items:center;gap:6px;width:min(520px,45vw);margin-left:auto;margin-right:22px;border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff}.market-toggle{border:0;border-radius:6px;padding:6px 8px;background:#f0efeb;color:#666;font:700 10px 'DM Sans';cursor:pointer}.market-toggle.on{background:#263228;color:#fff}.market-header-search input{min-width:0;flex:1;border:0;outline:0;font:12px 'Noto Sans KR'}.market-header-search button{border:0;background:transparent;color:var(--orange);cursor:pointer;font-weight:700}.search-history{position:absolute;top:calc(100% + 7px);left:0;right:0;display:none;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;box-shadow:0 12px 28px #2222;z-index:30}.search-history.visible{display:block}.search-history h3{font-size:12px;margin:0 0 6px}.history-item{display:block;width:100%;border:0;background:transparent;padding:7px 2px;text-align:left;color:#555;font:12px 'Noto Sans KR';cursor:pointer}.history-clear{border:0;background:transparent;color:var(--orange);font:11px 'Noto Sans KR';cursor:pointer}.market-actions{display:flex;gap:15px;align-items:center}.market-actions button{border:0;background:transparent;color:#555;font:12px 'Noto Sans KR';cursor:pointer}.sell-action{display:none}.topbar.search-active{justify-content:flex-start;gap:18px}.topbar.search-active .market-header-search{flex:1;width:auto;margin:0}.topbar.search-active .market-actions{margin-left:0;flex:none}.topbar.search-active .market-actions [data-view="home"]{display:none}.topbar.search-active .sell-action{display:block}.category-nav{position:sticky;top:80px;z-index:19;background:#fbfaf7;display:flex;gap:20px;overflow-x:auto;padding:16px 0;border-bottom:1px solid var(--line);white-space:nowrap}.category-nav button{border:0;background:transparent;padding:2px 0;color:#656862;font:600 13px 'Noto Sans KR';cursor:pointer}.category-nav button.active,.category-nav button:hover{color:var(--orange)}.market-hero{padding:76px 0 44px;text-align:center}.market-hero h1{font-size:28px;letter-spacing:-1.4px;margin:0 0 26px}.market-hero .market-header-search{width:min(680px,100%);margin:0 auto;border-radius:16px;padding:9px 11px}.market-hero .market-header-search input{font-size:14px;padding:5px}.market-hero .market-header-search>button:last-of-type{border-radius:10px;background:var(--orange);color:#fff;padding:9px 16px}.market-hero .popular-keywords{justify-content:center;margin-top:18px}.market-hero .popular-keywords span{font-weight:700}.market-hero .search-history{text-align:left}.market-search,.filter-bar{display:none}.popular-keywords{display:flex;gap:8px;align-items:center;color:#969891;font-size:12px;flex-wrap:wrap}.popular-keywords button{border:1px solid var(--line);background:transparent;border-radius:50px;padding:6px 10px;color:var(--muted);cursor:pointer;font:12px 'Noto Sans KR'}.home-collection{margin:0!important;padding-top:33px!important;padding-bottom:45px!important}.saved-collection{background:#f5f8f4}.home-collection .product-card .rank,.home-collection .product-card .match{display:none}.saved-empty{grid-column:1/-1;color:#72766f;font:13px 'Noto Sans KR';padding:24px 0}.browse-button{border:0;border-radius:8px;background:var(--orange);color:#fff;padding:10px 13px;font:700 12px 'Noto Sans KR';cursor:pointer}.search-result-section{padding-top:24px}.search-result-section[hidden]{display:none}.search-result-section:not(.ai-search-active) .search-condition-heading,.search-result-section:not(.ai-search-active) .analysis-card{display:none}
+    .topbar{position:sticky;top:0;z-index:20;background:#fbfaf7}.market-header-search{position:relative;display:flex;align-items:center;gap:6px;width:min(520px,45vw);margin-left:auto;margin-right:22px;border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff}
+    .market-toggle{
+      border:0;
+      border-radius:6px;
+      padding:6px 8px;
+      background:transparent;
+      color:#20221f;
+      font:700 10px 'DM Sans';
+      cursor:pointer;
+      transition:.15s;
+    }
+
+    .market-toggle:hover,
+    .market-toggle.on{
+      background:var(--orange);
+      color:#fff;
+    }
+    .market-header-search input{min-width:0;flex:1;border:0;outline:0;font:12px 'Noto Sans KR'}.market-header-search button{border:0;background:transparent;color:var(--orange);cursor:pointer;font-weight:700}.search-history{position:absolute;top:calc(100% + 7px);left:0;right:0;display:none;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;box-shadow:0 12px 28px #2222;z-index:30}.search-history.visible{display:block}.search-history h3{font-size:12px;margin:0 0 6px}.history-item{display:block;width:100%;border:0;background:transparent;padding:7px 2px;text-align:left;color:#555;font:12px 'Noto Sans KR';cursor:pointer}.history-clear{border:0;background:transparent;color:var(--orange);font:11px 'Noto Sans KR';cursor:pointer}.market-actions{display:flex;gap:15px;align-items:center}.market-actions button{border:0;background:transparent;color:#555;font:12px 'Noto Sans KR';cursor:pointer}.sell-action{display:none}.topbar.search-active{justify-content:flex-start;gap:18px}.topbar.search-active .market-header-search{flex:1;width:auto;margin:0}.topbar.search-active .market-actions{margin-left:0;flex:none}.topbar.search-active .market-actions [data-view="home"]{display:none}.topbar.search-active .sell-action{display:block}.category-nav{position:sticky;top:80px;z-index:19;background:#fbfaf7;display:flex;gap:20px;overflow-x:auto;padding:16px 0;border-bottom:1px solid var(--line);white-space:nowrap}.category-nav button{border:0;background:transparent;padding:2px 0;color:#656862;font:600 13px 'Noto Sans KR';cursor:pointer}.category-nav button.active,.category-nav button:hover{color:var(--orange)}.market-hero{padding:76px 0 44px;text-align:center}.market-hero h1{font-size:28px;letter-spacing:-1.4px;margin:0 0 26px}.market-hero .market-header-search{width:min(680px,100%);margin:0 auto;border-radius:16px;padding:9px 11px}.market-hero .market-header-search input{font-size:14px;padding:5px}.market-hero .market-header-search>button:last-of-type{border-radius:10px;background:var(--orange);color:#fff;padding:9px 16px}.market-hero .popular-keywords{justify-content:center;margin-top:18px}.market-hero .popular-keywords span{font-weight:700}.market-hero .search-history{text-align:left}.market-search,.filter-bar{display:none}.popular-keywords{display:flex;gap:8px;align-items:center;color:#969891;font-size:12px;flex-wrap:wrap}.popular-keywords button{border:1px solid var(--line);background:transparent;border-radius:50px;padding:6px 10px;color:var(--muted);cursor:pointer;font:12px 'Noto Sans KR'}.home-collection{margin:0!important;padding-top:33px!important;padding-bottom:45px!important}.saved-collection{background:#f5f8f4}.home-collection .product-card .rank,.home-collection .product-card .match{display:none}.saved-empty{grid-column:1/-1;color:#72766f;font:13px 'Noto Sans KR';padding:24px 0}.browse-button{border:0;border-radius:8px;background:var(--orange);color:#fff;padding:10px 13px;font:700 12px 'Noto Sans KR';cursor:pointer}.search-result-section{padding-top:24px}.search-result-section[hidden]{display:none}.search-result-section:not(.ai-search-active) .search-condition-heading,.search-result-section:not(.ai-search-active) .analysis-card{display:none}
     @media(max-width:720px){.market-header-search{width:52vw;margin-right:8px}.topbar.search-active{gap:8px}.topbar.search-active .market-header-search{min-width:0}.topbar.search-active .market-actions{gap:8px}.topbar.search-active .market-actions .sell-action{display:none}.market-hero{padding:48px 0 32px}.market-hero h1{font-size:23px}.market-hero .market-header-search{width:100%}.market-actions{gap:8px}.market-actions button{font-size:11px}.market-actions button:not([data-view]){display:none}.category-nav{top:65px;gap:16px}.popular-keywords span{width:100%}}
   </style>
 
@@ -53,7 +70,7 @@
   </style>
 
   <style>
-    .market-header-search>button:last-of-type,.market-hero .market-header-search>button:last-of-type{background:transparent;color:var(--orange)}.market-header-search .market-toggle{padding:8px 10px;font-size:15px;line-height:1}.category-nav{width:100%}.detail-modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;background:rgba(32,34,31,.42);overflow:auto}.detail-dialog.detail-agent-layout{position:relative;width:min(1280px,100%);max-height:min(920px,calc(100vh - 48px));display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.22fr);gap:0;padding:38px 26px 30px;background:#fff;border-radius:20px;box-shadow:0 26px 80px rgba(26,29,27,.25);overflow:auto}.detail-dialog .modal-close{position:absolute;right:22px;top:18px;z-index:2;border:0;background:transparent;color:#20221f;font-size:33px;line-height:1;cursor:pointer;padding:4px 7px}.detail-agent-media{position:static!important;padding-right:26px}.detail-agent-content{padding:4px 0 0 30px!important;border-left:1px solid #ecebe7}.product-carousel>img{aspect-ratio:1/1;border-radius:13px}.carousel-arrow{width:42px;height:42px;font-size:29px;color:#343a35;box-shadow:0 2px 8px rgba(0,0,0,.08)}.carousel-count{position:absolute;right:14px;bottom:14px;padding:6px 10px;border-radius:14px;background:rgba(32,34,31,.72);color:#fff;font:600 12px 'DM Sans'}.seller-profile{margin-top:18px;padding:18px 0;border-top:1px solid var(--line);border-bottom:0}.seller-profile .seller-avatar{width:58px;height:58px}.seller-identity b{font-size:16px}.seller-identity span,.seller-temperature span{font-size:12px}.seller-temperature b{font-size:17px;color:#22c58b}.detail-ai-notice{margin-top:18px;padding:18px 20px;border-radius:12px;background:#fff5ef;color:#5e625d;font:13px/1.65 'Noto Sans KR'}.detail-ai-notice b{display:block;margin-bottom:7px;color:var(--orange);font-size:14px}.detail-ai-notice p{margin:0}.detail-agent-content>.judgment-badge{margin:0}.detail-agent-content h2{margin:14px 0 7px;font:800 29px/1.3 'Noto Sans KR';letter-spacing:-1.6px}.detail-price{display:block;color:var(--orange);font:800 32px/1.2 'DM Sans','Noto Sans KR'}.detail-basic-meta{margin:12px 0 20px;padding-bottom:20px;border-bottom:1px solid var(--line);font:13px 'Noto Sans KR';color:#7b7d78}.detail-agent-content .detail-section{padding:0;margin:0 0 24px}.detail-agent-content .detail-section h3{display:flex;align-items:center;gap:8px;margin:0 0 12px;font:800 20px 'Noto Sans KR';letter-spacing:-.8px}.decision-summary{margin:0;padding:14px 16px;border-radius:14px;background:#f4f5f5;color:#555b58;font:14px/1.65 'Noto Sans KR', sans-serif!important}.checkpoint-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.checkpoint-list article{min-height:112px;padding:15px 14px;border:1px solid #ffd9c8;border-radius:12px;background:#fff8f4}.checkpoint-list b{font:700 14px 'Noto Sans KR';color:#333}.checkpoint-list p{margin:8px 0 0;color:#6b706c;font:12px/1.55 'Noto Sans KR'}.detail-agent-content .question-box{margin-top:4px;padding:0;background:transparent;border-radius:0}.info-warning{display:flex;align-items:center;gap:6px;margin:-3px 0 10px;font:12px 'Noto Sans KR';color:#6b7280}.message-footer{display:flex;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}.detail-save-button,.send-message{height:52px;border-radius:9px;cursor:pointer;font:700 15px 'Noto Sans KR'}.detail-save-button{flex:1;border:1px solid #9da19b;background:#fff;color:#252825}.detail-save-button.saved{border-color:var(--orange);color:var(--orange)}.send-message{flex:1.35;border:0;background:var(--orange);color:#fff}.send-message:disabled{opacity:.65;cursor:default}
+    .market-header-search>button:last-of-type,.market-hero .market-header-search>button:last-of-type{background:transparent;color:var(--orange)}.market-header-search .market-toggle{padding:8px 10px;font-size:15px;line-height:1}.category-nav{width:100%}.detail-modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;background:rgba(32,34,31,.42);overflow:auto}.detail-dialog.detail-agent-layout{position:relative;width:min(1280px,100%);max-height:min(920px,calc(100vh - 48px));display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.22fr);gap:0;padding:38px 26px 30px;background:#fff;border-radius:20px;box-shadow:0 26px 80px rgba(26,29,27,.25);overflow:auto}.detail-dialog .modal-close{position:absolute;right:22px;top:18px;z-index:2;border:0;background:transparent;color:#20221f;font-size:33px;line-height:1;cursor:pointer;padding:4px 7px}.detail-agent-media{position:static!important;padding-right:26px}.detail-agent-content{padding:4px 0 0 30px!important;border-left:1px solid #ecebe7}.product-carousel>img{aspect-ratio:1/1;border-radius:13px}.carousel-arrow{width:42px;height:42px;font-size:29px;color:#343a35;box-shadow:0 2px 8px rgba(0,0,0,.08)}.carousel-count{position:absolute;right:14px;bottom:14px;padding:6px 10px;border-radius:14px;background:rgba(32,34,31,.72);color:#fff;font:600 12px 'DM Sans'}.seller-profile{margin-top:18px;padding:18px 0;border-top:1px solid var(--line);border-bottom:0}.seller-profile .seller-avatar{width:58px;height:58px}.seller-identity b{font-size:16px}.seller-identity span,.seller-temperature span{font-size:12px}.seller-temperature b{font-size:17px;color:#22c58b}.detail-ai-notice{margin-top:18px;padding:18px 20px;border-radius:12px;background:#fff5ef;color:#5e625d;font:13px/1.65 'Noto Sans KR'}.detail-ai-notice b{display:block;margin-bottom:7px;color:var(--orange);font-size:14px}.detail-ai-notice p{margin:0}.detail-agent-content>.judgment-badge{margin:0}.detail-agent-content h2{margin:14px 0 7px;font:800 29px/1.3 'Noto Sans KR';letter-spacing:-1.6px}.detail-price{display:block;color:var(--ink);font:800 32px/1.2 'DM Sans','Noto Sans KR'}.detail-basic-meta{margin:12px 0 20px;padding-bottom:20px;border-bottom:1px solid var(--line);font:13px 'Noto Sans KR';color:#7b7d78}.detail-agent-content .detail-section{padding:0;margin:0 0 24px}.detail-agent-content .detail-section h3{display:flex;align-items:center;gap:8px;margin:0 0 12px;font:800 20px 'Noto Sans KR';letter-spacing:-.8px}.decision-summary{margin:0;padding:14px 16px;border-radius:14px;background:#f4f5f5;color:#555b58;font:14px/1.65 'Noto Sans KR', sans-serif!important}.checkpoint-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.checkpoint-list article{min-height:112px;padding:15px 14px;border:1px solid #ffd9c8;border-radius:12px;background:#fff8f4}.checkpoint-list b{font:700 14px 'Noto Sans KR';color:#333}.checkpoint-list p{margin:8px 0 0;color:#6b706c;font:12px/1.55 'Noto Sans KR'}.detail-agent-content .question-box{margin-top:4px;padding:0;background:transparent;border-radius:0}.info-warning{display:flex;align-items:center;gap:6px;margin:-3px 0 10px;font:12px 'Noto Sans KR';color:#6b7280}.message-footer{display:flex;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}.detail-save-button,.send-message{height:52px;border-radius:9px;cursor:pointer;font:700 15px 'Noto Sans KR'}.detail-save-button{flex:1;border:1px solid #9da19b;background:#fff;color:#252825}.detail-save-button.saved{border-color:var(--orange);color:var(--orange)}.send-message{flex:1.35;border:0;background:var(--orange);color:#fff}.send-message:disabled{opacity:.65;cursor:default}
   </style>
 
   <style>
@@ -64,6 +81,861 @@
 
   <style>
     .rating{display:flex;align-items:center;gap:8px}.stars{position:relative;display:inline-block;font-size:24px;line-height:1}.stars-empty{color:#ddd}.stars-fill{position:absolute;top:0;left:0;overflow:hidden;white-space:nowrap;color:#f5b301}.rating-score{font-weight:700}
+  </style>
+
+  <style>
+    /* 홈 화면 + OFF 일반검색 상품 카드 */
+    .product-card .name,
+    .product-card .price {
+      color: var(--ink);
+    }
+
+    /* ON 자연어 검색 결과의 가격만 주황색 */
+    .search-result-section.ai-search-active .product-card .price {
+      color: var(--ink);
+    }
+
+    /* 상품 상세페이지 가격은 검정 */
+    .detail-price {
+      color: var(--ink) !important;
+    }
+  </style>
+
+  <style>
+    .detail-product-title{
+      display:flex;
+      align-items:center;
+      gap:7px;
+    }
+
+    .detail-title-star{
+      width:22px;
+      height:22px;
+      flex:none;
+      object-fit:contain;
+    }
+
+    .decision-info-tooltip{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      margin-left:2px;
+      cursor:help;
+    }
+
+    .decision-info-icon{
+      width:17px;
+      height:17px;
+      object-fit:contain;
+      opacity:.75;
+    }
+
+    .decision-tooltip-text{
+      position:absolute;
+      left:50%;
+      bottom:calc(100% + 9px);
+      transform:translateX(-50%);
+
+      width:250px;
+      padding:9px 11px;
+
+      background:#4f5451;
+      color:#fff;
+      border-radius:8px;
+
+      font:11px/1.5 'Noto Sans KR';
+
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+
+      transition:opacity .15s ease;
+
+      z-index:20;
+    }
+
+    .decision-info-tooltip:hover .decision-tooltip-text{
+      opacity:1;
+      visibility:visible;
+    }
+
+    .detail-rating{
+      display:inline-flex;
+      align-items:center;
+      gap:3px;
+    }
+
+    .detail-rating-star{
+      width:26px;
+      height:26px;
+      object-fit:contain;
+      display:block;
+    }
+
+    .detail-rating-score{
+      font:600 22px 'DM Sans','Noto Sans KR';
+      line-height:1;
+      position:relative;
+      top:2px;
+    }
+
+    .detail-top-row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    .detail-top-row .detail-product-title{
+      margin:0;
+      flex:1;
+    }
+
+    .detail-heart-button{
+      flex:none;
+      width:40px;
+      height:40px;
+      padding:8px;
+      margin:0;
+      border:1px solid #ff6b35;
+      border-radius:50%;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+
+    .detail-heart-button .heart-icon{
+      width:22px;
+      height:22px;
+      fill:none;
+      stroke:#ff6b35;
+      stroke-width:1.8;
+    }
+
+    .detail-heart-button.saved .heart-icon{
+      fill:#ff6b35;
+    }
+
+    .detail-heart-button{
+      position:relative;
+      right:30px;
+      left:5px;
+      top:40px;
+    }
+
+    .market-header-search .market-toggle{
+      background:transparent;
+      color:#20221f;
+      transition:.15s;
+    }
+
+    .market-header-search .market-toggle:hover{
+      background:transparent;
+      color:var(--orange);
+    }
+
+    .market-header-search .market-toggle.on{
+      background:var(--orange);
+      color:#fff;
+    }
+
+    .detail-agent-content .detail-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+      gap:12px;
+      align-items:stretch;
+    }
+
+    @media(max-width:720px){
+      .detail-agent-content .detail-grid{
+        grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+      }
+    }
+
+    .detail-price-row{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      flex-wrap:nowrap;
+    }
+
+    .detail-price-row .detail-price{
+      margin:0;
+      flex:none;
+    }
+
+    .detail-rating{
+      display:inline-flex;
+      align-items:center;
+      gap:3px;
+      flex:none;
+      white-space:nowrap;
+    }
+
+    .detail-rating-star{
+      width:20px;
+      height:20px;
+      object-fit:contain;
+      display:block;
+    }
+
+    .detail-rating-score{
+      font:600 18px 'DM Sans','Noto Sans KR';
+      line-height:1;
+      position:relative;
+      top:1px;
+    }
+
+    /* 상품 설명 + 건지니 판단 카드 가독성 개선 */
+    .detail-agent-content .detail-grid{
+      gap:14px;
+    }
+
+    .detail-agent-content .detail-grid > .detail-section{
+      background:#f7f7f5 !important;
+      border:1px solid #ecece8;
+      border-radius:10px;
+      padding:18px 18px 16px;
+    }
+
+    /* 상품 설명 / 건지니 판단 제목 */
+    .detail-agent-content .detail-grid > .detail-section h3{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      margin:0 0 14px;
+      color:#17213a;
+      font-size:17px;
+      font-weight:800;
+      line-height:1.3;
+    }
+
+    /* 제목 아이콘 */
+    .detail-agent-content .detail-grid .section-title-icon{
+      width:22px;
+      height:22px;
+      flex:none;
+      object-fit:contain;
+    }
+
+    /* 상품 설명 본문 */
+    .seller-description-text{
+      margin:0;
+      color:#30343b;
+      font-size:15px;
+      font-weight:400;
+      line-height:1.75;
+      letter-spacing:-0.2px;
+      word-break:keep-all;
+    }
+
+    /* 건지니 판단 항목 전체 */
+    .decision-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    /* 건지니 판단 한 줄 */
+    .decision-item{
+      display:flex;
+      align-items:flex-start;
+      gap:7px;
+      margin:0;
+      color:#30343b;
+      font-size:15px;
+      font-weight:400;
+      line-height:1.65;
+      letter-spacing:-0.2px;
+      word-break:keep-all;
+    }
+
+    /* 체크 / 느낌표 */
+    .decision-mark{
+      flex:none;
+      min-width:14px;
+      font-weight:800;
+      color:#28332d;
+    }
+
+    .question-box{
+      margin-top:16px;
+      padding:16px;
+      background:#f7f7f5 !important;
+      border-radius:12px;
+    }
+
+    .question-box h3{
+      margin:0 0 12px;
+      font-size:16px;
+      font-weight:800;
+      color:#17213a;
+    }
+
+    .question-card-list{
+      display:flex;
+      gap:7px;
+      overflow-x:auto;
+      padding:2px 0 4px;
+    }
+
+    .question-card-list::-webkit-scrollbar{
+      height:4px;
+    }
+
+    .question-card-list::-webkit-scrollbar-thumb{
+      background:#d9d9d5;
+      border-radius:999px;
+    }
+
+    .question-card{
+      flex:0 0 108px;
+      min-width:108px;
+      min-height:98px;
+
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      align-items:flex-start;
+
+      padding:9px 10px 8px;
+
+      border:1px solid #ececea;
+      border-radius:11px;
+
+      background:#fff;
+      color:#34415b;
+
+      text-align:left;
+      cursor:pointer;
+
+      font:500 11px/1.35 'Noto Sans KR';
+
+      box-shadow:0 2px 5px rgba(0,0,0,.04);
+
+      transition:
+        border-color .15s ease,
+        background .15s ease,
+        transform .15s ease,
+        box-shadow .15s ease;
+    }
+
+    .question-card:hover{
+      border-color:#ffb28f;
+      background:#fffaf7;
+      transform:translateY(-1px);
+      box-shadow:0 4px 9px rgba(0,0,0,.06);
+    }
+
+    .question-card.selected{
+      border-color:var(--orange);
+      background:#fff7f2;
+    }
+
+    .question-card-icon{
+      display:block;
+
+      width:28px;
+      height:28px;
+
+      flex:none;
+
+      object-fit:contain;
+
+      margin:0 0 5px 0;
+
+      opacity:1;
+
+      filter:
+        contrast(1.25)
+        saturate(1.15);
+    }
+
+    /* 제목 + 설명 묶음 */
+    .question-card-copy{
+      display:flex;
+      flex-direction:column;
+
+      gap:2px;
+
+      width:100%;
+      margin:0;
+    }
+
+    /* 배터리 상태 / 외관 하자 */
+    .question-card-copy strong{
+      display:block;
+
+      margin:0;
+
+      color:#26324b;
+
+      font:800 12.5px/1.25 'Noto Sans KR';
+
+      letter-spacing:-.3px;
+
+      word-break:keep-all;
+    }
+
+    /* 아래 짧은 설명 */
+    .question-card-copy small{
+      display:block;
+
+      margin:0;
+
+      color:#8a9099;
+
+      font:500 9px/1.3 'Noto Sans KR';
+
+      letter-spacing:-.2px;
+
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    /* 상품 설명 + 건지니 판단 */
+    .detail-agent-content .detail-grid > .detail-section{
+      background:#f7f8f8 !important;
+      border:1px solid #eceeed;
+      border-radius:14px;
+      padding:18px;
+    }
+
+    .detail-agent-content .detail-grid > .detail-section h3{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin:0 0 14px;
+      font-size:19px;
+      font-weight:800;
+      line-height:1.2;
+      color:#17213f;
+    }
+
+    .detail-agent-content .detail-grid .section-title-icon{
+      width:29px;
+      height:29px;
+      flex:0 0 29px;
+      object-fit:contain;
+      opacity:1;
+      filter:contrast(1.18) saturate(1.15);
+    }
+
+    .detail-agent-content .detail-grid .genie-icon{
+      width:34px;
+      height:34px;
+      flex-basis:34px;
+    }
+
+    /* 상품 설명 본문 */
+    .seller-description-text{
+      margin:0;
+      color:#343942;
+      font-size:15px;
+      font-weight:450;
+      line-height:1.7;
+      letter-spacing:-.2px;
+      word-break:keep-all;
+    }
+
+    /* 건지니 판단 */
+    .decision-list{
+      display:flex;
+      flex-direction:column;
+      gap:9px;
+    }
+
+    .decision-item{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      margin:0;
+      color:#343942;
+      font-size:14px;
+      font-weight:600;
+      line-height:1.45;
+    }
+
+    .decision-mark{
+      flex:none;
+      font-size:15px;
+      font-weight:900;
+      color:#25344f;
+    }
+
+
+    /* 판매자 질문 전체 박스 */
+    .detail-agent-content .question-box{
+      margin-top:14px !important;
+      padding:17px !important;
+      background:#f7f8f8 !important;
+      border:1px solid #eceeed;
+      border-radius:14px !important;
+    }
+
+    /* 판매자 질문 제목 */
+    .detail-agent-content .question-box h3{
+      margin:0 0 13px;
+      color:#17213f;
+      font-size:18px;
+      font-weight:800;
+      line-height:1.25;
+    }
+
+    /* 질문 카드 영역 */
+    .question-card-list{
+      display:flex;
+      gap:8px;
+      overflow-x:auto;
+      padding:1px 0 4px;
+    }
+
+    /* 작은 카드 */
+    .question-card{
+      flex:0 0 88px;
+      min-width:88px;
+      min-height:78px;
+      padding:10px 9px;
+
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      justify-content:center;
+
+      border:1px solid #e7e9e8;
+      border-radius:11px;
+
+      background:#fff;
+      color:#26344f;
+
+      font:700 11px/1.35 'Noto Sans KR';
+      text-align:left;
+
+      cursor:pointer;
+      box-shadow:0 2px 5px rgba(22,28,35,.04);
+      transition:.15s ease;
+    }
+
+    .question-card:hover{
+      border-color:#ffb290;
+      background:#fffaf7;
+      transform:translateY(-1px);
+      box-shadow:0 4px 10px rgba(22,28,35,.07);
+    }
+
+    .question-card.selected{
+      border-color:var(--orange);
+      background:#fff8f4;
+    }
+
+    /* 질문 아이콘 크게 + 선명하게 */
+    .question-card-icon{
+      display:block;
+      width:27px;
+      height:27px;
+      margin-bottom:7px;
+      object-fit:contain;
+      opacity:1;
+      filter:contrast(1.3) saturate(1.2);
+    }
+
+    .question-card span{
+      display:block;
+      word-break:keep-all;
+    }
+
+
+    /* 오른쪽 상단 찜 버튼 */
+    .detail-heart-button{
+      width:42px;
+      height:42px;
+      padding:9px;
+
+      border:1px solid #eeeeeb;
+      border-radius:50%;
+
+      background:#fff !important;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      box-shadow:
+        0 4px 12px rgba(20,25,30,.12),
+        0 1px 3px rgba(20,25,30,.07);
+
+      cursor:pointer;
+    }
+
+    .detail-heart-button:hover{
+      box-shadow:
+        0 6px 16px rgba(20,25,30,.16),
+        0 2px 4px rgba(20,25,30,.08);
+    }
+
+    .detail-heart-button .heart-icon{
+      width:22px;
+      height:22px;
+    }
+
+    /* 상품 설명 / 건지니 판단 두 카드 사이 간격 */
+    .detail-agent-content .detail-grid{
+      gap:8px;
+      margin-bottom:8px;
+    }
+
+    /* 질문 체크리스트 박스 */
+    .detail-agent-content .question-box{
+      margin-top:8px !important;
+      padding:15px 16px 14px !important;
+    }
+
+    /* 제목과 설명 사이 간격 */
+    .detail-agent-content .question-box h3{
+      margin:0 0 4px !important;
+    }
+
+    .question-guide-text{
+      margin:0 0 10px !important;
+      color:#5f646c;
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    /* 질문 카드 - 폭은 작게, 세로는 조금 길게 */
+    .question-card{
+      flex:0 0 112px;
+      min-width:112px;
+      min-height:112px;
+
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      justify-content:flex-start;
+
+      padding:13px 11px;
+
+      border:1px solid #e3e6e5;
+      border-radius:12px;
+
+      background:#fff;
+      color:#27324a;
+
+      text-align:left;
+      cursor:pointer;
+
+      box-shadow:0 2px 6px rgba(20,25,30,.05);
+
+      transition:
+        border-color .15s ease,
+        background .15s ease,
+        transform .15s ease,
+        box-shadow .15s ease;
+    }
+
+    .question-card:hover{
+      border-color:#ff9a6e;
+      background:#fff9f6;
+      transform:translateY(-1px);
+      box-shadow:0 4px 10px rgba(20,25,30,.08);
+    }
+
+    .question-card.selected{
+      border-color:var(--orange);
+      background:#fff4ee;
+    }
+
+    .question-card-icon{
+      width:32px;
+      height:32px;
+      flex:none;
+
+      margin-bottom:10px;
+
+      object-fit:contain;
+
+      opacity:1;
+      filter:contrast(1.3) saturate(1.25);
+    }
+
+    .question-card-copy{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      width:100%;
+    }
+
+    .question-card-copy strong{
+      color:#26324b;
+      font:800 13px/1.3 'Noto Sans KR';
+      letter-spacing:-.2px;
+    }
+
+    .question-card-copy small{
+      display:block;
+
+      color:#8a9099;
+      font:500 9.5px/1.4 'Noto Sans KR';
+
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    /* 판매자 질문 채팅창 */
+    .seller-chat-panel{
+      margin-top:10px;
+      padding:0;
+      border:0;
+    }
+
+    /* 한 줄짜리 채팅 입력창 */
+    .seller-question-form{
+      display:flex;
+      align-items:center;
+      gap:7px;
+
+      width:100%;
+      height:42px;
+
+      box-sizing:border-box;
+
+      padding:4px 5px 4px 11px;
+
+      background:#fff;
+      border:1px solid #cfd5df;
+      border-radius:10px;
+    }
+
+    /* 왼쪽 채팅 아이콘 */
+    .seller-question-chat-icon{
+      flex:none;
+
+      width:21px;
+      height:21px;
+
+      object-fit:contain;
+    }
+
+    /* 질문 입력 영역 */
+    .seller-question-form input{
+      flex:1;
+      min-width:0;
+
+      border:0;
+      outline:0;
+
+      padding:0;
+
+      background:transparent;
+      color:#30394b;
+
+      font:500 11px 'Noto Sans KR', sans-serif;
+    }
+
+    .seller-question-form input::placeholder{
+      color:#9da5b3;
+    }
+
+    /* 오른쪽 전송 버튼 */
+    .seller-question-send{
+      flex:none;
+
+      width:34px;
+      height:34px;
+
+      display:grid;
+      place-items:center;
+
+      padding:7px;
+
+      border:0;
+      border-radius:8px;
+
+      /* 기본 상태 */
+      background:#f1f2f4;
+
+      cursor:pointer;
+
+      transition:
+        background .15s ease,
+        transform .15s ease;
+    }
+
+    /* 전송 아이콘 */
+    .seller-question-send img{
+      display:block;
+
+      width:19px;
+      height:19px;
+
+      object-fit:contain;
+
+      /* 기본 상태는 연하게 */
+      opacity:.45;
+
+      transition:opacity .15s ease;
+    }
+
+    /* 입력창 활성화 */
+    .seller-question-form:focus-within{
+      border-color:#ffb391;
+    }
+
+    /* 마우스 올렸을 때 */
+    .seller-question-send:hover{
+      background:var(--orange);
+    }
+
+    .seller-question-send:hover img{
+      opacity:1;
+    }
+
+    /* 전송 후 오렌지색 유지 */
+    .seller-question-send.sent{
+      background:var(--orange);
+    }
+
+    .seller-question-send.sent img{
+      opacity:1;
+    }
+
+    /* 상품 설명 카드 높이 고정 */
+    .seller-description-section{
+      display:flex;
+      flex-direction:column;
+      min-height:0;
+    }
+
+    /* 설명 내용만 스크롤 */
+    .seller-description-text{
+      max-height:140px;
+      overflow-y:auto;
+
+      margin:0;
+      padding-right:6px;
+
+      color:#30343b;
+      font-size:15px;
+      line-height:1.7;
+
+      word-break:keep-all;
+    }
+
+    /* 스크롤바 얇게 */
+    .seller-description-text::-webkit-scrollbar{
+      width:4px;
+    }
+
+    .seller-description-text::-webkit-scrollbar-thumb{
+      background:#d5d7d6;
+      border-radius:999px;
+    }
+
+    .seller-description-text::-webkit-scrollbar-track{
+      background:transparent;
+    }
   </style>
 </head>
 

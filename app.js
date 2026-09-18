@@ -280,8 +280,6 @@ function renderProducts(target, items, { showVerdict = false } = {}) {
     card.setAttribute('role', 'button');
     card.setAttribute('aria-label', `${item.name} 구매 판단 상세 보기`);
     if (showVerdict) {
-      node.querySelector('.rank').innerHTML = `<span class="judgment-badge ${decision.key}">${decision.label}</span>`;
-    } else {
       node.querySelector('.rank').remove();
     }
     node.querySelector('.match').remove();
@@ -344,6 +342,16 @@ async function openDetail(productId, { basic = false } = {}) {
   const genieIcon = './image/genie-transparent.png';
   const warningIcon = './image/warning-triangle-transparent.png';
   const questionIcon = './image/question-bubble-transparent.png';
+  const starIcon = './image/star.png';
+  const halfstarIcon = './image/halfstar.png';
+  const infoIcon = './image/info.png';
+  const deliverIcon = './image/deliver.png';
+  const settingIcon = './image/setting.png';
+  const chattingIcon = './image/chatting.png';
+  const sparkleIcon = './image/sparkle.png';
+  const boxIcon = './image/box.png';
+  const checkIcon = './image/check.png';
+  const docIcon = './image/documents.png';
   const bookmarkIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4.5h11v15l-5.5-3.7-5.5 3.7z"/></svg>';
   const chatIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.2c0 4-3.6 7.2-8 7.2a9.5 9.5 0 0 1-2.8-.4L5 20l1.1-3.1A6.6 6.6 0 0 1 4 11.2C4 7.2 7.6 4 12 4s8 3.2 8 7.2Z"/></svg>';
   const carouselMarkup = `<div class="product-carousel"><img src="${imageSource(images[0])}" style="object-position:${imagePosition(images[0])}" alt="${escapeHtml(item.name)}" />${images.length > 1 ? '<button class="carousel-arrow previous" type="button" aria-label="이전 이미지">‹</button><button class="carousel-arrow next" type="button" aria-label="다음 이미지">›</button>' : ''}<div class="carousel-count" aria-label="상품 이미지 순서">1 / ${images.length}</div></div>`;
@@ -380,12 +388,20 @@ async function openDetail(productId, { basic = false } = {}) {
         updateCarousel();
       }
     });
-    const saveButton = modal.querySelector('.detail-save-button');
+    const saveButton = basic ? modal.querySelector('.detail-save-button') : modal.querySelector('.detail-heart-button');
     const renderDetailSave = () => {
       if (!saveButton) return;
+
       const isSaved = savedItemIds.includes(item.id);
+
       saveButton.classList.toggle('saved', isSaved);
-      saveButton.innerHTML = `${bookmarkIcon}<span>${isSaved ? '저장됨' : '저장하기'}</span>`;
+
+      if (basic) {
+        saveButton.innerHTML = `${bookmarkIcon}<span>${isSaved ? '저장됨' : '저장하기'}</span>`;
+      } else {
+        saveButton.innerHTML = heartIcon();
+        saveButton.setAttribute('aria-label', isSaved ? '찜 해제' : '찜하기');
+      }
     };
     renderDetailSave();
     saveButton?.addEventListener('click', () => {
@@ -396,34 +412,64 @@ async function openDetail(productId, { basic = false } = {}) {
       renderDetailSave();
       showToast(savedItemIds.includes(item.id) ? '저장한 상품에 추가했어요.' : '저장을 취소했어요.');
     });
-    let selectedQuestion = questionOptions[0] || '';
+    const sellerQuestionInput =
+      modal.querySelector('#seller-question-input');
+
+    const sellerQuestionForm =
+      modal.querySelector('#seller-question-form');
+
     modal.querySelectorAll('.question-card').forEach(button => {
       button.addEventListener('click', () => {
-        selectedQuestion = button.dataset.question || '';
-        modal.querySelectorAll('.question-card').forEach(card => card.classList.toggle('selected', card === button));
+        const question = button.dataset.question || '';
+
+        modal.querySelectorAll('.question-card').forEach(card => {
+          card.classList.toggle('selected', card === button);
+        });
+
+        if (sellerQuestionInput) {
+          sellerQuestionInput.value = question;
+          sellerQuestionInput.focus();
+
+          sellerQuestionInput.setSelectionRange(
+            sellerQuestionInput.value.length,
+            sellerQuestionInput.value.length
+          );
+        }
       });
     });
-    modal.querySelector('.send-message')?.addEventListener('click', event => {
-      if (basic) {
-        showToast('Demo MVP: 판매자에게 메시지를 보냈어요.');
-        return;
-      }
-      const message = selectedQuestion.trim();
-      if (!message) {
-        showToast('판매자에게 보낼 질문을 선택해 주세요.');
-        return;
-      }
-      event.currentTarget.innerHTML = `${chatIcon}<span>질문 보냄</span>`;
-      event.currentTarget.disabled = true;
-      showToast('판매자에게 질문을 보냈어요.');
-    });
+
+    if (sellerQuestionForm && sellerQuestionInput) {
+      sellerQuestionForm.addEventListener('submit', event => {
+        event.preventDefault();
+
+        const message = sellerQuestionInput.value.trim();
+
+        if (!message) {
+          showToast('판매자에게 보낼 질문을 선택해 주세요.');
+          return;
+        }
+
+        showToast('판매자에게 질문을 보냈어요.');
+
+        const sendButton =
+          sellerQuestionForm.querySelector('.seller-question-send');
+
+        sendButton?.classList.add('sent');
+
+        sellerQuestionInput.value = '';
+
+        modal.querySelectorAll('.question-card').forEach(card => {
+          card.classList.remove('selected');
+        });
+      });
+    }
     modal.querySelector('.modal-close')?.addEventListener('click', closeModal);
     modal.addEventListener('click', event => {
       if (event.target === modal) closeModal();
     });
   }
   if (basic) {
-    const basicContent = `<div class="detail-agent-content detail-basic-content"><h2>${escapeHtml(item.name)}</h2><strong class="detail-price">${priceText}</strong><p class="detail-basic-meta">${escapeHtml(item.location || '')} · ${escapeHtml(item.uploadedAt || '방금 전')} · 조회 234</p><section class="seller-description" aria-label="판매자가 작성한 상품 설명"><p>${escapeHtml(item.description || '')}</p></section>${actionsMarkup}</div>`;
+    const basicContent = `<div class="detail-agent-content detail-basic-content"><h2 class="detail-product-title"><span>${escapeHtml(item.name)}</span></h2><strong class="detail-price">${priceText}</strong><p class="detail-basic-meta">${escapeHtml(item.location || '')} · ${escapeHtml(item.uploadedAt || '방금 전')} · 조회 234</p><section class="seller-description" aria-label="판매자가 작성한 상품 설명"><p>${escapeHtml(item.description || '')}</p></section>${actionsMarkup}</div>`;
     const mediaMarkup = `<div class="detail-agent-media">${carouselMarkup}${sellerMarkup}</div>`;
     modal.innerHTML = `<article class="detail-dialog detail-agent-layout detail-basic-layout" role="dialog" aria-modal="true" aria-label="상품 상세"><button class="modal-close" type="button" aria-label="상세 닫기">×</button>${mediaMarkup}${basicContent}</article>`;
     bindCommonEvents();
@@ -432,6 +478,7 @@ async function openDetail(productId, { basic = false } = {}) {
   const loadingMediaMarkup = `<div class="detail-agent-media">${carouselMarkup}${sellerMarkup}<aside class="detail-ai-notice"><b>건지니가 분석한 상품이에요</b><p>AI 분석 결과는 참고용이며, 최종 구매 결정은 소비자 본인의 판단에 따라 이루어집니다.</p></aside></div>`;
   modal.innerHTML = `<article class="detail-dialog detail-agent-layout" role="dialog" aria-modal="true" aria-label="상품 분석 중"><button class="modal-close" type="button" aria-label="상세 닫기">×</button>${loadingMediaMarkup}<div class="detail-agent-content" style="display:flex;align-items:center;justify-content:center;min-height:420px;text-align:center"><div><div style="color:var(--orange);font-size:14px;font-weight:700;margin-bottom:12px">✦ GEONJINI</div><h2 style="margin-bottom:12px">건지니가 매물을 검토하고 있어요</h2><p style="color:#777;line-height:1.8;font-size:13px">판매글과 상품 정보를 확인하고<br>구매 조건에 맞는지 판단하고 있어요.</p></div></div></article>`;
   modal.querySelector('.modal-close')?.addEventListener('click', closeModal);
+
   modal.addEventListener('click', event => {
     if (event.target === modal) closeModal();
   });
@@ -468,14 +515,216 @@ async function openDetail(productId, { basic = false } = {}) {
   const reasons = Array.isArray(final.reasons) && final.reasons.length ? final.reasons : ['검색 조건을 바탕으로 선별된 매물입니다.'];
   const uncertainties = Array.isArray(final.uncertainties) && final.uncertainties.length ? final.uncertainties : ['현재 추가로 확인할 주요 정보가 없습니다.'];
   const questions = Array.isArray(final.seller_questions) && final.seller_questions.length ? final.seller_questions : ['제품 상태를 직접 확인할 수 있을까요?'];
-  const decisionCards = reasons.slice(0, 4);
-  const checkpointItems = uncertainties.slice(0, 3).map((detail, index) => ({
-    title: index === 0 ? '추가 확인' : `확인 사항 ${index + 1}`,
-    detail
-  }));
-  const scorePercent = Math.max(0, Math.min(5, recommendationScore)) / 5 * 100;
-  const scoreMarkup = `<div class="rating" style="margin:10px 0 16px"><div class="stars"><span class="stars-empty">★★★★★</span><span class="stars-fill" style="width:${scorePercent}%">★★★★★</span></div><span class="rating-score">${recommendationScore.toFixed(1)} / 5.0</span></div>`;
-  const aiContent = `<div class="detail-agent-content"><span class="judgment-badge ${verdict.key}">${verdict.label}</span><h2>${escapeHtml(item.name)}</h2><strong class="detail-price">${priceText}</strong><p class="detail-basic-meta">${escapeHtml(item.location || '')} · ${escapeHtml(item.uploadedAt || '방금 전')} · 조회 234</p>${scoreMarkup}<section class="detail-section decision-section"><h3><img class="section-title-icon genie-icon" src="${genieIcon}" alt="" />건지니 판단</h3><p class="decision-summary">${escapeHtml(final.summary || '')}</p><div class="decision-grid" style="margin-top:8px">${decisionCards.map(text => `<p>${escapeHtml(text)}</p>`).join('')}</div></section><section class="detail-section checkpoint-section"><h3><img class="section-title-icon" src="${warningIcon}" alt="" />구매 전 체크포인트</h3><div class="checkpoint-list">${checkpointItems.map(entry => `<article><b>${escapeHtml(entry.title)}</b><p>${escapeHtml(entry.detail)}</p></article>`).join('')}</div></section><section class="detail-section question-box"><h3><img class="section-title-icon" src="${questionIcon}" alt="" />판매자에게 물어보기</h3>${verdict.key === 'info' ? `<p class="info-warning"><b>❗</b><span>추가 확인이 필요한 상품이에요.</span></p>` : ''}<div class="question-card-list">${questions.slice(0, 3).map((question, index) => `<button class="question-card${index === 0 ? ' selected' : ''}" type="button" data-question="${escapeHtml(question)}">${escapeHtml(question)}</button>`).join('')}</div></section>${actionsMarkup}</div>`;
+  
+  const getQuestionIcon = question => {
+    const text = String(question || '').toLowerCase();
+
+    if (/택배|배송|직거래|수령|거래 가능/.test(text)) {
+      return deliverIcon;
+    }
+
+    if (/구성품|포함|케이스|충전기|박스|부속품/.test(text)) {
+      return settingIcon;
+    }
+
+    if (/스크래치|기스|찍힘|깨짐|파손|외관|화면|흠집|하자/.test(text)) {
+      return sparkleIcon;
+    }
+
+    if (/사용 기간|사용기간|사용감|얼마나 사용|실사용|사용 횟수/.test(text)) {
+      return boxIcon;
+    }
+
+    return chattingIcon;
+  };
+
+  const shortenQuestionText = text => {
+    const q = String(text || '');
+
+    if (/택배|배송|직거래|수령/.test(q)) return '거래 방법';
+    if (/구성품|포함|케이스|충전기|박스|부속품/.test(q)) return '구성품 확인';
+    if (/스크래치|기스|찍힘|깨짐|파손|외관|화면|흠집|하자/.test(q)) return '외관 하자';
+    if (/사용 기간|사용기간|사용감|얼마나 사용|실사용|사용 횟수/.test(q)) return '사용 기간';
+    if (/가격|네고|조정|할인/.test(q)) return '가격 조정';
+    if (/배터리|충전/.test(q)) return '배터리 상태';
+
+    return q
+      .replace(/알려주실 수 있을까요\??/g, '')
+      .replace(/확인할 수 있을까요\??/g, '')
+      .replace(/가능할까요\??/g, '')
+      .replace(/인가요\??/g, '')
+      .replace(/나요\??/g, '')
+      .trim()
+      .slice(0, 16);
+  };
+
+const getQuestionDescription = text => {
+  const q = String(text || '');
+
+  if (/배터리|충전/.test(q)) return '성능과 충전 상태 확인';
+  if (/스크래치|기스|찍힘|파손|외관|흠집|하자/.test(q)) return '스크래치·파손 여부 확인';
+  if (/택배|배송|직거래|수령/.test(q)) return '거래 가능한 방식 확인';
+  if (/구성품|포함|케이스|충전기|부속품/.test(q)) return '구성품 누락 여부 확인';
+  if (/사용 기간|사용기간|사용감|실사용|사용 횟수/.test(q)) return '실제 사용 기간 확인';
+  if (/가격|네고|조정|할인/.test(q)) return '가격 조정 가능 여부';
+
+  return '구매 전 확인이 필요한 내용';
+};
+
+const shortenDecisionText = text => {
+  const t = String(text || '');
+
+  if (/예산|가격.*조건|만원 이하|가격 조건/.test(t)) return '예산 조건 충족';
+  if (/목적|용도|수업|강의|입문/.test(t)) return '사용 목적 적합';
+  if (/배터리/.test(t)) return '배터리 상태 확인 필요';
+  if (/스크래치|기스|찍힘|외관|하자/.test(t)) return '외관 상태 확인';
+  if (/구성품|케이스|충전기|포함/.test(t)) return '구성품 확인';
+  if (/정상 작동|정상 동작|기능 정상|카메라|스피커/.test(t)) return '주요 기능 정상';
+  if (/상태.*좋|상태.*양호/.test(t)) return '상품 상태 양호';
+
+  return t
+    .replace(/확인이 필요합니다/g, '확인 필요')
+    .replace(/확인이 필요해요/g, '확인 필요')
+    .replace(/할 수 있습니다/g, '')
+    .replace(/할 수 있어요/g, '')
+    .trim()
+    .slice(0, 22);
+};
+
+  const decisionCards = [
+    ...reasons.map(text => ({
+      text,
+      type: 'check'
+    })),
+    ...uncertainties.map(text => ({
+      text,
+      type: 'info'
+    }))
+  ].slice(0, 4);
+
+  const aiContent = `
+    <div class="detail-agent-content">
+
+      <div class="detail-top-row">
+        <h2 class="detail-product-title">
+          <span>${escapeHtml(item.name)}</span>
+        </h2>
+
+        <button class="detail-heart-button" type="button" aria-label="찜하기">
+          ${heartIcon()}
+        </button>
+      </div>
+
+      <div class="detail-price-row">
+        <strong class="detail-price">${priceText}</strong>
+
+        <span class="detail-rating">
+          <img class="detail-rating-star" src="${starIcon}" alt="" />
+          <span class="detail-rating-score">${recommendationScore.toFixed(1)}</span>
+        </span>
+      </div>
+
+      <p class="detail-basic-meta">
+        ${escapeHtml(item.location || '')}
+        · ${escapeHtml(item.uploadedAt || '방금 전')}
+        · 조회 234
+      </p>
+
+      <div class="detail-grid">
+
+        <section class="detail-section seller-description-section">
+          <h3>
+            <img class="section-title-icon" src="${docIcon}" alt="" />
+            상품 설명
+          </h3>
+
+          <p class="seller-description-text">
+            ${escapeHtml(item.description || '')}
+          </p>
+        </section>
+
+        <section class="detail-section decision-section">
+          <h3>
+            <img class="section-title-icon genie-icon" src="${genieIcon}" alt="" />
+            <span>건지니 판단</span>
+
+            <span class="decision-info-tooltip">
+              <img class="decision-info-icon" src="${infoIcon}" alt="AI 판단 안내" />
+
+              <span class="decision-tooltip-text">
+                AI 판단은 참고용이며, 최종 구매 결정은 소비자 본인의 판단에 따라 이루어집니다.
+              </span>
+            </span>
+          </h3>
+
+          <div class="decision-list">
+            ${decisionCards.map(card => `
+              <p class="decision-item ${card.type}">
+                <span class="decision-mark">${card.type === 'check' ? '✓' : '!'}</span>
+                <span>${escapeHtml(shortenDecisionText(card.text))}</span>
+              </p>
+            `).join('')}
+          </div>
+        </section>
+
+      </div>
+
+      <section class="detail-section question-box">
+        <h3>판매자에게 질문할 체크리스트</h3>
+
+        <p class="question-guide-text">
+          구매 전에 판매자에게 확인하면 좋은 내용이에요.
+        </p>
+
+        <div class="question-card-list">
+          ${questions.map(question => `
+            <button
+              class="question-card"
+              type="button"
+              data-question="${escapeHtml(question)}"
+            >
+              <img
+                class="question-card-icon"
+                src="${getQuestionIcon(question)}"
+                alt=""
+              />
+
+              <div class="question-card-copy">
+                <strong>${escapeHtml(shortenQuestionText(question))}</strong>
+                <small>${escapeHtml(getQuestionDescription(question))}</small>
+              </div>
+            </button>
+          `).join('')}
+        </div>
+
+        <form id="seller-question-form" class="seller-question-form">
+
+          <img
+            class="seller-question-chat-icon"
+            src="./image/chatbox.png"
+            alt=""
+          />
+
+          <input
+            id="seller-question-input"
+            type="text"
+            placeholder="체크리스트를 클릭해 판매자에게 질문하세요."
+            autocomplete="off"
+          />
+
+          <button
+            class="seller-question-send"
+            type="submit"
+            aria-label="질문 전송"
+          >
+            <img src="./image/sent.png" alt="" />
+          </button>
+
+        </form>
+      </section>
+
+    </div>
+  `;
   const mediaMarkup = `<div class="detail-agent-media">${carouselMarkup}${sellerMarkup}<aside class="detail-ai-notice"><b>건지니가 분석한 상품이에요</b><p>AI 분석 결과는 참고용이며, 최종 구매 결정은 소비자 본인의 판단에 따라 이루어집니다.</p></aside></div>`;
   modal.innerHTML = `<article class="detail-dialog detail-agent-layout" role="dialog" aria-modal="true" aria-label="상품 상세"><button class="modal-close" type="button" aria-label="상세 닫기">×</button>${mediaMarkup}${aiContent}</article>`;
   bindCommonEvents(questions.slice(0, 3));
@@ -655,11 +904,16 @@ async function runSearch(query, showResults = true, useAi = true) {
     if (!response.ok) throw new Error(`API 오류: ${response.status}`);
     const data = await response.json();
     console.log('건지니 API 응답:', data);
-    const defaultImage = 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=85';
+
+    const defaultImage = './assets/products/laptops/001.png';
+
     const apiItems = (data.results || []).map(item => {
+      console.log(item.title, item.image_index);
       const existing = products.find(product => product.id === item.id);
-      const image = existing?.image || defaultImage;
-      const images = existing?.images?.length ? existing.images : [image];
+      const imageNumber = String(item.image_index || 1).padStart(3, '0');
+      const image = `./assets/products/laptops/${imageNumber}.png`;
+      const images = [image];
+
       return {
         id: item.id,
         name: item.title || item.name || '상품',
